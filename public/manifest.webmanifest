@@ -1,0 +1,15 @@
+{
+  "theme_color": "#000000",
+  "name": "Órbita Events",
+  "icons": [
+    {
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "src": "/favicon.svg"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#000000",
+  "short_name": "Órbita",
+  "start_url": "/"
+}

@@ -1,0 +1,79 @@
+
+> orbita-events@1.0.0 build C:\Users\Lore\Desktop\orbitaevents-prova
+> next build
+
+  Ôû▓ Next.js 14.2.5
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/globals.css.webpack[javascript/auto]!=!./node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./app/globals.css
+SyntaxError: Unexpected token (4:3)
+    at unexpected (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\util.js:99:15)
+    at parseExprAtom (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:594:24)
+    at parseExprSubscripts (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:276:20)
+    at parseMaybeUnary (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:257:20)
+    at parseExprOps (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:185:20)
+    at parseMaybeConditional (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:157:20)
+    at baseParseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:142:20)
+    at tsParseMaybeAssignWithoutJSX (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\plugins\typescript.js:1580:45)
+    at tsParseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\plugins\typescript.js:1548:12)
+    at parseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:121:43)
+
+Import trace for requested module:
+./app/globals.css.webpack[javascript/auto]!=!./node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./app/globals.css
+./app/globals.css
+
+./app/globals.css
+SyntaxError: Unexpected token (4:3)
+    at unexpected (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\util.js:99:15)
+    at parseExprAtom (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:594:24)
+    at parseExprSubscripts (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:276:20)
+    at parseMaybeUnary (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:257:20)
+    at parseExprOps (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:185:20)
+    at parseMaybeConditional (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:157:20)
+    at baseParseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:142:20)
+    at tsParseMaybeAssignWithoutJSX (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\plugins\typescript.js:1580:45)
+    at tsParseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\plugins\typescript.js:1548:12)
+    at parseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:121:43)
+    at tryRunOrWebpackError (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:312989)
+    at __webpack_require_module__ (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:131165)
+    at __nested_webpack_require_153728__ (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:130607)
+    at C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:131454
+    at symbolIterator (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\neo-async\async.js:1:14444)
+    at done (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\neo-async\async.js:1:14824)
+    at Hook.eval [as callAsync] (eval at create (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:13:28858), <anonymous>:15:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:13:26012)
+    at C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:130328
+    at symbolIterator (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\neo-async\async.js:1:14402)
+-- inner error --
+SyntaxError: Unexpected token (4:3)
+    at unexpected (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\util.js:99:15)
+    at parseExprAtom (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:594:24)
+    at parseExprSubscripts (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:276:20)
+    at parseMaybeUnary (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:257:20)
+    at parseExprOps (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:185:20)
+    at parseMaybeConditional (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:157:20)
+    at baseParseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:142:20)
+    at tsParseMaybeAssignWithoutJSX (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\plugins\typescript.js:1580:45)
+    at tsParseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\plugins\typescript.js:1548:12)
+    at parseMaybeAssign (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\sucrase@3.35.0\node_modules\sucrase\dist\parser\traverser\expression.js:121:43)
+    at Object.<anonymous> (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[2]!C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[3]!C:\Users\Lore\Desktop\orbitaevents-prova\app\globals.css:1:7)
+    at C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:922493
+    at Hook.eval [as call] (eval at create (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:13:28636), <anonymous>:7:1)
+    at Hook.CALL_DELEGATE [as _call] (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:13:25906)
+    at C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:131198
+    at tryRunOrWebpackError (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:312943)
+    at __webpack_require_module__ (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:131165)
+    at __nested_webpack_require_153728__ (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:130607)
+    at C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:28:131454
+    at symbolIterator (C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\neo-async\async.js:1:14444)
+
+Generated code for C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[2]!C:\Users\Lore\Desktop\orbitaevents-prova\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[12].use[3]!C:\Users\Lore\Desktop\orbitaevents-prova\app\globals.css
+
+Import trace for requested module:
+./app/globals.css
+
+
+> Build failed because of webpack errors
+ÔÇëELIFECYCLEÔÇë Command failed with exit code 1.

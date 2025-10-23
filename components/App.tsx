@@ -212,6 +212,7 @@ function BubbleCanvas() {
       const h = (canvas.height = Math.floor(Math.max(window.innerHeight, 900) * DPI));
       canvas.style.width = `${Math.floor(w / DPI)}px`;
       canvas.style.height = `${Math.floor(h / DPI)}px`;
+      if (!ctx) return;
       ctx.setTransform(DPI, 0, 0, DPI, 0, 0);
       return { w: Math.floor(w / DPI), h: Math.floor(h / DPI), DPI };
     }

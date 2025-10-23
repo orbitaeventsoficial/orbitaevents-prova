@@ -1,0 +1,16 @@
+/* AUTOGENERADO: tokens de marca Òrbita (colores, radios, sombras) */
+:root{
+  --oe-black:  #0a0a0b;
+  --oe-black-2:#0b0c0d;
+  --oe-gold:   #d7b86e;
+  --oe-amber:  #ffbb33;
+  --oe-magenta:#b62fbf;
+  --oe-white:  #f5f5f5;
+  --oe-gray:   #9ca3af;
+
+  --r1: 0.5rem; --r2: 1rem; --r3: 1.5rem;
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.25);
+  --shadow-hard: 0 4px 12px rgba(0,0,0,0.4);
+}
+.bg-main{ background: linear-gradient(180deg, #0a0a0b 0%, #0b0c0d 100%); }
+.gold-glow{ background: radial-gradient(circle at 50% 50%, rgba(215,184,110,0.35) 0%, rgba(10,10,11,0) 60%); }

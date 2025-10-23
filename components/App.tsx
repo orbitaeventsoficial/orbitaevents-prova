@@ -205,21 +205,21 @@ function BubbleCanvas() {
     const dpr = window.devicePixelRatio || 1;
     const MAX = prefersReduce ? 0 : Math.round(dpr > 1 ? baseCount * 0.75 : baseCount);
 
-    function resize() {
+    function resize(): { w: number; h: number; DPI: number } | null {
       const DPI = dpr;
-      if (!canvas) return;
+      if (!canvas) return null;
       const w = (canvas.width = Math.floor(window.innerWidth * DPI));
       const h = (canvas.height = Math.floor(Math.max(window.innerHeight, 900) * DPI));
       canvas.style.width = `${Math.floor(w / DPI)}px`;
       canvas.style.height = `${Math.floor(h / DPI)}px`;
-      if (!ctx) return;
+      if (!ctx) return null;
       ctx.setTransform(DPI, 0, 0, DPI, 0, 0);
       return { w: Math.floor(w / DPI), h: Math.floor(h / DPI), DPI };
     }
 
-    let { w, h } = resize();
-
-    const bubbles = Array.from({ length: MAX }).map(() => ({
+    const __size = resize();
+    if (!__size) return;
+    let { w, h, DPI } = __size;const bubbles = Array.from({ length: MAX }).map(() => ({
       x: Math.random() * w,
       y: h + Math.random() * h,
       r: 1 + Math.random() * 3.5,

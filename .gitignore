@@ -1,0 +1,13 @@
+# Node/Next.js
+node_modules/
+pnpm-lock.yaml
+.next/
+out/
+dist/
+.vercel/
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.log
+*.cache

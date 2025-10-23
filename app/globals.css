@@ -1,34 +1,36 @@
-@import "./legacy.css";
 @tailwind base;
-@import "./tokens.css";
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg: var(--oe-black);
-  --bg-2: var(--oe-black-2);
-  --fg: var(--oe-white);
-  --accent: var(--oe-gold);
+  --bg: #0a0a0b;
+  --fg: #f5f5f5;
 }
 
-html, body {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-  color: var(--fg);
+html, body { height: 100%; background: var(--bg); color: var(--fg); }
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
 }
 
-a { color: var(--fg); }
-.container { max-width: 72rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
-.section { padding-top: 3rem; padding-bottom: 3rem; }
-.h1 { font-size: clamp(2.25rem, 4vw, 4rem); font-weight: 600; letter-spacing: -0.02em; }
-.h2 { font-size: clamp(1.5rem, 2.5vw, 2.25rem); font-weight: 600; }
-.p  { font-size: 1rem; line-height: 1.75rem; color: var(--oe-gray); }
-.btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 1rem; background: var(--oe-gold); color: var(--oe-black); padding: 0.75rem 1.5rem; font-weight: 500; box-shadow: 0 10px 30px rgba(0,0,0,0.25); transition: filter .2s ease; }
-.btn-primary:hover { filter: brightness(1.1); }
-.card { border-radius: 1rem; background: var(--oe-black-2); border: 1px solid rgba(215,184,110,0.18); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
-nav a { opacity: .8; transition: opacity .2s ease; }
-nav a:hover { opacity: 1; }
-footer a { text-decoration: underline; text-underline-offset: 4px; }
-footer a:hover { text-decoration: none; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* === ÒRBITA TOKENS === */
+:root{
+  --oe-black:#0a0a0b; --oe-black-2:#0b0c0d; --oe-white:#f5f5f5;
+  --oe-gold:#d7b86e; --oe-magenta:#b62fbf; --oe-gray:#9ca3af;
+  --oe-radius-sm:8px; --oe-radius-md:16px; --oe-radius-lg:24px;
+  --oe-shadow-sm:0 2px 8px rgba(0,0,0,.25);
+  --oe-shadow-md:0 8px 24px rgba(0,0,0,.30);
+  --oe-shadow-lg:0 14px 40px rgba(0,0,0,.35);
+}
 
-
+@layer utilities{
+  .oe-card{border-radius:var(--oe-radius-lg);box-shadow:var(--oe-shadow-lg);background:var(--oe-black-2)}
+  .oe-gradient-bg{background:linear-gradient(180deg,var(--oe-black) 0%,var(--oe-black-2) 100%)}
+  .oe-text{color:var(--oe-white)}
+  .oe-accent{color:var(--oe-gold)}
+  .text-balance{text-wrap:balance}
+}

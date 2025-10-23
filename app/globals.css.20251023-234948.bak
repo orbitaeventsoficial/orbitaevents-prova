@@ -1,4 +1,3 @@
-@import "./legacy.css";
 @tailwind base;
 @import "./tokens.css";
 @tailwind components;
@@ -29,6 +28,5 @@ nav a { opacity: .8; transition: opacity .2s ease; }
 nav a:hover { opacity: 1; }
 footer a { text-decoration: underline; text-underline-offset: 4px; }
 footer a:hover { text-decoration: none; }
-
 
 

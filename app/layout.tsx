@@ -8,9 +8,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" class="antialiased">
-      <body class={`${inter.variable} ${league.variable} ${outfit.variable} ${space.variable}`}>{children}</body>
+    <html lang="es" className="antialiased">
+      <body className={`${inter.variable} ${league.variable} ${outfit.variable} ${space.variable}`}>{children}</body>
     </html>
   );
 }
+
 

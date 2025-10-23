@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import {
@@ -193,7 +194,8 @@ function BubbleCanvas() {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    if (!canvas) return;
+      const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const prefersReduce =
@@ -205,6 +207,7 @@ function BubbleCanvas() {
 
     function resize() {
       const DPI = dpr;
+      if (!canvas) return;
       const w = (canvas.width = Math.floor(window.innerWidth * DPI));
       const h = (canvas.height = Math.floor(Math.max(window.innerHeight, 900) * DPI));
       canvas.style.width = `${Math.floor(w / DPI)}px`;

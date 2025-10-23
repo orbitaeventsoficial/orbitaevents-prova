@@ -272,7 +272,7 @@ function BubbleCanvas() {
     if (!prefersReduce) draw();
 
     const onResize = () => {
-      const r = resize(); if (!r) return; w = r.w; h = r.h;
+      const r = resize(); if (!r) return;  if (!r) return; w = r.w; h = r.h;
     };
 
     const onVisibility = () => {

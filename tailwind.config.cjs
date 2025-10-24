@@ -1,10 +1,10 @@
-/** @type {import('tailwindcss').Config} */
+/** patched by script */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}"
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}"
   ],
   theme: { extend: {} },
-  plugins: [require("@tailwindcss/typography")],
-};
+  plugins: [],
+}

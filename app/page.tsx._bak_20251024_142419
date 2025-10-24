@@ -1,0 +1,21 @@
+export const metadata = {
+  title: 'Òrbita Events',
+  description: "DJ, so, llum i producció d'esdeveniments"
+}
+
+export default function Page() {
+  return (
+    <main className="min-h-[80vh] flex items-center justify-center bg-black text-white p-8">
+      <div className="max-w-2xl text-center">
+        <h1 className="text-4xl font-bold mb-4">Òrbita Events</h1>
+        <p className="text-lg opacity-80">
+          DJ, so, llum i producció d’esdeveniments. <br />
+          Explora: <a href="/serveis" className="underline">Serveis</a> ·{' '}
+          <a href="/portfolio" className="underline">Portfolio</a> ·{' '}
+          <a href="/sobre" className="underline">Sobre nosaltres</a> ·{' '}
+          <a href="/contacte" className="underline">Contacte</a>
+        </p>
+      </div>
+    </main>
+  )
+}

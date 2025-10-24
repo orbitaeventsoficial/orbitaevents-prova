@@ -1,0 +1,13 @@
+import Section from '@/components/Section'
+import { CTA } from '@/components/CTA'
+export const metadata = { title: 'Serveis — Òrbita Events', description: 'DJ, so, llum, efectes i producció.' }
+export default function Page(){
+  return (
+    <Section title="Serveis" subtitle="DJ, so, llum, efectes i producció.">
+      <div className="prose max-w-none">
+        <p className="opacity-80">Contingut provisional. Ajustarem text real.</p>
+      </div>
+      <CTA />
+    </Section>
+  )
+}

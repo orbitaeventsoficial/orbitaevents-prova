@@ -19,7 +19,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./*"
+        "app/*",
+        "components/*"
       ]
     },
     "incremental": true,

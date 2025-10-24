@@ -11,7 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white">{children}      <a href="/" aria-label="Home" data-planet-home
+      <body className="bg-black text-white" className="bg-neutral-950 text-neutral-100">{children}      <a href="/" aria-label="Home" data-planet-home
          style={{position:'fixed', right:'16px', bottom:'16px', zIndex:50,
                  width:'48px', height:'48px', display:'grid', placeItems:'center',
                  borderRadius:'9999px', border:'1px solid rgba(255,255,255,0.2)',
@@ -22,4 +22,3 @@ export default function RootLayout({
     </html>
   )
 }
-

@@ -3,18 +3,6 @@ import { BadgeCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Section from '@/components/Section'
 
-const defaultItems = [
-  { title: "Estrategia",  description: "Diseño de experiencias y cronos con cabeza",  icon: BadgeCheck },
-  { title: "Producción",  description: "Escenografía, riders y logística que existen", icon: BadgeCheck },
-  { title: "Técnica",     description: "Luz, sonido y vídeo sin sustos",               icon: BadgeCheck },
-  { title: "Creatividad", description: "Conceptos que no dan vergüenza ajena",         icon: BadgeCheck },
-  { title: "Operativa",   description: "Timing, staff y permisos en regla",            icon: BadgeCheck },
-] as const;
-
-// Valor por defecto: si algún día declaras 'items' real arriba o lo recibes vía props,
-// cámbialo. Mientras tanto, compila y funciona.
-const items = defaultItems;
-
 export const metadata = {
   title: 'Serveis — Òrbita Events',
   description: 'DJ, so, llum i producció per a bodes, empresa i festes',
@@ -36,7 +24,7 @@ export default function Page(){
         </div>
 
         <div className="grid md:grid-cols-5 gap-4 md:gap-6 items-stretch">
-          {items.map((it, i) => (
+          {(items ?? defaultItems).map((it, i) => (
             <motion.article
               key={it.title}
               initial={{ opacity: 0, y: 12 }}
@@ -181,7 +169,6 @@ export default function Page(){
     </main>
   )
 }
-
 
 
 

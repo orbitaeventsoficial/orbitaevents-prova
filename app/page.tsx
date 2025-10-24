@@ -1,4 +1,4 @@
-import './globals.css'
+
 import App from '@/components/App'
 
 export const metadata = {

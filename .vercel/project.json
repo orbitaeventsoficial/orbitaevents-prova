@@ -1,1 +1,16 @@
-{"projectId":"prj_z1uxGc7Z8LnkolpaH0nV3Ka2aKTq","orgId":"team_HXzj1dc95Siswze2KmIHhc9F","projectName":"orbitaevents-prova"}
+{
+  "projectId": "prj_z1uxGc7Z8LnkolpaH0nV3Ka2aKTq",
+  "orgId": "team_HXzj1dc95Siswze2KmIHhc9F",
+  "projectName": "orbitaevents-prova",
+  "settings": {
+    "createdAt": 1761248971464,
+    "framework": "nextjs",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "20.x"
+  }
+}

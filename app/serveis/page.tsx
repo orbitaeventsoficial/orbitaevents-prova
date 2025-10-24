@@ -2,14 +2,42 @@ import ChromeText from '../../components/ui/ChromeText';
 import { BadgeCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Section from '@/components/Section'
+import clsx from 'clsx';
 
 const defaultItems = [
-  { title: "Estrategia",  description: "Diseño de experiencias y cronos con cabeza",  icon: BadgeCheck },
-  { title: "Producción",  description: "Escenografía, riders y logística que existen", icon: BadgeCheck },
-  { title: "Técnica",     description: "Luz, sonido y vídeo sin sustos",               icon: BadgeCheck },
-  { title: "Creatividad", description: "Conceptos que no dan vergüenza ajena",         icon: BadgeCheck },
-  { title: "Operativa",   description: "Timing, staff y permisos en regla",            icon: BadgeCheck },
+  {
+    title: "Estrategia",
+    description: "Diseño de experiencias y cronos con cabeza",
+    icon: BadgeCheck,
+    bullets: ["Plan de objetivos", "Calendario realista", "KPIs aceptables"]
+  },
+  {
+    title: "Producción",
+    description: "Escenografía, riders y logística que existen",
+    icon: BadgeCheck,
+    bullets: ["Proveedores verificables", "Presus sin humo", "Plan B de verdad"]
+  },
+  {
+    title: "Técnica",
+    description: "Luz, sonido y vídeo sin sustos",
+    icon: BadgeCheck,
+    bullets: ["Riders claros", "Pruebas y backup", "Operativa en venue"]
+  },
+  {
+    title: "Creatividad",
+    description: "Conceptos que no dan vergüenza ajena",
+    icon: BadgeCheck,
+    bullets: ["Idea > adorno", "Copy que se entiende", "Visual que sostiene"]
+  },
+  {
+    title: "Operativa",
+    description: "Timing, staff y permisos en regla",
+    icon: BadgeCheck,
+    bullets: ["Crono detallado", "Roles y responsables", "Permisos al día"]
+  },
 ] as const;
+
+const items = defaultItems;
 
 // Valor por defecto: si algún día declaras 'items' real arriba o lo recibes vía props,
 // cámbialo. Mientras tanto, compila y funciona.
@@ -43,7 +71,7 @@ export default function Page(){
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className={cx(
+              className={clsx(
                 "group relative h-full rounded-2xl p-5 md:p-6",
                 "border border-white/12 bg-white/[0.045] backdrop-blur",
                 "hover:border-white/20 hover:bg-white/[0.06] transition"
@@ -59,10 +87,10 @@ export default function Page(){
                 <h3 className="font-bold text-base md:text-lg tracking-tight">{it.title}</h3>
               </div>
 
-              <p className="mt-2 text-white/75 text-sm leading-relaxed">{it.desc}</p>
+              <p className="mt-2 text-white/75 text-sm leading-relaxed">{it.description}</p>
 
               <ul className="mt-4 space-y-1.5 text-white/80 text-sm">
-                {it.bullets.map((b, j) => (
+                {it.bullets?.map((b, j) => (
                   <li key={j} className="flex items-center gap-2">
                     <BadgeCheck className="size-5 opacity-90" />
                     <span>{b}</span>
@@ -103,7 +131,7 @@ export default function Page(){
         {/* selector opcional
         <div className="mb-6 flex gap-2">
           {MODES.map(m => (
-            <button key={m} onClick={() => setMode(m)} className={cx("rounded-xl px-3 py-1 text-sm border", mode===m ? "border-amber-300 text-white" : "border-white/20 text-white/70")}>{m}</button>
+            <button key={m} onClick={() => setMode(m)} className={clsx("rounded-xl px-3 py-1 text-sm border", mode===m ? "border-amber-300 text-white" : "border-white/20 text-white/70")}>{m}</button>
           ))}
         </div> */}
 
@@ -115,7 +143,7 @@ export default function Page(){
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.06 }}
-              className={cx(
+              className={clsx(
                 "relative h-full rounded-3xl border p-6 backdrop-blur",
                 (p as any).featured
                   ? "border-amber-300/30 bg-gradient-to-br from-amber-300/10 via-white/5 to-amber-500/10 shadow-[0_14px_40px_rgba(255,200,0,0.12)]"
@@ -181,6 +209,9 @@ export default function Page(){
     </main>
   )
 }
+
+
+
 
 
 

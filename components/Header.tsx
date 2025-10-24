@@ -13,7 +13,7 @@ const nav = [
 export function Header() {
   const pathname = usePathname()
   return (
-    <header className="border-b border-white/10 bg-black/30 backdrop-blur">
+    <header className="border-b border-white/10 bg-black/5 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link href="/" className="text-lg font-semibold tracking-wide">
           Òrbita Events
@@ -25,7 +25,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`transition-colors ${active ? "text-accent" : "text-secundari/70 hover:text-secundari"}`}
+                className={`${active ? "font-medium opacity-100" : "opacity-70 hover:opacity-100"} transition-opacity`}
               >
                 {item.label}
               </Link>

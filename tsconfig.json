@@ -20,7 +20,8 @@
     "paths": {
       "@/*": [
         "app/*",
-        "components/*"
+        "components/*",
+        "./*"
       ]
     },
     "incremental": true,

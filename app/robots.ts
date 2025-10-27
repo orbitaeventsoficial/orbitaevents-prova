@@ -8,17 +8,19 @@ export default function robots(): MetadataRoute.Robots {
 
   const isProd = base.includes("orbitaevents.cat");
 
-  return {
-    rules: isProd
-      ? [
-          { userAgent: "*", allow: "/" },
-          { userAgent: "GPTBot", disallow: "/" }, // bloquea scraping IA si no lo deseas
-        ]
-      : [
-          { userAgent: "*", disallow: "/" }, // bloquea indexación en entornos de prueba
-        ],
+  const rules: MetadataRoute.Robots["rules"] = isProd
+    ? [
+        { userAgent: "*", allow: "/" },
+        { userAgent: "GPTBot", disallow: "/" } // bloquea scraping IA si no lo deseas
+      ]
+    : [{ userAgent: "*", disallow: "/" }];
 
-    sitemap: isProd ? `${base}/sitemap.xml` : undefined,
-    host: isProd ? base : undefined,
-  };
+  const config: MetadataRoute.Robots = { rules };
+
+  if (isProd) {
+    config.sitemap = `${base}/sitemap.xml`;
+    config.host = base;
+  }
+
+  return config;
 }

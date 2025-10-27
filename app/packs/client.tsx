@@ -2,17 +2,18 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { Sparkles, Lightbulb, Speaker, Wind, Clock3, Crown } from "lucide-react";
+import { Sparkles, Lightbulb, Speaker, Wind, Clock3, Crown, type LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 const GOLD = "var(--oe-gold, #d7b86e)";
 
-function ChromeText({ children }: { children: React.ReactNode }) {
+function ChromeText({ children }: { children: ReactNode }) {
   return (
     <span
       className="inline-block bg-clip-text text-transparent bg-gradient-to-br from-white via-gray-200 to-gray-100"
       style={{
         WebkitTextStroke: "0.5px rgba(255,255,255,0.25)",
-        textShadow: "0 0 24px rgba(255,255,255,0.15)",
+        textShadow: "0 0 24px rgba(255,255,255,0.15)"
       }}
     >
       {children}
@@ -30,10 +31,10 @@ function Hero() {
         transition={{ duration: 0.5 }}
         className="mx-auto max-w-3xl px-4"
       >
-        <h1 className="text-[40px] md:text-[56px] font-black leading-[1.05] tracking-tight text-white mb-3">
+        <h1 className="mb-3 text-[40px] font-black leading-[1.05] tracking-tight text-white md:text-[56px]">
           <ChromeText>Packs y tarifas</ChromeText>
         </h1>
-        <p className="text-white/80 text-lg">
+        <p className="text-lg text-white/80">
           Precio cerrado y montaje incluido. Elige el nivel que encaja con tu evento y amplía si lo necesitas.
         </p>
       </motion.div>
@@ -41,13 +42,23 @@ function Hero() {
   );
 }
 
-const PACKS = [
+/* Tipado explícito para que 'best' exista en todos como opcional */
+type Pack = {
+  name: string;
+  icon: LucideIcon;
+  price: string;
+  bullets: readonly string[];
+  extras: readonly string[];
+  best?: boolean;
+};
+
+const PACKS: readonly Pack[] = [
   {
     name: "Esencial",
     icon: Speaker,
     price: "desde 490 €",
     bullets: ["50–100 personas", "Sonido + luz cálida", "DJ hasta 4 h"],
-    extras: ["Humo suave", "Micrófono inalámbrico", "Montaje y prueba incluidos"],
+    extras: ["Humo suave", "Micrófono inalámbrico", "Montaje y prueba incluidos"]
   },
   {
     name: "Avanzado",
@@ -55,15 +66,15 @@ const PACKS = [
     price: "desde 790 €",
     bullets: ["100–200 personas", "Subgrave y efectos", "DJ hasta 5 h"],
     extras: ["Máquina de humo", "Cabina iluminada", "Operador técnico durante el evento"],
-    best: true,
+    best: true
   },
   {
     name: "Premium",
     icon: Crown,
     price: "desde 1090 €",
     bullets: ["200+ personas", "PA extendido y luz programada", "DJ hasta 6 h"],
-    extras: ["Estructura truss", "Láser y hazes", "Diseño de escenas personalizado"],
-  },
+    extras: ["Estructura truss", "Láser y hazes", "Diseño de escenas personalizado"]
+  }
 ] as const;
 
 /* PACKS */
@@ -71,7 +82,7 @@ function Packs() {
   const reduce = useReducedMotion();
   return (
     <section className="relative py-12">
-      <div className="mx-auto max-w-6xl px-4 grid gap-6 md:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-3">
         {PACKS.map((p, i) => (
           <motion.div
             key={p.name}
@@ -79,23 +90,23 @@ function Packs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.35, delay: i * 0.05 }}
-            className={`rounded-3xl border bg-white/5 backdrop-blur p-6 text-white ${
+            className={`rounded-3xl border bg-white/5 p-6 text-white backdrop-blur ${
               p.best ? "border-white/30" : "border-white/10"
             }`}
           >
-            <div className="flex items-center gap-2 mb-2">
+            <div className="mb-2 flex items-center gap-2">
               <p.icon className="h-7 w-7" style={{ color: GOLD }} aria-hidden />
               <h3 className="text-xl font-semibold">{p.name}</h3>
             </div>
-            <div className="text-2xl font-bold mb-3">{p.price}</div>
-            <ul className="list-disc pl-5 text-sm text-white/80 space-y-1 mb-4">
-              {p.bullets.map((b) => (
+            <div className="mb-3 text-2xl font-bold">{p.price}</div>
+            <ul className="mb-4 list-disc space-y-1 pl-5 text-sm text-white/80">
+              {p.bullets.map(b => (
                 <li key={b}>{b}</li>
               ))}
             </ul>
-            <div className="border-t border-white/10 my-3"></div>
+            <div className="my-3 border-t border-white/10" />
             <ul className="list-none space-y-1 text-sm text-white/70">
-              {p.extras.map((e) => (
+              {p.extras.map(e => (
                 <li key={e}>• {e}</li>
               ))}
             </ul>
@@ -128,23 +139,23 @@ function Condiciones() {
     {
       icon: Clock3,
       title: "Duración",
-      desc: "Tiempo base incluido: 4 a 6 h según pack. Se puede ampliar por tramos horarios.",
+      desc: "Tiempo base incluido: 4 a 6 h según pack. Se puede ampliar por tramos horarios."
     },
     {
       icon: Wind,
       title: "Transporte",
-      desc: "Incluido en Granollers y Cànoves. Resto de zonas con suplemento por km.",
+      desc: "Incluido en Granollers y Cànoves. Resto de zonas con suplemento por km."
     },
     {
       icon: Sparkles,
       title: "Extras",
-      desc: "Cabina iluminada, humo, proyector o micro extra se pueden añadir a cualquier pack.",
-    },
-  ];
+      desc: "Cabina iluminada, humo, proyector o micro extra se pueden añadir a cualquier pack."
+    }
+  ] as const;
   const reduce = useReducedMotion();
   return (
     <section className="relative py-12">
-      <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-3 gap-6">
+      <div className="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-3">
         {blocks.map((b, i) => (
           <motion.div
             key={b.title}
@@ -154,8 +165,8 @@ function Condiciones() {
             transition={{ duration: 0.3, delay: i * 0.05 }}
             className="rounded-2xl border border-white/10 bg-white/5 p-5 text-white/80 backdrop-blur"
           >
-            <b.icon className="h-6 w-6 mb-2" style={{ color: GOLD }} aria-hidden />
-            <h4 className="text-white font-semibold mb-1">{b.title}</h4>
+            <b.icon className="mb-2 h-6 w-6" style={{ color: GOLD }} aria-hidden />
+            <h4 className="mb-1 text-white font-semibold">{b.title}</h4>
             <p className="text-sm">{b.desc}</p>
           </motion.div>
         ))}
@@ -173,13 +184,13 @@ function CTAfinal() {
   return (
     <section className="relative py-20 text-center">
       <div className="mx-auto max-w-2xl px-4">
-        <h2 className="text-3xl md:text-5xl font-black text-white mb-3">
+        <h2 className="mb-3 text-3xl font-black text-white md:text-5xl">
           <ChromeText>¿Qué tipo de evento tienes?</ChromeText>
         </h2>
-        <p className="text-white/70 mb-6">
+        <p className="mb-6 text-white/70">
           Cuéntanos lugar, fecha y horario. Te enviamos disponibilidad y precio exacto.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-3">
+        <div className="flex flex-col justify-center gap-3 sm:flex-row">
           <a
             href={waUrl}
             target="_blank"

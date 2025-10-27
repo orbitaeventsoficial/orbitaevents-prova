@@ -24,16 +24,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/opiniones", priority: 0.5, freq: "monthly" },
     { path: "/sobre-nosotros", priority: 0.5, freq: "monthly" },
     { path: "/contacto", priority: 0.6, freq: "yearly" },
-    { path: "/faq", priority: 0.4, freq: "yearly" },
-  ];
+    { path: "/faq", priority: 0.4, freq: "yearly" }
+  ] as const;
 
   // En entorno de prueba bloquea sitemap real
   if (!isProd) return [];
 
-  return pages.map((p) => ({
+  // Mapeo tipado exacto para MetadataRoute.Sitemap
+  const sitemap: MetadataRoute.Sitemap = pages.map(p => ({
     url: `${base}${p.path}`,
     lastModified: last,
-    changeFrequency: p.freq as MetadataRoute.Sitemap[0]["changeFrequency"],
-    priority: p.priority,
+    changeFrequency: p.freq as NonNullable<MetadataRoute.Sitemap[0]["changeFrequency"]>,
+    priority: p.priority
   }));
+
+  return sitemap;
 }

@@ -2,8 +2,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export const runtime = "nodejs";          // Resend/Nodemailer necesitan Node
-export const dynamic = "force-dynamic";   // evita cachés en rutas de API
+export const runtime = "nodejs";        // nodemailer requiere Node
+export const dynamic = "force-dynamic"; // no cache para API
 
 type Payload = {
   name?: string;
@@ -18,7 +18,7 @@ type Payload = {
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQ = 3;
 
-// Nota: este bucket es volátil (serverless). Para prod real, usa Redis/Upstash.
+// Volátil en serverless; para prod real usa Redis/Upstash
 const bucket = new Map<string, { count: number; ts: number }>();
 
 function rateLimit(ip: string) {
@@ -41,25 +41,25 @@ function clip(s: unknown, max = 2000) {
   return String(s ?? "").slice(0, max).trim();
 }
 
+const HTML_ENTITIES: Record<string, string> = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#039;"
+};
+
 function escapeHtml(s: string) {
-  return s.replace(
-    /[&<>"']/g,
-    ch =>
-      (
-        {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;",
-        } as Record<string, string>
-      )[ch]
-  );
+  return s.replace(/[&<>"']/g, ch => HTML_ENTITIES[ch] ?? ch);
+}
+
+// Evita inyección en cabeceras (subject)
+function sanitizeHeader(s: string, max = 200) {
+  return s.replace(/(\r|\n)/g, " ").slice(0, max).trim();
 }
 
 function getClientIP(req: NextRequest) {
   return (
-    // Next 14 en Node: req.ip puede venir vacío; usa XFF como respaldo
     (req as any).ip ||
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     "0.0.0.0"
@@ -68,25 +68,29 @@ function getClientIP(req: NextRequest) {
 
 function badOrigin(req: NextRequest) {
   const origin = req.headers.get("origin") || "";
+  if (!origin) return false; // curl/postman
+
   const host = req.headers.get("host") || "";
   const envBase = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || "";
 
-  // Permite http y https del host actual (dev) y el dominio público si existe
-  const allowed = new Set<string>([
-    host ? `http://${host}` : "",
-    host ? `https://${host}` : "",
-    envBase,
-  ]);
+  // Normaliza a orígenes exactos
+  const allowed = new Set<string>();
+  try {
+    if (host) {
+      allowed.add(new URL(`http://${host}`).origin);
+      allowed.add(new URL(`https://${host}`).origin);
+    }
+    if (envBase) allowed.add(new URL(envBase).origin);
+  } catch {
+    // si alguien mete basura en env, pasamos
+  }
 
-  // Si no hay origin (p. ej. curl), no bloquear
-  if (!origin) return false;
-
-  return !Array.from(allowed).some(o => o && origin.startsWith(o));
+  // comparación estricta por origin
+  return !allowed.has(origin);
 }
 
 export async function POST(req: NextRequest) {
   try {
-    // Origen
     if (badOrigin(req)) {
       return NextResponse.json({ error: "Origen no permitido" }, { status: 403 });
     }
@@ -133,14 +137,16 @@ export async function POST(req: NextRequest) {
     }
 
     // Email
-    const subject = `Contacto web — ${name} (${date || "sin fecha"})`;
+    const rawSubject = `Contacto web — ${name} (${date || "sin fecha"})`;
+    const subject = sanitizeHeader(rawSubject);
+
     const lines = [
       `Nombre: ${name}`,
       `Email: ${email}`,
       date && `Fecha: ${date}`,
       place && `Lugar: ${place}`,
       "",
-      message,
+      message
     ].filter(Boolean) as string[];
 
     const text = lines.join("\n");
@@ -161,24 +167,22 @@ export async function POST(req: NextRequest) {
     // Resend primero
     const resendKey = process.env.RESEND_API_KEY;
     if (resendKey) {
-      // typing flexible para evitar que TS proteste por 'reply_to'
       const payload: Record<string, unknown> = {
-        from: "Orbita Web <no-reply@orbitaevents.cat>", // dom verificado
+        from: "Orbita Web <no-reply@orbitaevents.cat>", // dominio verificado en Resend
         to: [toEmail],
         subject,
         text,
         html,
-        // Resend acepta 'reply_to'. Si usas el SDK oficial, ajusta a su tipo.
-        reply_to: email,
+        reply_to: email // Resend usa reply_to
       };
 
       const resp = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${resendKey}`,
+          Authorization: `Bearer ${resendKey}`
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload)
       });
 
       if (!resp.ok) {
@@ -196,12 +200,15 @@ export async function POST(req: NextRequest) {
     const smtpPass = process.env.SMTP_PASS;
 
     if (smtpHost && smtpUser && smtpPass) {
-      const nodemailer = await import("nodemailer");
+      // ESM/CJS interop seguro
+      const mod = await import("nodemailer");
+      const nodemailer = (mod as any).default ?? mod;
+
       const transport = nodemailer.createTransport({
         host: smtpHost,
         port: Number(process.env.SMTP_PORT || 587),
         secure: false,
-        auth: { user: smtpUser, pass: smtpPass },
+        auth: { user: smtpUser, pass: smtpPass }
       });
 
       await transport.sendMail({
@@ -210,7 +217,7 @@ export async function POST(req: NextRequest) {
         replyTo: email,
         subject,
         text,
-        html,
+        html
       });
 
       return NextResponse.json({ ok: true });

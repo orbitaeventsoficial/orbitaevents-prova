@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, type ReactNode, type ElementType } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Cable,
@@ -49,18 +49,20 @@ function ServiceJsonLD() {
       },
       url: `${base}/contacto`,
     },
-  };
+  } as const;
+
+  const payload = JSON.stringify(json);
 
   return (
     <script
       type="application/ld+json"
-      // @ts-expect-error
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: payload }}
     />
   );
 }
 
-function ChromeText({ children }: { children: React.ReactNode }) {
+function ChromeText({ children }: { children: ReactNode }) {
   return (
     <span
       className="inline-block bg-clip-text text-transparent bg-gradient-to-br from-white via-gray-200 to-gray-100"
@@ -83,7 +85,7 @@ function CtaGold({
   dataLabel,
 }: {
   href: string;
-  children: React.ReactNode;
+  children: ReactNode;
   ariaLabel?: string;
   dataEvent?: string;
   dataLabel?: string;
@@ -118,14 +120,14 @@ function Hero() {
         transition={{ duration: 0.6 }}
         className="mx-auto max-w-3xl px-4"
       >
-        <h1 className="text-[40px] md:text-[56px] font-black leading-[1.05] tracking-tight text-white mb-3">
+        <h1 className="mb-3 text-[40px] font-black leading-[1.05] tracking-tight text-white md:text-[56px]">
           <ChromeText>Sin técnica no hay magia</ChromeText>
         </h1>
-        <p className="text-white/80 text-lg">
+        <p className="text-lg text-white/80">
           Planificación, montaje y operación con criterio. El público disfruta, el evento fluye y tú descansas.
         </p>
 
-        <div className="mt-8 flex justify-center gap-3 flex-wrap">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-white/80 backdrop-blur">
             <BadgeCheck className="h-4 w-4" aria-hidden /> Montaje limpio
           </span>
@@ -150,7 +152,7 @@ function Proceso() {
 
   return (
     <section id="proceso" className="relative py-16">
-      <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-4 gap-6">
+      <div className="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-4">
         {steps.map((s, i) => (
           <motion.div
             key={s.title}
@@ -161,7 +163,7 @@ function Proceso() {
             className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white/80 backdrop-blur"
           >
             <s.icon className="mb-3 h-8 w-8" style={{ color: GOLD }} aria-hidden />
-            <h3 className="text-lg font-semibold text-white mb-1">{s.title}</h3>
+            <h3 className="mb-1 text-lg font-semibold text-white">{s.title}</h3>
             <p className="text-sm">{s.desc}</p>
           </motion.div>
         ))}
@@ -182,7 +184,7 @@ function Equipamiento() {
 
   return (
     <section id="equipamiento" className="relative py-16">
-      <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-2 lg:grid-cols-4">
         {items.map((it, i) => (
           <motion.div
             key={it.title}
@@ -193,11 +195,8 @@ function Equipamiento() {
             className="rounded-3xl border border-white/10 bg-white/5 p-6 text-white/80 backdrop-blur"
           >
             <it.icon className="mb-3 h-8 w-8" style={{ color: GOLD }} aria-hidden />
-            <h3 className="text-lg font-semibold text-white mb-2">{it.title}</h3>
-            <ul
-              className="list-disc pl-5 space-y-1 text-sm"
-              aria-label={`Equipamiento de ${it.title}`}
-            >
+            <h3 className="mb-2 text-lg font-semibold text-white">{it.title}</h3>
+            <ul className="space-y-1 list-disc pl-5 text-sm" aria-label={`Equipamiento de ${it.title}`}>
               {it.list.map((li) => (
                 <li key={li}>{li}</li>
               ))}
@@ -223,13 +222,13 @@ function CTA() {
   // Delegación robusta para analytics
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement)?.closest?.<HTMLElement>("[data-event]");
-      if (target) {
+      const el = (e.target as Element | null)?.closest("[data-event]") as HTMLElement | null;
+      if (el) {
         window.dispatchEvent(
           new CustomEvent("track", {
             detail: {
-              event: target.getAttribute("data-event") || "",
-              label: target.getAttribute("data-label") || "",
+              event: el.getAttribute("data-event") || "",
+              label: el.getAttribute("data-label") || "",
             },
           })
         );
@@ -242,13 +241,13 @@ function CTA() {
   return (
     <section id="contacto" className="relative py-20 text-center">
       <div className="mx-auto max-w-2xl px-4">
-        <h2 className="text-3xl md:text-5xl font-black text-white mb-3">
+        <h2 className="mb-3 text-3xl font-black text-white md:text-5xl">
           <ChromeText>Que la técnica esté a favor</ChromeText>
         </h2>
-        <p className="text-white/70 mb-6">
+        <p className="mb-6 text-white/70">
           Cuéntanos formato, horarios y aforo. Te proponemos un plan claro con material y tiempos.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-3">
+        <div className="flex flex-col justify-center gap-3 sm:flex-row">
           <CtaGold
             href={waUrl}
             ariaLabel="Abrir WhatsApp para solicitar producción técnica"
@@ -259,7 +258,7 @@ function CTA() {
           </CtaGold>
           <Link
             href="/contacto"
-            className="inline-flex items-center justify-center rounded-2xl border border-white/20 px-6 py-3 font-semibold text-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="inline-flex items-center justify-center rounded-2xl border border-white/20 px-6 py-3 font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             data-event="cta_contacto"
             data-label="produccion"
             aria-label="Ir al formulario de contacto"

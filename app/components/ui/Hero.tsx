@@ -1,20 +1,13 @@
-// app/components/ui/Hero.tsx
 "use client";
 import React from "react";
 import Section from "./Section";
 import SmartImage from "./SmartImage";
 
-type Props = {
-  title: string;
-  subtitle?: string;
-  children?: React.ReactNode;
-};
+type Props = { title: string; subtitle?: string; children?: React.ReactNode; };
 
 export default function Hero({ title, subtitle, children }: Props) {
   return (
     <div className="oe-hero relative border-b border-white/10 bg-black/30 backdrop-blur overflow-hidden">
-      {/* Fondo del hero: planeta centrado y de tamaño controlado.
-         El splash lo oculta con .oe-splash-active */}
       <div
         data-hero-planet
         aria-hidden="true"
@@ -33,8 +26,8 @@ export default function Hero({ title, subtitle, children }: Props) {
       <Section>
         <div className="max-w-3xl">
           <h1 className="font-black font-[var(--font-space)]">{title}</h1>
-          {subtitle ? <p className="mt-4 oe-muted">{subtitle}</p> : null}
-          {children ? <div className="mt-6 flex flex-wrap gap-3">{children}</div> : null}
+          {subtitle && <p className="mt-4 oe-muted">{subtitle}</p>}
+          {children && <div className="mt-6 flex flex-wrap gap-3">{children}</div>}
         </div>
       </Section>
     </div>

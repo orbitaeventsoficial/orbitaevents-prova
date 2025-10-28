@@ -3,7 +3,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";  // ← eliminado, no usar para SVG
 import NavLink from "./NavLink";
 
 const NAV = [
@@ -13,8 +13,6 @@ const NAV = [
   { href: "/servicios/empresas", label: "Eventos" },
   { href: "/servicios/produccion", label: "Producción" },
   { href: "/portfolio", label: "Portfolio" },
-  { href: "/sobre-nosotros", label: "Nosotros" },
-  { href: "/contacto", label: "Contacto" },
 ];
 
 const PHONE = "+34699121023";
@@ -32,158 +30,91 @@ export default function Header() {
     // Foco en el primer link del menú para accesibilidad
     const t = setTimeout(() => firstLinkRef.current?.focus(), 0);
     return () => {
-      clearTimeout(t);
       document.body.style.overflow = prev;
+      clearTimeout(t);
     };
   }, [open]);
 
-  // Cierre con Escape
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 border-b border-white/10
-                 bg-[color:var(--bg-main)]/72 supports-[backdrop-filter]:bg-[color:var(--bg-main)]/60
-                 supports-[backdrop-filter]:backdrop-blur-md transition-none"
+      className="fixed inset-x-0 top-0 z-[1000] border-b border-white/10 bg-black/40 backdrop-blur-md text-white"
+      aria-label="Cabecera de Òrbita Events"
       role="banner"
     >
-      <div className="mx-auto max-w-7xl px-4">
-        {/* Altura ampliada para alojar logo 3x */}
-        <div className="flex h-24 md:h-28 items-center justify-between gap-3">
-          {/* Logo 3x */}
-          <Link
-            href="/"
-            className="flex items-center gap-3 shrink-0"
-            aria-label="Ir al inicio de Òrbita Events"
-            prefetch={false}
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+        {/* Marca */}
+        <Link href="/" className="flex items-center gap-3" aria-label="Ir al inicio">
+          {/* SVG: usar <img>, no next/image */}
+          <img
+            src="/img/brand/favicon.svg"
+            alt="Òrbita"
+            width="28"
+            height="28"
+            className="h-7 w-7"
+          />
+          <span className="text-base font-semibold tracking-wide">Òrbita Events</span>
+        </Link>
+
+        {/* Navegación desktop */}
+        <nav aria-label="Navegación principal" className="hidden items-center gap-6 md:flex">
+          {NAV.map((item, i) => (
+            <NavLink key={item.href} href={item.href}>
+              {item.label}
+            </NavLink>
+          ))}
+          <a
+            className="rounded-md border border-white/20 px-3 py-1.5 text-sm hover:bg-white/10"
+            href={`https://wa.me/${PHONE.replace(/\D/g, "")}?text=${encodeURIComponent(WA_TEXT)}`}
+            aria-label="Contactar por WhatsApp"
           >
-            <Image
-              src="/img/brand/favicon.svg"
-              alt="Òrbita Events"
-              width={112}
-              height={112}
-              className="h-24 w-24 md:h-28 md:w-28"
-              priority
-            />
-            <span className="sr-only">Òrbita Events</span>
-          </Link>
+            WhatsApp
+          </a>
+        </nav>
 
-          {/* Nav desktop */}
-          <nav className="hidden md:flex items-center gap-2" aria-label="Navegación principal">
-            {NAV.map(it => (
-              <NavLink key={it.href} href={it.href}>
-                {it.label}
-              </NavLink>
-            ))}
-          </nav>
-
-          {/* CTAs ventas (desktop) */}
-          <div className="hidden sm:flex items-center gap-2">
-            <a
-              href={`tel:${PHONE}`}
-              className="oe-btn text-sm leading-none"
-              aria-label="Llamar por teléfono"
-              data-evt="cta_header_tel"
-            >
-              📞 699 121 023
-            </a>
-            <a
-              href={`https://wa.me/${PHONE.replace("+", "")}?text=${encodeURIComponent(WA_TEXT)}&utm_source=site&utm_medium=cta&utm_campaign=header`}
-              target="_blank" rel="noopener noreferrer"
-              className="oe-btn oe-btn-gold text-sm leading-none"
-              aria-label="Abrir WhatsApp"
-              data-evt="cta_header_wa"
-            >
-              WhatsApp
-            </a>
-          </div>
-
-          {/* Toggle móvil con área táctil decente */}
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-xl border border-white/15 px-4 h-10 text-sm"
-            aria-expanded={open}
-            aria-controls="mobile-sheet"
-            aria-haspopup="true"
-            onClick={() => setOpen(true)}
-            data-evt="nav_mobile_toggle"
-          >
-            Menú
-          </button>
-        </div>
+        {/* Botón menú móvil */}
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls="menu-movil"
+          onClick={() => setOpen(v => !v)}
+          className="grid h-9 w-9 place-items-center rounded-md border border-white/20 md:hidden"
+        >
+          <span className="sr-only">Abrir menú</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M4 6h16v2H4zM4 11h16v2H4zM4 16h16v2H4z" />
+          </svg>
+        </button>
       </div>
 
-      {/* SHEET móvil: backdrop + panel, sin Framer, sin parpadeos */}
+      {/* Menú móvil */}
       <div
-        id="mobile-sheet"
-        aria-hidden={!open}
-        className={`md:hidden fixed inset-0 z-[60] ${open ? "" : "pointer-events-none"}`}
+        id="menu-movil"
+        hidden={!open}
+        className="md:hidden border-t border-white/10 bg-black/60 backdrop-blur"
       >
-        {/* Backdrop con transición solo de opacidad */}
-        <div
-          className={`absolute inset-0 bg-black/60 transition-opacity duration-200 motion-safe:duration-200 ${open ? "opacity-100" : "opacity-0"}`}
-          onClick={() => setOpen(false)}
-        />
-
-        {/* Panel: entra desde arriba con translateY. Sin blur ni filtros raros. */}
-        <div
-          className={`absolute inset-x-0 top-0 rounded-b-3xl border-b border-white/10 bg-[color:var(--bg-main)]
-                      transition-transform duration-250 motion-safe:duration-250
-                      ${open ? "translate-y-0" : "-translate-y-full"}`}
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="mx-auto max-w-7xl px-4 pt-4 pb-6">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-white/70">Menú</span>
-              <button
-                type="button"
-                className="inline-flex items-center justify-center rounded-xl border border-white/15 px-3 h-9 text-sm"
-                onClick={() => setOpen(false)}
-                data-evt="nav_mobile_close"
-              >
-                Cerrar
-              </button>
-            </div>
-
-            <div className="mt-3 grid gap-2">
-              {NAV.map((it, i) => (
-                <NavLink
-                  key={it.href}
-                  href={it.href}
-                  onClick={() => setOpen(false)}
+        <div className="mx-auto max-w-7xl px-4 py-3">
+          <ul className="flex flex-col gap-2">
+            {NAV.map((item, i) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
                   ref={i === 0 ? firstLinkRef : undefined}
+                  className="block rounded-md px-3 py-2 text-white/90 hover:bg-white/10 hover:text-white"
+                  onClick={() => setOpen(false)}
                 >
-                  {it.label}
-                </NavLink>
-              ))}
-
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <a
-                  href={`tel:${PHONE}`}
-                  className="oe-btn text-sm leading-none w-full text-center"
-                  data-evt="cta_header_tel_m"
-                >
-                  📞 Llamar
-                </a>
-                <a
-                  href={`https://wa.me/${PHONE.replace("+", "")}?text=${encodeURIComponent(WA_TEXT)}&utm_source=site&utm_medium=cta&utm_campaign=header_m`}
-                  target="_blank" rel="noopener noreferrer"
-                  className="oe-btn oe-btn-gold text-sm leading-none w-full text-center"
-                  data-evt="cta_header_wa_m"
-                >
-                  WhatsApp
-                </a>
-              </div>
-            </div>
-
-            {/* Safe area bottom en iOS */}
-            <div className="oe-safe-bottom" />
-          </div>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <a
+                className="block rounded-md border border-white/20 px-3 py-2 text-center hover:bg-white/10"
+                href={`https://wa.me/${PHONE.replace(/\D/g, "")}?text=${encodeURIComponent(WA_TEXT)}`}
+              >
+                WhatsApp
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </header>

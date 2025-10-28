@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroPortalLogo from "./components/ui/HeroPortalLogo.client";
 import Hero from "./components/ui/Hero";
 import Section from "./components/ui/Section";
@@ -8,6 +8,9 @@ import SmartImage from "./components/ui/SmartImage";
 
 const PHONE = "+34699121023";
 const WA_TEXT = "Hola, vengo desde la web y quiero información para mi evento";
+
+// Fallback por si la animación no llama onFinish (no afecta al diseño)
+const FALLBACK_MS = 9000;
 
 function Feature({ title, desc, icon }:{ title:string; desc:string; icon:string; }) {
   return (
@@ -21,6 +24,13 @@ function Feature({ title, desc, icon }:{ title:string; desc:string; icon:string;
 
 export default function Home() {
   const [ready, setReady] = useState(false);
+
+  // Fallback para garantizar que la página aparece aunque algo falle
+  useEffect(() => {
+    if (ready) return;
+    const t = setTimeout(() => setReady(true), FALLBACK_MS);
+    return () => clearTimeout(t);
+  }, [ready]);
 
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
@@ -37,6 +47,8 @@ export default function Home() {
           fadeMs={900}
           introHoldMs={400}
           respectOnce={false}
+          // Forzamos que el overlay quede siempre encima
+          zIndexClass="z-[2147483647]"
           suppressSelectors={["[data-hero-planet]", ".hero-planet", ".planet-bg", "#content [class*='planet']"]}
           onFinish={() => setReady(true)}
         />

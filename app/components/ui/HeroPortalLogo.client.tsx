@@ -163,7 +163,7 @@ function ensureSplashCSS(selectors: string[]) {
 
 export default function HeroPortalLogo({
   endColor = "#0a0a0a",
-  zIndexClass = "z-[9999]",
+  zIndexClass = "z-[2147483647]",
   sizePx = 180,
   liftVh = 0,
   glowColor = "gold",
@@ -207,7 +207,7 @@ export default function HeroPortalLogo({
   useEffect(() => {
     if (!enabled || shouldSkip) { setMounted(false); return; }
     let alive = true;
-    fetch(svgUrl, { cache: "force-cache" })
+    fetch(svgUrl, { cache: "no-store" })
       .then(r => (r.ok ? r.text() : ""))
       .then(t => { if (alive) setSvgMarkup(t || null); })
       .catch(() => { if (alive) setSvgMarkup(null); });
@@ -233,17 +233,17 @@ export default function HeroPortalLogo({
 
     animateOne(hostRef.current, "#planet, #planeta", [
       { opacity: 0, transform: "scale(0.96) translateY(10px)", filter: "blur(10px)" },
-      { opacity: 1, transform: "none",                          filter: "blur(0)"   },
+      { opacity: 1, transform: "none", filter: "blur(0)" },
     ], { duration: 620, delay: 0 });
 
     animateOne(hostRef.current, "#ring, #anillo", [
       { opacity: 0, transform: "translate(30px,-24px) rotate(-12deg) scale(0.94)", filter: "blur(8px)" },
-      { opacity: 1, transform: "none",                                             filter: "blur(0)"   },
+      { opacity: 1, transform: "none", filter: "blur(0)" },
     ], { duration: 680, delay: 150 });
 
     animateOne(hostRef.current, "#satellite, #satelite", [
       { opacity: 0, transform: "translate(-14px,-18px) scale(0.92)", filter: "blur(6px)" },
-      { opacity: 1, transform: "none",                                filter: "blur(0)"   },
+      { opacity: 1, transform: "none", filter: "blur(0)" },
     ], { duration: 540, delay: 300 });
   }, [seqStarted]);
 
@@ -276,9 +276,9 @@ export default function HeroPortalLogo({
 
   const glow =
     glowColor === "none" ? undefined
-    : glowColor === "gold"
-      ? "radial-gradient(55% 40% at 50% 58%, rgba(255,215,150,0.6), rgba(255,215,150,0.18), transparent 72%)"
-      : "radial-gradient(55% 40% at 50% 58%, rgba(255,40,180,0.75), rgba(255,40,180,0.22), transparent 72%)";
+      : glowColor === "gold"
+        ? "radial-gradient(55% 40% at 50% 58%, rgba(255,215,150,0.6), rgba(255,215,150,0.18), transparent 72%)"
+        : "radial-gradient(55% 40% at 50% 58%, rgba(255,40,180,0.75), rgba(255,40,180,0.22), transparent 72%)";
   const glowOpacity = Math.min(1, 0.8 * glowStrength);
   const glowBlur = 36 * Math.max(0.5, glowStrength);
 
@@ -287,6 +287,7 @@ export default function HeroPortalLogo({
       <motion.div
         key="splash"
         className={`fixed inset-0 ${zIndexClass} pointer-events-none`}
+        style={{ zIndex: 2147483647 }}
         initial={{ opacity: 1, backgroundColor: "#000" }}
         animate={{ opacity: 1, backgroundColor: "#000" }}
         exit={{ opacity: 0, backgroundColor: endColor }}
@@ -296,7 +297,7 @@ export default function HeroPortalLogo({
         {bubbles && (
           <>
             <Bubbles count={60} blur={16} speedFactor={0.45} opacity={0.22} />
-            <Bubbles count={120} blur={10} speedFactor={1.05} opacity={0.50} />
+            <Bubbles count={120} blur={10} speedFactor={1.05} opacity={0.5} />
           </>
         )}
 
@@ -376,6 +377,8 @@ function Bubbles({
 
     let raf = 0;
     const paint = () => {
+      const { width, height } = c.getBoundingClientRect();
+      if (width === 0 || height === 0) { raf = requestAnimationFrame(paint); return; }
       ctx.clearRect(0, 0, w, h);
       for (const b of bubbles) {
         b.y -= b.vy;

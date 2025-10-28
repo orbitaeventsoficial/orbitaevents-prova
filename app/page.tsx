@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Splash cinematográfico: blackout + burbujas + planeta/anillo/satélite centrados */}
+      {/* Splash: blackout + burbujas + planeta/anillo/satélite centrados */}
       {!ready && (
         <HeroPortalLogo
           endColor="#000"
@@ -55,13 +55,12 @@ export default function Home() {
             "[data-hero-planet]",
             ".hero-planet",
             ".planet-bg",
-            "#content [class*='planet']"
+            "#content [class*='planet']",
           ]}
           onFinish={() => setReady(true)}
         />
       )}
 
-      {/* HERO PRINCIPAL */}
       <Hero
         title="DJ, sonido e iluminación que venden el evento por sí solos"
         subtitle="Bodas, fiestas y empresas en Catalunya. Montaje limpio, criterio musical real y una pista encendida hasta el último tema."
@@ -75,7 +74,12 @@ export default function Home() {
           Pide presupuesto
         </Button>
         <Button
-          href={`https://wa.me/${PHONE.replace("+", "")}?text=${encodeURIComponent(WA_TEXT)}&utm_source=site&utm_medium=cta&utm_campaign=hero`}
+          href={`https://wa.me/${PHONE.replace(
+            "+"
+            , ""
+          )}?text=${encodeURIComponent(
+            WA_TEXT
+          )}&utm_source=site&utm_medium=cta&utm_campaign=hero`}
           target="_blank"
           rel="noopener noreferrer"
           data-evt="cta_hero_whatsapp"
@@ -85,7 +89,6 @@ export default function Home() {
         </Button>
       </Hero>
 
-      {/* BLOQUE DE SERVICIOS DESTACADOS */}
       <Section className="py-16">
         <div className="grid gap-8 md:grid-cols-3">
           <Feature
@@ -106,14 +109,16 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* GALERÍA */}
       <Section className="py-20">
         <h2 className="text-center text-4xl md:text-5xl font-[var(--font-space)] font-bold mb-12">
           Escenas que hablan por sí solas
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
           {["foto1.jpg", "foto2.jpg", "foto3.jpg"].map((img, i) => (
-            <div key={i} className="relative aspect-[4/3] overflow-hidden rounded-3xl">
+            <div
+              key={i}
+              className="relative aspect-[4/3] overflow-hidden rounded-3xl"
+            >
               <SmartImage
                 src={`/img/home/${img}`}
                 alt={`Evento ${i + 1}`}
@@ -125,7 +130,6 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* CTA FINAL */}
       <Section className="py-24 text-center">
         <h2 className="text-4xl md:text-5xl font-[var(--font-space)] font-bold">
           ¿Listo para un evento que se vende solo?
@@ -138,7 +142,12 @@ export default function Home() {
             Contactar ahora
           </Button>
           <Button
-            href={`https://wa.me/${PHONE.replace("+", "")}?text=${encodeURIComponent(WA_TEXT)}&utm_source=site&utm_medium=cta&utm_campaign=final`}
+            href={`https://wa.me/${PHONE.replace(
+              "+"
+              , ""
+            )}?text=${encodeURIComponent(
+              WA_TEXT
+            )}&utm_source=site&utm_medium=cta&utm_campaign=final`}
             target="_blank"
             rel="noopener noreferrer"
             data-evt="cta_final_whatsapp"

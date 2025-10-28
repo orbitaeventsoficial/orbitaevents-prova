@@ -1,0 +1,34 @@
+# Dependencias y builds
+node_modules/
+.pnpm-store/
+.next/
+dist/
+out/
+.vercel/
+
+# Archivos temporales
+*.log
+*.tmp
+*.swp
+*.lock
+*.DS_Store
+
+# Variables de entorno
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# Configuración local del editor
+.vscode/
+.idea/
+
+# Archivos de sistema
+Thumbs.db
+tsconfig.tsbuildinfo
+NUL
+node_modules/
+.next/
+*.log
+.vercel/
+.DS_Store

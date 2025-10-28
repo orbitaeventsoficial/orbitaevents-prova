@@ -1,0 +1,6 @@
+/* app/tokens.css */
+:root {
+  --oe-gold: #d7b86e;
+  --grad-gold: linear-gradient(135deg, #e9d7a1, #d7b86e 40%, #b9994b);
+  --shadow-gold: 0 8px 24px rgba(215,184,110,.35);
+}

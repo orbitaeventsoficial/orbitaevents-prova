@@ -1,12 +1,11 @@
-// app/components/ui/PageTransition.client.tsx
 "use client";
 import type { PropsWithChildren } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const DURATION = 180; // ms
 
-export default function PageTransition({ children }: PropsWithChildren) {
+function PageTransitionInner({ children }: PropsWithChildren) {
   const pathname = usePathname();
   const search = useSearchParams();
   const key = `${pathname}?${search?.toString() || ""}`;
@@ -43,9 +42,13 @@ export default function PageTransition({ children }: PropsWithChildren) {
     return () => clearTimeout(t);
   }, [key]);
 
+  return <div ref={ref} className="min-h-screen">{children}</div>;
+}
+
+export default function PageTransition(props: PropsWithChildren) {
   return (
-    <div ref={ref} className="min-h-screen">
-      {children}
-    </div>
+    <Suspense fallback={null}>
+      <PageTransitionInner {...props} />
+    </Suspense>
   );
 }

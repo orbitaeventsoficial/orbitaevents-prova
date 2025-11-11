@@ -1,0 +1,33 @@
+# Dependencias y builds
+node_modules/
+.pnpm-store/
+.next/
+dist/
+out/
+.vercel/
+.vercel/output/
+
+# Archivos temporales
+*.log
+*.tmp
+*.swp
+*.lock
+*.DS_Store
+Thumbs.db
+NUL
+
+# Variables de entorno
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# Configuración local del editor
+.vscode/
+.idea/
+
+# Builds temporales (Awwwards: Limpieza para deploy rápido)
+.turbo/
+.cache/
+temp/
+.vercel

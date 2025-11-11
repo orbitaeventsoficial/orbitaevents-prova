@@ -1,0 +1,723 @@
+/* app/globals.css - MANOLO'S BRUTAL EDITION 🔥 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   ÒRBITA EVENTS — EL DISEÑO MÁS BRUTAL DE LA HISTORIA
+   ======================================== */
+
+@layer base {
+  :root {
+    /* === BACKGROUNDS CON PROFUNDIDAD === */
+    --bg-main: #0a0a0b;
+    --bg-surface: #111214;
+    --bg-card: #1a1a1c;
+    --bg-glass: rgba(17, 18, 20, 0.8);
+    
+    /* === BORDERS PREMIUM === */
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.15);
+    --border-glow: rgba(215, 184, 110, 0.3);
+    
+    /* === TEXT HIERARCHY === */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.85);
+    --text-muted: rgba(255, 255, 255, 0.65);
+    --text-disabled: rgba(255, 255, 255, 0.4);
+
+    /* === BRAND GOLD PERFECTO === */
+    --oe-gold: #d7b86e;
+    --oe-gold-light: #f8e5a1;
+    --oe-gold-dark: #b9994b;
+    --oe-gold-bright: #ffd700;
+    
+    /* === GRADIENTES ÉPICOS === */
+    --grad-gold: linear-gradient(
+      135deg,
+      #f8e5a1 0%,
+      #e6c57a 25%,
+      #d7b86e 50%,
+      #c9a55c 75%,
+      #b9994b 100%
+    );
+    
+    --grad-gold-intense: linear-gradient(
+      135deg,
+      #ffd700 0%,
+      #f8e5a1 20%,
+      #d7b86e 40%,
+      #b9994b 60%,
+      #8b7355 100%
+    );
+    
+    --grad-dark: linear-gradient(
+      180deg,
+      rgba(10, 10, 11, 0) 0%,
+      rgba(10, 10, 11, 0.8) 50%,
+      rgba(10, 10, 11, 1) 100%
+    );
+    
+    --grad-radial: radial-gradient(
+      circle at 50% 50%,
+      rgba(215, 184, 110, 0.15) 0%,
+      rgba(215, 184, 110, 0.05) 50%,
+      transparent 100%
+    );
+    
+    --grad-mesh: 
+      radial-gradient(at 40% 20%, rgba(215, 184, 110, 0.2) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgba(255, 215, 0, 0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(215, 184, 110, 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 80%, rgba(185, 153, 75, 0.2) 0px, transparent 50%);
+    
+    /* === SOMBRAS PROFESIONALES === */
+    --shadow-gold: 
+      0 0 0 1px rgba(215, 184, 110, 0.3),
+      0 4px 12px rgba(215, 184, 110, 0.15),
+      0 16px 48px rgba(215, 184, 110, 0.25);
+      
+    --shadow-gold-lg: 
+      0 0 0 1px rgba(215, 184, 110, 0.4),
+      0 8px 24px rgba(215, 184, 110, 0.2),
+      0 24px 80px rgba(215, 184, 110, 0.35);
+      
+    --shadow-brutal:
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 2px 4px rgba(0, 0, 0, 0.3),
+      0 8px 16px rgba(0, 0, 0, 0.4),
+      0 24px 48px rgba(0, 0, 0, 0.5);
+    
+    /* === GLOWS MÁGICOS === */
+    --glow-gold: 0 0 30px rgba(215, 184, 110, 0.4);
+    --glow-gold-hover: 0 0 50px rgba(215, 184, 110, 0.6);
+    --glow-gold-intense: 
+      0 0 20px rgba(215, 184, 110, 0.5),
+      0 0 40px rgba(215, 184, 110, 0.4),
+      0 0 80px rgba(215, 184, 110, 0.3);
+    --glow-white: 0 0 40px rgba(255, 255, 255, 0.3);
+
+    /* === STATUS COLORS === */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #3b82f6;
+
+    /* === BORDER RADIUS === */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-2xl: 2rem;
+    --radius-3xl: 3rem;
+    --radius-full: 9999px;
+
+    /* === FONTS === */
+    --font-sans: var(--font-inter);
+    --font-display: var(--font-space);
+  }
+
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    min-height: 100dvh;
+    position: relative;
+    
+    /* Efecto mesh gradient de fondo */
+    background-image: var(--grad-mesh);
+    background-attachment: fixed;
+  }
+  
+  /* Efecto de grain/noise sutil */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
+  ::selection {
+    background: rgba(215, 184, 110, 0.35);
+    color: #fff;
+    text-shadow: 0 0 10px rgba(215, 184, 110, 0.5);
+  }
+
+  /* === SCROLLBAR ÉPICA === */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-main);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--grad-gold);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--bg-main);
+    transition: all 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--grad-gold-intense);
+    box-shadow: var(--glow-gold);
+  }
+
+  /* === FOCUS STATES PREMIUM === */
+  *:focus-visible {
+    outline: 2px solid var(--oe-gold);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  /* === HEADINGS CON ESTILO === */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  
+  /* === LINKS CON HOVER BRUTAL === */
+  a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* ========================================
+   UTILIDADES CUSTOM - LO MEJOR DE LO MEJOR
+   ======================================== */
+
+@layer utilities {
+  /* === TEXTOS GRADIENTES === */
+  .gradient-text {
+    background: linear-gradient(to right, #ffffff, var(--oe-gold), #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    background-size: 200% auto;
+    animation: gradient-shift 8s ease infinite;
+  }
+  
+  .gradient-text-gold {
+    background: linear-gradient(to right, var(--oe-gold-light), var(--oe-gold), var(--oe-gold-dark));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    background-size: 200% auto;
+    animation: gradient-shift 6s ease infinite;
+  }
+  
+  .gradient-text-intense {
+    background: linear-gradient(135deg, #ffd700, #f8e5a1, #d7b86e, #ffd700);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 4s ease infinite;
+  }
+
+  /* === GLOWS === */
+  .glow-gold {
+    box-shadow: var(--glow-gold);
+  }
+  
+  .glow-gold-hover {
+    transition: box-shadow 0.4s ease;
+  }
+  
+  .glow-gold-hover:hover {
+    box-shadow: var(--glow-gold-intense);
+  }
+  
+  .glow-text {
+    text-shadow: 
+      0 0 10px rgba(215, 184, 110, 0.5),
+      0 0 20px rgba(215, 184, 110, 0.3),
+      0 0 40px rgba(215, 184, 110, 0.2);
+  }
+
+  /* === SOMBRAS === */
+  .shadow-oe-gold {
+    box-shadow: var(--shadow-gold);
+  }
+  
+  .shadow-oe-gold-lg {
+    box-shadow: var(--shadow-gold-lg);
+  }
+  
+  .shadow-brutal {
+    box-shadow: var(--shadow-brutal);
+  }
+
+  /* === GLASS MORPHISM === */
+  .glass {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .glass-gold {
+    background: rgba(215, 184, 110, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(215, 184, 110, 0.2);
+  }
+
+  /* === HEADINGS === */
+  .text-h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    font-family: var(--font-display);
+    background: linear-gradient(to right, #ffffff, var(--oe-gold), #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h1 { font-size: 4.5rem; }
+  }
+  
+  @media (min-width: 1024px) {
+    .text-h1 { font-size: 6rem; }
+  }
+
+  .text-h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h2 { font-size: 3rem; }
+  }
+  
+  @media (min-width: 1024px) {
+    .text-h2 { font-size: 3.75rem; }
+  }
+
+  .text-h3 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+    line-height: 1.2;
+  }
+  
+  @media (min-width: 768px) {
+    .text-h3 { font-size: 2.25rem; }
+  }
+  
+  @media (min-width: 1024px) {
+    .text-h3 { font-size: 3rem; }
+  }
+  
+  /* === EFECTOS DE HOVER 3D === */
+  .hover-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .hover-3d:hover {
+    transform: translateY(-8px) rotateX(2deg);
+  }
+  
+  .hover-lift {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-12px) scale(1.02);
+  }
+  
+  /* === EFECTOS DE BRILLO === */
+  .shine {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+  
+  .shine:hover::before {
+    left: 100%;
+  }
+  
+  /* === BORDES ANIMADOS === */
+  .border-gradient {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+                var(--grad-gold) border-box;
+    border-radius: var(--radius-2xl);
+  }
+  
+  .border-gradient-animated {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+                linear-gradient(135deg, #f8e5a1, #d7b86e, #b9994b, #f8e5a1) border-box;
+    background-size: 300% 300%;
+    border-radius: var(--radius-2xl);
+    animation: gradient-border 6s ease infinite;
+  }
+}
+
+/* ========================================
+   COMPONENTES REUTILIZABLES - NIVEL PRO
+   ======================================== */
+
+@layer components {
+  /* === BOTÓN GOLD PRINCIPAL - ÉPICO === */
+  .oe-btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    color: #000000;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    background: var(--grad-gold);
+    background-size: 200% 200%;
+    background-position: 0% 0%;
+    box-shadow: var(--shadow-gold);
+    border: 1px solid rgba(215, 184, 110, 0.6);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+  }
+  
+  .oe-btn-gold::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  .oe-btn-gold:hover::before {
+    transform: translateX(100%);
+  }
+
+  .oe-btn-gold:hover {
+    background-position: 100% 100%;
+    box-shadow: var(--glow-gold-intense);
+    transform: translateY(-2px) scale(1.02);
+  }
+  
+  .oe-btn-gold:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* === BOTÓN SECONDARY GLASS === */
+  .oe-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    background: rgba(17, 18, 20, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .oe-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(215, 184, 110, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  .oe-btn:hover::before {
+    opacity: 1;
+  }
+  
+  .oe-btn:hover {
+    border-color: var(--oe-gold);
+    background: rgba(215, 184, 110, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* === CARD CON GLASS Y HOVER BRUTAL === */
+  .oe-card {
+    border-radius: 1.5rem;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    background: rgba(17, 18, 20, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+  }
+  
+  .oe-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(215, 184, 110, 0.15) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  
+  .oe-card:hover::before {
+    opacity: 1;
+  }
+
+  .oe-card:hover {
+    border-color: rgba(215, 184, 110, 0.4);
+    box-shadow: var(--shadow-gold-lg);
+    transform: translateY(-8px) scale(1.01);
+  }
+
+  /* === INPUT PREMIUM === */
+  .oe-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  
+  .oe-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .oe-input:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--oe-gold);
+    box-shadow: 0 0 0 3px rgba(215, 184, 110, 0.15),
+                0 0 20px rgba(215, 184, 110, 0.1);
+    outline: none;
+  }
+  
+  .oe-input:hover:not(:focus) {
+    border-color: var(--border-hover);
+  }
+
+  /* === BADGE PREMIUM === */
+  .oe-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--oe-gold);
+    background: linear-gradient(135deg, 
+                rgba(215, 184, 110, 0.1), 
+                rgba(215, 184, 110, 0.15));
+    border: 1px solid rgba(215, 184, 110, 0.3);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(215, 184, 110, 0.1);
+  }
+
+  /* === SECTION SPACING === */
+  .oe-section {
+    padding: 5rem 0;
+    position: relative;
+  }
+  
+  @media (min-width: 768px) {
+    .oe-section {
+      padding: 8rem 0;
+    }
+  }
+}
+
+/* ========================================
+   ANIMACIONES CUSTOM - MAGIA PURA
+   ======================================== */
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes gradient-border {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(215, 184, 110, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(215, 184, 110, 0.6),
+                0 0 80px rgba(215, 184, 110, 0.4);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes aurora {
+  0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+  33% { opacity: 0.6; transform: scale(1.1) rotate(120deg); }
+  66% { opacity: 0.4; transform: scale(0.9) rotate(240deg); }
+}
+
+/* ========================================
+   RESPONSIVE & ACCESSIBILITY
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .gradient-text,
+  .gradient-text-gold,
+  .gradient-text-intense {
+    animation: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  /* Si alguien tiene modo claro (psicópatas), al menos que no sea horrible */
+  :root {
+    --bg-main: #f8f9fa;
+    --bg-surface: #ffffff;
+    --text-primary: #0a0a0b;
+  }
+}
+
+@media print {
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+  
+  .oe-btn-gold,
+  .oe-btn,
+  nav,
+  footer,
+  .glass,
+  .glass-gold {
+    display: none;
+  }
+  
+  .oe-card {
+    border: 1px solid #d1d5db;
+    box-shadow: none;
+  }
+}
+
+/* ========================================
+   UTILIDADES EXTRA - PORQUE SÍ
+   ======================================== */
+
+/* Efecto parallax suave */
+.parallax {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Backdrop blur para modales */
+.backdrop-blur-brutal {
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* Texto con outline dorado */
+.text-outline-gold {
+  -webkit-text-stroke: 1px rgba(215, 184, 110, 0.5);
+  text-stroke: 1px rgba(215, 184, 110, 0.5);
+}
+
+/* Animación de aparición suave */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Grid con glow entre items */
+.grid-glow {
+  background-image: 
+    linear-gradient(rgba(215, 184, 110, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(215, 184, 110, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}

@@ -1,4 +1,3 @@
-// lib/analytics.ts
 /**
  * MANOLO'S ANALYTICS TRACKER
  * Sistema centralizado de tracking para Google Analytics 4 y Meta Pixel
@@ -83,7 +82,6 @@ export const trackEvent = ({
 
   // 📊 META PIXEL
   if (window.fbq) {
-    // Mapeo de eventos de GA4 a Meta Pixel
     const metaEventMap: Record<string, string> = {
       generate_lead: 'Lead',
       contact_whatsapp: 'Contact',
@@ -120,7 +118,7 @@ export const trackLead = (data: {
     eventName: 'generate_lead',
     eventCategory: 'Contact',
     eventLabel: eventType,
-    value: estimatedValue,
+    ...(estimatedValue !== undefined ? { value: estimatedValue } : {}), // ← cambio mínimo
     additionalParams: {
       lead_source: source || 'contact_form',
       event_type: eventType,
@@ -258,7 +256,6 @@ export const trackCTAClick = (ctaLabel: string, ctaLocation: string): void => {
 export const trackPageView = (pagePath: string, pageTitle: string): void => {
   if (!isClientSide() || !isProduction()) return;
 
-  // Google Analytics 4
   if (window.gtag) {
     window.gtag('event', 'page_view', {
       page_path: pagePath,
@@ -266,7 +263,6 @@ export const trackPageView = (pagePath: string, pageTitle: string): void => {
     });
   }
 
-  // Meta Pixel
   if (window.fbq) {
     window.fbq('track', 'PageView');
   }

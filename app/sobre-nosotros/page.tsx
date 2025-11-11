@@ -2,64 +2,34 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight, Music, Mic2, Lightbulb, Briefcase, Wrench, Package } from "lucide-react";
 
 export default function ServiciosClient() {
   const shouldReduceMotion = useReducedMotion();
 
   const servicios = [
-    {
-      name: "Discomóvil",
-      href: "/servicios/discomobil",
-      desc: "Sonido, luz y cabina con criterio.",
-      icon: Music,
-    },
-    {
-      name: "Bodas",
-      href: "/servicios/bodas",
-      desc: "Ceremonia clara, cóctel elegante y fiesta sólida.",
-      icon: Mic2,
-    },
-    {
-      name: "Fiestas",
-      href: "/servicios/fiestas",
-      desc: "Cumples y privadas sin cableado salvaje.",
-      icon: Lightbulb,
-    },
-    {
-      name: "Empresas",
-      href: "/servicios/empresas",
-      desc: "Eventos corporativos sin sustos técnicos.",
-      icon: Briefcase,
-    },
-    {
-      name: "Producción técnica",
-      href: "/servicios/produccion",
-      desc: "Montaje, patch y operación serios.",
-      icon: Wrench,
-    },
-    {
-      name: "Alquiler",
-      href: "/servicios/alquiler",
-      desc: "Packs listos o con técnico, como toca.",
-      icon: Package,
-    },
+    { name: "Discomóvil", href: "/servicios/discomobil", desc: "Sonido, luz y cabina con criterio.", icon: Music },
+    { name: "Bodas", href: "/servicios/bodas", desc: "Ceremonia clara, cóctel elegante y fiesta sólida.", icon: Mic2 },
+    { name: "Fiestas", href: "/servicios/fiestas", desc: "Cumples y privadas sin cableado salvaje.", icon: Lightbulb },
+    { name: "Empresas", href: "/servicios/empresas", desc: "Eventos corporativos sin sustos técnicos.", icon: Briefcase },
+    { name: "Producción técnica", href: "/servicios/produccion", desc: "Montaje, patch y operación serios.", icon: Wrench },
+    { name: "Alquiler", href: "/servicios/alquiler", desc: "Packs listos o con técnico, como toca.", icon: Package },
   ] as const;
 
-  // Animación base
+  // Animación base (ease como tupla literal + validates con `satisfies Variants`)
   const cardVariants = {
     hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 },
-    visible: (i: number) => ({
+    visible: (i: number = 0) => ({
       opacity: 1,
       y: 0,
       transition: {
         delay: i * 0.08,
         duration: 0.4,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as const,
       },
     }),
-  };
+  } satisfies Variants;
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 text-white">
@@ -70,18 +40,13 @@ export default function ServiciosClient() {
         transition={{ duration: 0.4 }}
         className="text-center mb-16"
       >
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
-          Nuestros servicios
-        </h1>
-        <p className="text-lg text-white/70 max-w-2xl mx-auto">
-          Técnica cuidada, montaje impecable. Elige lo que necesitas.
-        </p>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">Nuestros servicios</h1>
+        <p className="text-lg text-white/70 max-w-2xl mx-auto">Técnica cuidada, montaje impecable. Elige lo que necesitas.</p>
       </motion.div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {servicios.map((s, i) => {
           const Icon = s.icon;
-
           return (
             <motion.div
               key={s.href}

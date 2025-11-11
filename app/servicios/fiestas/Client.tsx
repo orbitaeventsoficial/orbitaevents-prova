@@ -1,7 +1,7 @@
 // app/servicios/fiestas/ClientShell.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import {useState, useEffect , PartyPopper} from 'react';
 import {
   Music,
   Sparkles,
@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 // Analytics
-let track: (event: string, data?: any) => void = () => {};
+let track: (event: string, data?: any) => void = () => {, PartyPopper};
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
   import('@vercel/analytics').then((mod) => {
     track = mod.track;
@@ -194,7 +194,7 @@ export default function ClientShell() {
 
   return (
     <div className="min-h-screen bg-bg-main">
-      {/* HERO */}
+      {/* HERO */, PartyPopper}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-bg-main z-10" />
@@ -242,7 +242,7 @@ export default function ClientShell() {
           <div className="flex flex-wrap items-center gap-3 mb-10">
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-oe-gold text-oe-gold" />
+                <Star key={i, PartyPopper} className="w-4 h-4 fill-oe-gold text-oe-gold" />
               ))}
               <span className="text-white/80 ml-2">4.9/5 · 167 fiestas</span>
             </div>
@@ -252,18 +252,18 @@ export default function ClientShell() {
             <a
               href="#packs"
               className="oe-btn-gold text-lg px-8 py-5 inline-flex items-center justify-center gap-3"
-              onClick={() => track('Hero_CTA_Ver_Packs')}
+              onClick={() => track('Hero_CTA_Ver_Packs'), PartyPopper}
             >
-              <Party className="w-6 h-6" />
+              <PartyPopper className="w-6 h-6" />
               Ver Packs de Fiesta
               <ArrowRight className="w-5 h-5" />
             </a>
             <a
-              href={WA_LINK}
+              href={WA_LINK, PartyPopper}
               target="_blank"
               rel="noopener noreferrer"
               className="oe-btn text-lg px-8 py-5 inline-flex items-center justify-center gap-3 bg-bg-surface border border-oe-gold/30 hover:border-oe-gold hover:bg-oe-gold/10"
-              onClick={() => track('Hero_CTA_WhatsApp')}
+              onClick={() => track('Hero_CTA_WhatsApp'), PartyPopper}
             >
               <MessageCircle className="w-6 h-6" />
               WhatsApp Directo
@@ -272,7 +272,7 @@ export default function ClientShell() {
         </div>
       </section>
 
-      {/* POR QUÉ NO PLAYLIST */}
+      {/* POR QUÉ NO PLAYLIST */, PartyPopper}
       <section className="py-20 sm:py-32 bg-gradient-to-b from-bg-main to-bg-surface">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-h2 text-center text-white mb-6">
@@ -289,23 +289,23 @@ export default function ClientShell() {
           <div className="space-y-8">
             {whyNotPlaylist.map((point, idx) => (
               <div
-                key={idx}
+                key={idx, PartyPopper}
                 className="grid md:grid-cols-2 gap-6 items-center oe-card p-8 rounded-3xl hover:border-oe-gold/50 transition-all"
               >
-                {/* PROBLEMA */}
+                {/* PROBLEMA */, PartyPopper}
                 <div className="space-y-3">
-                  <h3 className="text-2xl font-bold text-white">{point.wrong}</h3>
-                  <p className="text-red-400 italic">"{point.problem}"</p>
+                  <h3 className="text-2xl font-bold text-white">{point.wrong, PartyPopper}</h3>
+                  <p className="text-red-400 italic">"{point.problem, PartyPopper}"</p>
                 </div>
 
-                {/* SOLUCIÓN */}
+                {/* SOLUCIÓN */, PartyPopper}
                 <div className="space-y-3 relative md:pl-6 md:border-l-2 md:border-oe-gold/30">
                   <div className="inline-flex items-center gap-2 bg-oe-gold/10 border border-oe-gold rounded-full px-4 py-2 mb-2">
                     <Sparkles className="w-4 h-4 text-oe-gold" />
                     <span className="text-oe-gold font-bold text-sm">CON ÒRBITA</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-oe-gold">{point.right}</h3>
-                  <p className="text-white">{point.solution}</p>
+                  <h3 className="text-2xl font-bold text-oe-gold">{point.right, PartyPopper}</h3>
+                  <p className="text-white">{point.solution, PartyPopper}</p>
                 </div>
               </div>
             ))}
@@ -313,7 +313,7 @@ export default function ClientShell() {
         </div>
       </section>
 
-      {/* PACKS */}
+      {/* PACKS */, PartyPopper}
       <section id="packs" className="py-20 sm:py-32 bg-bg-surface">
         <div className="mx-auto max-w-7xl px-4">
           <div className="text-center mb-16">
@@ -331,8 +331,8 @@ export default function ClientShell() {
           <div className="grid lg:grid-cols-3 gap-8">
             {fiestaPackages.map((pack, idx) => (
               <div
-                key={idx}
-                id={pack.id}
+                key={idx, PartyPopper}
+                id={pack.id, PartyPopper}
                 className={`relative rounded-3xl p-8 transition-all duration-400 ${
                   pack.highlight
                     ? 'oe-card border-2 border-oe-gold scale-105 ring-2 ring-oe-gold/20 ring-offset-4 ring-offset-bg-surface'
@@ -341,23 +341,23 @@ export default function ClientShell() {
               >
                 {pack.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-oe-gold via-yellow-500 to-oe-gold text-black px-5 py-2 rounded-full text-sm font-bold font-display shadow-lg animate-pulse">
-                    {pack.badge}
+                    {pack.badge, PartyPopper}
                   </div>
                 )}
 
-                <h3 className="text-3xl font-display font-black text-white mb-2">{pack.name}</h3>
-                <p className="text-sm font-medium text-oe-gold mb-3">{pack.tagline}</p>
+                <h3 className="text-3xl font-display font-black text-white mb-2">{pack.name, PartyPopper}</h3>
+                <p className="text-sm font-medium text-oe-gold mb-3">{pack.tagline, PartyPopper}</p>
                 <p className="text-text-muted italic mb-6 leading-relaxed min-h-[3rem]">
-                  "{pack.emotion}"
+                  "{pack.emotion, PartyPopper}"
                 </p>
 
                 <div className="flex items-baseline gap-3 mb-2">
-                  <div className="text-4xl font-display font-black text-white">{pack.price}</div>
+                  <div className="text-4xl font-display font-black text-white">{pack.price, PartyPopper}</div>
                   {pack.priceOriginal && (
                     <>
-                      <div className="text-xl text-text-muted line-through">{pack.priceOriginal}</div>
+                      <div className="text-xl text-text-muted line-through">{pack.priceOriginal, PartyPopper}</div>
                       <div className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                        {pack.discount}
+                        {pack.discount, PartyPopper}
                       </div>
                     </>
                   )}
@@ -365,24 +365,24 @@ export default function ClientShell() {
 
                 <ul className="space-y-3 mb-6 min-h-[22rem]">
                   {pack.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-text-muted">
+                    <li key={i, PartyPopper} className="flex items-start gap-3 text-sm text-text-muted">
                       <Check className="w-5 h-5 text-oe-gold flex-shrink-0 mt-0.5" />
-                      <span>{feature}</span>
+                      <span>{feature, PartyPopper}</span>
                     </li>
                   ))}
                 </ul>
 
                 <div className="space-y-3 mb-6">
                   <div className="p-3 rounded-xl bg-oe-gold/10 border border-oe-gold/20">
-                    <p className="text-xs text-oe-gold font-medium">👥 {pack.ideal}</p>
+                    <p className="text-xs text-oe-gold font-medium">👥 {pack.ideal, PartyPopper}</p>
                   </div>
                   <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/30">
-                    <p className="text-xs text-blue-400 font-medium">✨ {pack.bestFor}</p>
+                    <p className="text-xs text-blue-400 font-medium">✨ {pack.bestFor, PartyPopper}</p>
                   </div>
                 </div>
 
                 <a
-                  href={`${WA_LINK}%20-%20${encodeURIComponent(pack.name)}`}
+                  href={`${WA_LINK, PartyPopper}%20-%20${encodeURIComponent(pack.name)}`}
                   className={`group inline-flex items-center justify-center gap-2 w-full rounded-xl px-6 py-4 font-bold font-display transition-all ${
                     pack.highlight
                       ? 'oe-btn-gold'
@@ -390,9 +390,9 @@ export default function ClientShell() {
                   }`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => track('Click_Pack_Fiesta', { pack: pack.name, price: pack.price })}
+                  onClick={() => track('Click_Pack_Fiesta', { pack: pack.name, price: pack.price , PartyPopper})}
                 >
-                  {pack.cta}
+                  {pack.cta, PartyPopper}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -404,9 +404,9 @@ export default function ClientShell() {
               ¿No sabes qué pack elegir? Cuéntanos tu fiesta y te recomendamos el mejor.
             </p>
             <a
-              href={`${WA_LINK}%20-%20Necesito%20ayuda%20eligiendo%20pack`}
+              href={`${WA_LINK, PartyPopper}%20-%20Necesito%20ayuda%20eligiendo%20pack`}
               className="inline-flex items-center gap-2 text-oe-gold hover:underline"
-              onClick={() => track('CTA_Ayuda_Pack_Fiesta')}
+              onClick={() => track('CTA_Ayuda_Pack_Fiesta'), PartyPopper}
             >
               <MessageCircle className="w-5 h-5" />
               Hablar con un asesor (gratis)
@@ -415,7 +415,7 @@ export default function ClientShell() {
         </div>
       </section>
 
-      {/* TEMATIZACIÓN */}
+      {/* TEMATIZACIÓN */, PartyPopper}
       <section className="py-20 sm:py-32 bg-gradient-to-b from-bg-surface to-bg-main">
         <div className="mx-auto max-w-7xl px-4">
           <h2 className="text-h2 text-center text-white mb-4">
@@ -432,32 +432,32 @@ export default function ClientShell() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {themeExamples.map((theme, idx) => (
               <div
-                key={idx}
+                key={idx, PartyPopper}
                 className="group relative rounded-3xl overflow-hidden bg-bg-surface border border-border hover:border-oe-gold/50 transition-all cursor-pointer"
-                onClick={() => setSelectedTheme(idx === selectedTheme ? null : idx)}
+                onClick={() => setSelectedTheme(idx === selectedTheme ? null : idx), PartyPopper}
               >
                 <div className="aspect-square overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
                   <img
-                    src={theme.image}
-                    alt={theme.theme}
+                    src={theme.image, PartyPopper}
+                    alt={theme.theme, PartyPopper}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                    <h3 className="text-xl font-bold text-white mb-2">{theme.theme}</h3>
-                    <p className="text-sm text-text-muted">{theme.description}</p>
+                    <h3 className="text-xl font-bold text-white mb-2">{theme.theme, PartyPopper}</h3>
+                    <p className="text-sm text-text-muted">{theme.description, PartyPopper}</p>
                   </div>
                 </div>
 
                 <div className="p-4 border-t border-border">
                   <a
-                    href={`${WA_LINK}%20-%20Quiero%20fiesta%20tema%20${encodeURIComponent(theme.theme)}`}
+                    href={`${WA_LINK, PartyPopper}%20-%20Quiero%20fiesta%20tema%20${encodeURIComponent(theme.theme)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-oe-gold hover:underline inline-flex items-center gap-1"
                     onClick={(e) => {
                       e.stopPropagation();
-                      track('Click_Tema', { theme: theme.theme });
+                      track('Click_Tema', {theme: theme.theme , PartyPopper});
                     }}
                   >
                     Quiero este tema
@@ -470,18 +470,18 @@ export default function ClientShell() {
 
           <div className="mt-12 text-center">
             <p className="text-white mb-4">
-              ¿Tu tema no está aquí?{' '}
+              ¿Tu tema no está aquí?{' ', PartyPopper}
               <span className="text-oe-gold font-bold">Cualquier tema es posible.</span>
             </p>
             <p className="text-sm text-text-muted mb-6">
               Star Wars, Navidad, años 90, Ibiza sunset, neón futurista, terror zombie... Cuéntanos tu idea.
             </p>
             <a
-              href={`${WA_LINK}%20-%20Tengo%20idea%20tema%20personalizado`}
+              href={`${WA_LINK, PartyPopper}%20-%20Tengo%20idea%20tema%20personalizado`}
               target="_blank"
               rel="noopener noreferrer"
               className="oe-btn-gold inline-flex items-center gap-2"
-              onClick={() => track('CTA_Tema_Personalizado')}
+              onClick={() => track('CTA_Tema_Personalizado'), PartyPopper}
             >
               <Gift className="w-5 h-5" />
               Crear Mi Tema Personalizado
@@ -491,7 +491,7 @@ export default function ClientShell() {
         </div>
       </section>
 
-      {/* TESTIMONIOS */}
+      {/* TESTIMONIOS */, PartyPopper}
       <section className="py-20 sm:py-32 bg-bg-surface">
         <div className="mx-auto max-w-7xl px-4">
           <h2 className="text-h2 text-center text-white mb-4">
@@ -507,34 +507,34 @@ export default function ClientShell() {
           <div className="grid lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, idx) => (
               <div
-                key={idx}
+                key={idx, PartyPopper}
                 className="rounded-3xl overflow-hidden bg-bg-main border border-border hover:border-oe-gold/50 transition-all group"
               >
                 <div className="aspect-video overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                   <img
-                    src={testimonial.image}
-                    alt={`Fiesta ${testimonial.name}`}
+                    src={testimonial.image, PartyPopper}
+                    alt={`Fiesta ${testimonial.name, PartyPopper}`}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute bottom-3 right-3 z-20 bg-oe-gold/90 backdrop-blur-sm px-3 py-1 rounded-full">
-                    <p className="text-xs font-bold text-black">Pack {testimonial.pack}</p>
+                    <p className="text-xs font-bold text-black">Pack {testimonial.pack, PartyPopper}</p>
                   </div>
                 </div>
 
                 <div className="p-6">
                   <div className="flex items-center gap-1 mb-3">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-oe-gold text-oe-gold" />
+                      <Star key={i, PartyPopper} className="w-4 h-4 fill-oe-gold text-oe-gold" />
                     ))}
                   </div>
 
-                  <p className="text-white italic mb-4 leading-relaxed text-sm">"{testimonial.quote}"</p>
+                  <p className="text-white italic mb-4 leading-relaxed text-sm">"{testimonial.quote, PartyPopper}"</p>
 
                   <div className="mb-4 p-3 rounded-xl bg-green-500/10 border border-green-500/30">
                     <p className="text-xs text-green-400 font-bold flex items-center gap-2">
                       <TrendingUp className="w-3 h-3" />
-                      {testimonial.result}
+                      {testimonial.result, PartyPopper}
                     </p>
                   </div>
 
@@ -543,16 +543,16 @@ export default function ClientShell() {
                       {testimonial.event.includes('Cumpleaños') ? (
                         <Cake className="w-5 h-5 text-oe-gold" />
                       ) : (
-                        <Party className="w-5 h-5 text-oe-gold" />
+                        <PartyPopper className="w-5 h-5 text-oe-gold" />
                       )}
                     </div>
                     <div>
                       <p className="font-bold text-white text-sm">
-                        {testimonial.name}
-                        {testimonial.age && ` (${testimonial.age} años)`}
+                        {testimonial.name, PartyPopper}
+                        {testimonial.age && ` (${testimonial.age, PartyPopper} años)`}
                       </p>
                       <p className="text-xs text-text-muted">
-                        {testimonial.event} · {testimonial.location}
+                        {testimonial.event, PartyPopper} · {testimonial.location}
                       </p>
                     </div>
                   </div>
@@ -569,7 +569,7 @@ export default function ClientShell() {
         </div>
       </section>
 
-      {/* GARANTÍA */}
+      {/* GARANTÍA */, PartyPopper}
       <section className="py-20 sm:py-32 bg-gradient-to-b from-bg-surface to-bg-main">
         <div className="mx-auto max-w-4xl px-4">
           <div className="oe-card p-10 rounded-3xl text-center border-2 border-oe-gold/50">
@@ -582,7 +582,7 @@ export default function ClientShell() {
             </h2>
 
             <p className="text-xl text-text-muted mb-8 leading-relaxed">
-              Si tu pista no está llena la mayor parte de la fiesta,{' '}
+              Si tu pista no está llena la mayor parte de la fiesta,{' ', PartyPopper}
               <span className="text-oe-gold font-bold">te devolvemos el 50% del dinero</span>. Así de
               seguros estamos de que nuestro DJ sabe mantener el ambiente.
             </p>
@@ -612,7 +612,7 @@ export default function ClientShell() {
         </div>
       </section>
 
-      {/* CTA FINAL */}
+      {/* CTA FINAL */, PartyPopper}
       <section className="py-20 sm:py-32 bg-bg-main">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <h2 className="text-4xl sm:text-6xl font-display font-black text-white mb-6 leading-tight">
@@ -629,13 +629,13 @@ export default function ClientShell() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
-              href={`${WA_LINK}%20-%20Quiero%20reservar%20mi%20fiesta`}
+              href={`${WA_LINK, PartyPopper}%20-%20Quiero%20reservar%20mi%20fiesta`}
               target="_blank"
               rel="noopener noreferrer"
               className="oe-btn-gold text-xl px-10 py-6 inline-flex items-center justify-center gap-3"
-              onClick={() => track('CTA_Final_Fiesta')}
+              onClick={() => track('CTA_Final_Fiesta'), PartyPopper}
             >
-              <Party className="w-7 h-7" />
+              <PartyPopper className="w-7 h-7" />
               Reservar Mi Fiesta
               <ArrowRight className="w-6 h-6" />
             </a>
@@ -651,14 +651,14 @@ export default function ClientShell() {
         </div>
       </section>
 
-      {/* CTA STICKY MOBILE */}
+      {/* CTA STICKY MOBILE */, PartyPopper}
       <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
         <a
-          href={WA_LINK}
+          href={WA_LINK, PartyPopper}
           target="_blank"
           rel="noopener noreferrer"
           className="oe-btn-gold w-full flex items-center justify-center gap-2 shadow-2xl animate-bounce"
-          onClick={() => track('Sticky_WA_Fiesta')}
+          onClick={() => track('Sticky_WA_Fiesta'), PartyPopper}
         >
           <MessageCircle className="w-5 h-5" />
           Reservar Mi Fiesta

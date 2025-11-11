@@ -1,5 +1,6 @@
-﻿// app/layout.tsx
+// app/layout.tsx
 import type { Metadata, Viewport } from 'next';
+import { Suspense } from 'react';
 import './globals.css';
 import { Inter, Space_Grotesk } from 'next/font/google';
 
@@ -11,7 +12,7 @@ import PageTransition from './components/ui/PageTransition.client';
 import OfferModal from './components/marketing/OfferModal.client';
 import CookieConsent from './components/legal/CookieConsent.client';
 import JsonLdOrganization from './components/seo/JsonLdOrganization';
-import ScrollTracker from './components/utils/ScrollTracker'; // 👈 añadido sin alterar nada
+import ScrollTracker from './components/utils/ScrollTracker';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -146,28 +147,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Saltar al contenido principal
         </a>
 
-        <Header />
+        <Suspense fallback={null}>
+          <Header />
 
-        <PageTransition>
-          <main id="main-content" className="pb-24 min-h-screen">
-            {children}
-          </main>
-        </PageTransition>
+          <PageTransition>
+            <main id="main-content" className="pb-24 min-h-screen">
+              {children}
+            </main>
+          </PageTransition>
 
-        {/* 📊 Scroll tracking de interacción */}
-        <ScrollTracker />
+          {/* 📊 Scroll tracking de interacción */}
+          <ScrollTracker />
 
-        {/* Popup oferta estratégica - aparece después de 30s o al intentar salir */}
-        <OfferModal />
+          {/* Popup oferta estratégica - aparece después de 30s o al intentar salir */}
+          <OfferModal />
 
-        {/* Cookie Consent GDPR compliant */}
-        <CookieConsent />
+          {/* Cookie Consent GDPR compliant */}
+          <CookieConsent />
 
-        <Footer />
+          <Footer />
 
-        {/* CTAs flotantes estratégicos */}
-        <StickyCTA />
-        <WhatsAppSticky />
+          {/* CTAs flotantes estratégicos */}
+          <StickyCTA />
+          <WhatsAppSticky />
+        </Suspense>
 
         {/* Analytics & Tracking (solo en producción) */}
         {process.env.NODE_ENV === 'production' && (

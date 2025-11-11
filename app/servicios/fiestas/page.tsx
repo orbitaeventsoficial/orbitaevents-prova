@@ -8,8 +8,8 @@ import Client from './Client';
 export const metadata: Metadata = {
   title: 'Fiestas Privadas Barcelona | Cumpleaños, Despedidas, Temáticas | DJ + Efectos | Òrbita Events',
   description:
-    'La fiesta privada que tus amigos recordarán. DJ profesional + EV ETX 2000W + 4 luces B-150 LED + efectos especiales. Cumpleaños, despedidas, fiestas temáticas (Halloween, años 80, Harry Potter). Desde 490€. Barcelona, Lleida, Girona.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.com'),
+    'La fiesta privada que tus amigos recordarán. DJ profesional + EV ETX 3000W + 4 luces B-150 LED + efectos especiales. Cumpleaños, despedidas, fiestas temáticas (Halloween, años 80, Harry Potter). Desde 490€. Barcelona, Lleida, Girona.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat'),
   alternates: { canonical: '/servicios/fiestas' },
   openGraph: {
     title: 'Fiestas Privadas | La Fiesta Que Tus Amigos Recordarán',

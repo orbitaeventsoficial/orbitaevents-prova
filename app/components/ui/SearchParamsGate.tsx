@@ -1,22 +1,20 @@
 "use client";
-import { Suspense, memo } from "react";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 type Props = {
   children: (sp: URLSearchParams) => React.ReactNode;
 };
 
-function SearchParamsGateInner({ children }: Props) {
+function SearchParamsContent({ children }: Props) {
   const sp = useSearchParams();
   return <>{children(sp)}</>;
 }
 
-function SearchParamsGate(props: Props) {
+export default function SearchParamsGate({ children }: Props) {
   return (
     <Suspense fallback={null}>
-      <SearchParamsGateInner {...props} />
+      <SearchParamsContent>{children}</SearchParamsContent>
     </Suspense>
   );
 }
-
-export default memo(SearchParamsGate);

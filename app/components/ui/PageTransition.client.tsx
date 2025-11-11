@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 const DURATION = 180; // ms
 
-function PageTransitionInner({ children }: PropsWithChildren) {
+function PageTransitionContent({ children }: PropsWithChildren) {
   const pathname = usePathname();
   const search = useSearchParams();
   const key = `${pathname}?${search?.toString() || ""}`;
@@ -45,10 +45,10 @@ function PageTransitionInner({ children }: PropsWithChildren) {
   return <div ref={ref} className="min-h-screen">{children}</div>;
 }
 
-export default function PageTransition(props: PropsWithChildren) {
+export default function PageTransition({ children }: PropsWithChildren) {
   return (
-    <Suspense fallback={null}>
-      <PageTransitionInner {...props} />
+    <Suspense fallback={<div className="min-h-screen">{children}</div>}>
+      <PageTransitionContent>{children}</PageTransitionContent>
     </Suspense>
   );
 }

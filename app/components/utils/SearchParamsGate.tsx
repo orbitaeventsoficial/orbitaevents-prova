@@ -6,15 +6,15 @@ type Props = {
   children: (sp: URLSearchParams) => React.ReactNode;
 };
 
-function SearchParamsGateInner({ children }: Props) {
+function SearchParamsContent({ children }: Props) {
   const sp = useSearchParams();
   return <>{children(sp)}</>;
 }
 
-export default function SearchParamsGate(props: Props) {
+export default function SearchParamsGate({ children }: Props) {
   return (
     <Suspense fallback={null}>
-      <SearchParamsGateInner {...props} />
+      <SearchParamsContent>{children}</SearchParamsContent>
     </Suspense>
   );
 }

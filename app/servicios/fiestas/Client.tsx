@@ -19,7 +19,7 @@ import {
   Clock,
   TrendingUp,
 } from 'lucide-react';
-import { getPacksByService } from '@/lib/packs-config';
+import { getPacksByService } from '@/data/packs-config';
 
 // Analytics
 let track: (event: string, data?: any) => void = () => {};
@@ -339,3 +339,4 @@ export default function FiestasClient() {
     </div>
   );
 }
+

@@ -4,7 +4,7 @@ import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
 import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
 import FAQ from '@/app/components/seo/FAQ';
 import Client from './client';
-import { getMinPriceByService, getPacksByService } from '@/lib/packs-config';
+import { getMinPriceByService, getPacksByService } from '@/data/packs-config';
 
 const EMP_MIN_PRICE = getMinPriceByService('empresas');
 const EMP_PACKS = getPacksByService('empresas');
@@ -121,3 +121,4 @@ export default function EmpresasPage() {
     </>
   );
 }
+

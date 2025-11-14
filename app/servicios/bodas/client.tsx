@@ -3,7 +3,7 @@
 
 import { Heart, Music, Sparkles, Check, Star, MessageCircle, Shield, Users } from 'lucide-react';
 import { useEffect } from 'react';
-import { getPacksByService } from '@/lib/packs-config';
+import { getPacksByService } from '@/data/packs-config';
 
 // Analytics
 let track: (event: string, data?: any) => void = () => {};
@@ -233,3 +233,4 @@ export default function BodasClient() {
     </div>
   );
 }
+

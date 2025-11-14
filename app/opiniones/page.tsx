@@ -1,4 +1,4 @@
-import { REVIEWS } from "./reviews-data";
+import { REVIEWS } from "@/data/reviews-data";
 // app/opiniones/page.tsx
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -86,3 +86,4 @@ export default function OpinionesPage() {
     </>
   );
 }
+

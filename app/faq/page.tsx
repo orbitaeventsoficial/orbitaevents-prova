@@ -4,7 +4,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Breadcrumbs from "@/app/components/seo/Breadcrumbs";
-import { FAQ_DATA } from "./faq-data";
+import { FAQ_DATA } from "@/data/faq-data";
 
 export const metadata: Metadata = {
   title: "FAQ DJ Bodas Barcelona | Respuestas Claras y Reales | Órbita Events",
@@ -79,3 +79,4 @@ export default function FAQPage() {
     </>
   );
 }
+

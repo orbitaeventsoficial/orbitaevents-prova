@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ALL_SERVICES, Pack } from '@/lib/packs-config';
+import { ALL_SERVICES, Pack } from '@/data/packs-config';
 import { Check, ChevronRight, Calendar, Users, Clock, Zap, MessageCircle, Sparkles } from 'lucide-react';
 
 // Analytics
@@ -336,3 +336,4 @@ ${config.extras.length > 0 ? `✨ Extras: ${config.extras.map(id => EXTRAS.find(
     </div>
   );
 }
+

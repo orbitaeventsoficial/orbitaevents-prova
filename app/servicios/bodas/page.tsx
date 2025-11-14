@@ -5,7 +5,7 @@ import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
 import FAQ from '@/app/components/seo/FAQ';
 import dynamic from 'next/dynamic';
 
-import { getMinPriceByService, getPacksByService } from '@/lib/packs-config';
+import { getMinPriceByService, getPacksByService } from '@/data/packs-config';
 
 const BodasClient = dynamic(() => import('./client'));
 
@@ -96,3 +96,4 @@ export default function BodasPage() {
     </>
   );
 }
+

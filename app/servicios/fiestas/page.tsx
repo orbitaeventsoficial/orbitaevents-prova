@@ -8,7 +8,7 @@ import {
   getMinPriceByService,
   getPacksByService,
   getPackById,
-} from '@/lib/packs-config';
+} from '@/data/packs-config';
 
 // ===============================
 // DATOS CENTRALIZADOS DESDE packs-config
@@ -152,3 +152,4 @@ export default function FiestasPage() {
     </>
   );
 }
+

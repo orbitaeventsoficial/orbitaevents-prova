@@ -16,7 +16,7 @@ import {
   getMinPriceByService,
   type ServiceSlug,
   type PackDefinition,
-} from '@/lib/packs-config';
+} from '@/data/packs-config';
 
 // Analytics
 let track: (event: string, data?: any) => void = () => {};
@@ -318,3 +318,4 @@ export default function PacksClient() {
     </div>
   );
 }
+

@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { useState } from "react";
 import { Search, ChevronDown, MessageCircle, Phone } from "lucide-react";
-import { FAQ_DATA } from './faq-data';
+import { FAQ_DATA } from '@/data/faq-data';
 
 type CategoryType = "all" | "general" | "sonido" | "iluminacion" | "precios" | "reservas";
 
@@ -196,3 +196,4 @@ export default function FAQClient() {
     </section>
   );
 }
+

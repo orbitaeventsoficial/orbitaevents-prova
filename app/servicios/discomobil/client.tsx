@@ -1,7 +1,7 @@
 // app/servicios/discomobil/ClientShell.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   Music,
   Sparkles,
@@ -19,6 +19,7 @@ import {
   TrendingUp,
   X,
 } from 'lucide-react';
+import { getPacksByService } from '@/lib/packs-config';
 
 // Analytics
 let track: (event: string, data?: any) => void = () => {};
@@ -28,79 +29,13 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
   });
 }
 
-const WA_LINK = `https://wa.me/34699121023?text=${encodeURIComponent(
-  'Hola! Quiero info para mi fiesta'
-)}`;
+// 🔗 BASE WHATSAPP
+const WA_BASE = 'https://wa.me/34699121023';
+const buildWhatsAppUrl = (message: string) =>
+  `${WA_BASE}?text=${encodeURIComponent(message)}`;
 
-const discoPackages = [
-  {
-    id: 'fiesta-basica',
-    name: '🎊 Fiesta Básica',
-    tagline: 'Todo lo esencial para la fiesta',
-    emotion: 'La fiesta que tus amigos esperan',
-    price: '690€',
-    priceOriginal: null,
-    features: [
-      '🎵 DJ profesional 4 horas',
-      '🔊 Sonido EV 2.000W (claro y potente)',
-      '💡 Luces LED básicas (8 focos dinámicos)',
-      '🎤 Micrófono inalámbrico',
-      '📱 Playlist personalizada pre-evento',
-      '🚚 Montaje + desmontaje incluido',
-    ],
-    ideal: 'Hasta 80 personas',
-    bestFor: 'Cumpleaños, fiestas pequeñas, eventos íntimos',
-    cta: 'Reservar Fecha',
-    popular: false,
-  },
-  {
-    id: 'fiesta-premium',
-    name: '🎉 Fiesta Premium',
-    tagline: 'La que NO olvidarán',
-    emotion: 'Tus amigos AÚN hablarán de esta fiesta en 6 meses',
-    price: '990€',
-    priceOriginal: '1.290€',
-    discount: '-23%',
-    features: [
-      '✨ TODO lo Básico +',
-      '🔊 Sonido mejorado 3.000W (máxima calidad)',
-      '💡 Iluminación LED avanzada (16 focos profesionales)',
-      '🌫️ Máquina de humo sincronizada',
-      '🎆 Efectos especiales (confeti, CO2 frío)',
-      '📸 Photocall con luces LED',
-      '🎚️ DJ con experiencia en lectura de pista',
-    ],
-    ideal: '80-150 personas',
-    bestFor: 'Bodas, bautizos, comuniones, eventos especiales',
-    highlight: true,
-    cta: 'Quiero Esta Fiesta',
-    popular: true,
-    badge: '🔥 MÁS POPULAR',
-  },
-  {
-    id: 'fiesta-vip',
-    name: '👑 Fiesta VIP',
-    tagline: 'Nivel discoteca profesional',
-    emotion: 'La fiesta del año. Todos querrán saber quién la organizó.',
-    price: '1.490€',
-    priceOriginal: null,
-    features: [
-      '🔥 TODO lo Premium +',
-      '🔊 Sonido profesional 4.000W (nivel concierto)',
-      '💡 Iluminación show completo (24+ focos)',
-      '🎪 Truss profesional (estructura elevada)',
-      '🎬 Pantalla LED con visuales sincronizados',
-      '🎭 DJ + efectos coordinados en tiempo real',
-      '⚡ Pirotecnia fría (efectos WOW)',
-      '🎨 Tematización personalizada (opcional)',
-      '⏱️ 6 horas DJ (vs 4h otros packs)',
-    ],
-    ideal: '150+ personas · Espacios grandes',
-    bestFor: 'Bodas grandes, eventos corporativos, aniversarios épicos',
-    cta: 'Consultar Disponibilidad',
-    popular: false,
-  },
-];
+// 🔥 PACKS CENTRALIZADOS
+const discoPackages = getPacksByService('discomobil');
 
 const partyTestimonials = [
   {
@@ -110,7 +45,7 @@ const partyTestimonials = [
     location: 'Barcelona',
     image: '/img/portfolio/fiestas-privadas/shot-01.webp',
     quote:
-      'Mis amigos aún me preguntan dónde contraté el DJ. La pista estuvo LLENA hasta las 5am. El DJ supo exactamente qué poner en cada momento. Brutal.',
+      'Mis amigos aún me preguntan dónde contraté el DJ. La pista estuvo llena hasta el final. Supo qué poner en cada momento.',
     rating: 5,
     pack: 'Premium',
   },
@@ -121,7 +56,7 @@ const partyTestimonials = [
     location: 'Lleida',
     image: '/img/portfolio/fiestas-privadas/shot-02.webp',
     quote:
-      'Profesionales 100%. Montaron súper rápido, sonó perfecto y el ambiente con las luces LED fue increíble. Todo el mundo bailando sin parar.',
+      'Profesionales de principio a fin. Montaje rápido, sonido claro y luces que daban ambiente de verdad. Todo el mundo bailando.',
     rating: 5,
     pack: 'Básica',
   },
@@ -132,7 +67,7 @@ const partyTestimonials = [
     location: 'Girona',
     image: '/img/portfolio/fiestas-privadas/shot-03.webp',
     quote:
-      'Queríamos una boda diferente. Los efectos de humo bajo cuando entramos, las luces sincronizadas... fue MÁGICO. Nuestros invitados siguen hablando de la fiesta.',
+      'Queríamos una boda con buena fiesta, no solo música de fondo. Humo, luces y cambios de ritmo muy bien medidos. Los invitados siguen hablando de la noche.',
     rating: 5,
     pack: 'VIP',
   },
@@ -140,22 +75,24 @@ const partyTestimonials = [
 
 const comparisonPoints = [
   {
-    wrong: '❌ Playlist de Spotify en aleatorio',
-    consequence: 'Pista vacía a medianoche, gente aburrida',
-    right: '✅ DJ que LEE la pista en tiempo real',
-    benefit: 'Adapta música al ambiente. Si no bailan, cambia. Pista LLENA garantizada.',
+    wrong: '❌ Playlist en aleatorio desde el móvil',
+    consequence: 'Pista vacía a medianoche, cambios de tema raros y gente sentada',
+    right: '✅ DJ que lee la pista en tiempo real',
+    benefit:
+      'Si no reaccionan, cambia. Si sube el ambiente, aprieta. El objetivo: pista llena el máximo rato posible.',
   },
   {
-    wrong: '❌ Luces estáticas aburridas',
-    consequence: '"Estuvo bien... pero nada especial"',
-    right: '✅ Luces sincronizadas con música',
-    benefit: 'Efectos WOW. Cada cambio de canción = cambio de ambiente. IMPACTO visual.',
+    wrong: '❌ Luces genéricas que solo parpadean',
+    consequence: '"Estuvo bien… pero parecía una luz cualquiera"',
+    right: '✅ Luces pensadas para la pista',
+    benefit:
+      'Ambiente distinto para calentamiento, subidones y finales. La luz acompaña la música, no molesta.',
   },
   {
-    wrong: '❌ Equipamiento cutre de Amazon',
-    consequence: 'Sonido distorsionado, problemas técnicos, fiesta arruinada',
-    right: '✅ Equipamiento profesional EV + Pioneer',
-    benefit: 'Sonido cristalino 3000W. Backup completo. CERO problemas técnicos.',
+    wrong: '❌ Equipamiento barato sin garantía',
+    consequence: 'Sonido pobre, posibles acoples o fallos a media fiesta',
+    right: '✅ Equipamiento profesional EV + controladora DJ',
+    benefit: 'Sonido nítido, estable y con backup preparado por si algo falla.',
   },
 ];
 
@@ -169,8 +106,6 @@ const availabilityData = [
 ];
 
 export default function ClientShell() {
-  const [selectedPackage, setSelectedPackage] = useState<string | null>('fiesta-premium');
-
   useEffect(() => {
     track('View_Discomovil');
   }, []);
@@ -201,24 +136,24 @@ export default function ClientShell() {
           </h1>
 
           <p className="text-2xl sm:text-3xl text-text-muted max-w-4xl mb-8 leading-relaxed">
-            No es solo música.
+            No es solo poner música.
             <br />
-            Es que <span className="text-oe-gold font-bold">la pista esté LLENA</span> hasta que se vayan
-            (y hablen de tu fiesta durante meses).
+            Es que <span className="text-oe-gold font-bold">la pista tenga sentido</span> desde el primer
+            tema hasta el último.
           </p>
 
           <div className="flex flex-wrap items-center gap-6 mb-10 text-sm">
             <div className="flex items-center gap-2">
               <Check className="w-5 h-5 text-oe-gold" />
-              <span className="text-white/80">DJ que lee la pista en tiempo real</span>
+              <span className="text-white/80">DJ que lee la pista y se adapta al público</span>
             </div>
             <div className="flex items-center gap-2">
               <Check className="w-5 h-5 text-oe-gold" />
-              <span className="text-white/80">Equipamiento profesional EV + B-150 LED</span>
+              <span className="text-white/80">Equipamiento profesional EV, nada de kits de juguete</span>
             </div>
             <div className="flex items-center gap-2">
               <Check className="w-5 h-5 text-oe-gold" />
-              <span className="text-white/80">Efectos especiales sincronizados</span>
+              <span className="text-white/80">Montaje cuidado y efectos en los momentos clave</span>
             </div>
           </div>
 
@@ -242,7 +177,7 @@ export default function ClientShell() {
               <ArrowRight className="w-5 h-5" />
             </a>
             <a
-              href={WA_LINK}
+              href={buildWhatsAppUrl('Hola! Quiero info para mi fiesta')}
               target="_blank"
               rel="noopener noreferrer"
               className="oe-btn text-lg px-8 py-5 inline-flex items-center justify-center gap-3 bg-bg-surface border border-oe-gold/30 hover:border-oe-gold hover:bg-oe-gold/10"
@@ -264,7 +199,7 @@ export default function ClientShell() {
 
           <p className="text-xl text-text-muted text-center max-w-3xl mx-auto mb-16">
             La diferencia entre una fiesta "que estuvo bien" y una fiesta{' '}
-            <span className="text-oe-gold font-bold">que recuerdan durante años</span>.
+            <span className="text-oe-gold font-bold">que apetece repetir</span>.
           </p>
 
           <div className="space-y-8">
@@ -307,8 +242,8 @@ export default function ClientShell() {
                 📅 Disponibilidad en Tiempo Real
               </h2>
               <p className="text-lg text-text-muted">
-                Los <span className="text-oe-gold font-bold">viernes y sábados vuelan</span>. Reserva YA tu
-                fecha antes de que la pille otro.
+                Los <span className="text-oe-gold font-bold">viernes y sábados se llenan rápido</span>.
+                Mejor mirar la fecha antes de pensar en la playlist.
               </p>
             </div>
 
@@ -346,11 +281,11 @@ export default function ClientShell() {
 
             <div className="text-center">
               <p className="text-sm text-text-muted mb-4">
-                🔥 <span className="text-oe-gold font-bold">Hace 3 horas:</span> Reservado Sábado 21 Dic
-                (Boda en Tàrrega)
+                🔥 <span className="text-oe-gold font-bold">Hace unas horas:</span> reservada una fecha de
+                sábado para discomóvil
               </p>
               <a
-                href={`${WA_LINK}%20-%20Quiero%20consultar%20disponibilidad`}
+                href={buildWhatsAppUrl('Hola! Quiero consultar disponibilidad para una discomóvil')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="oe-btn-gold inline-flex items-center gap-2"
@@ -375,46 +310,43 @@ export default function ClientShell() {
               <span className="text-oe-gold">(Pista Llena Garantizada)</span>
             </h2>
             <p className="text-xl text-text-muted max-w-3xl mx-auto">
-              Todos los packs incluyen DJ profesional, equipamiento de calidad y montaje/desmontaje. La
-              diferencia está en el nivel de IMPACTO.
+              Todos los packs incluyen DJ profesional, equipo de calidad y montaje/desmontaje. La diferencia
+              está en la potencia, la luz y el nivel de producción.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {discoPackages.map((pack, idx) => (
+            {discoPackages.map((pack) => (
               <div
-                key={idx}
-                id={pack.id}
+                key={pack.id}
+                id={pack.slug}
                 className={`relative rounded-3xl p-8 overflow-visible transition-all duration-400 ${
                   pack.highlight
                     ? 'oe-card border-2 border-oe-gold scale-105 ring-2 ring-oe-gold/20 ring-offset-4 ring-offset-bg-surface'
                     : 'bg-bg-main border border-border hover:border-oe-gold/30 hover:scale-[1.02]'
                 }`}
               >
-                {pack.popular && (
-                 <div
-                className="
-                 absolute left-1/2 -top-6 -translate-x-1/2 z-20 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide
-                 bg-oe-gold text-black ring-1 ring-oe-gold-dark shadow-oe-gold">
-                 {pack.badge}
-                </div>
+                {pack.popular && pack.badge && (
+                  <div
+                    className="absolute left-1/2 -top-6 -translate-x-1/2 z-20 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide
+                 bg-oe-gold text-black ring-1 ring-oe-gold-dark shadow-oe-gold"
+                  >
+                    {pack.badge}
+                  </div>
                 )}
 
                 <h3 className="text-3xl font-display font-black text-white mb-2">{pack.name}</h3>
                 <p className="text-sm font-medium text-oe-gold mb-3">{pack.tagline}</p>
-                <p className="text-text-muted italic mb-6 leading-relaxed min-h-[3rem]">
-                  "{pack.emotion}"
-                </p>
+                {pack.emotion && (
+                  <p className="text-text-muted italic mb-6 leading-relaxed min-h-[3rem]">
+                    "{pack.emotion}"
+                  </p>
+                )}
 
                 <div className="flex items-baseline gap-3 mb-2">
                   <div className="text-4xl font-display font-black text-white">{pack.price}</div>
                   {pack.priceOriginal && (
-                    <>
-                      <div className="text-xl text-text-muted line-through">{pack.priceOriginal}</div>
-                      <div className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                        {pack.discount}
-                      </div>
-                    </>
+                    <div className="text-xl text-text-muted line-through">{pack.priceOriginal}</div>
                   )}
                 </div>
 
@@ -428,16 +360,22 @@ export default function ClientShell() {
                 </ul>
 
                 <div className="space-y-3 mb-6">
-                  <div className="p-3 rounded-xl bg-oe-gold/10 border border-oe-gold/20">
-                    <p className="text-xs text-oe-gold font-medium">👥 {pack.ideal}</p>
-                  </div>
-                  <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/30">
-                    <p className="text-xs text-blue-400 font-medium">✨ {pack.bestFor}</p>
-                  </div>
+                  {pack.ideal && (
+                    <div className="p-3 rounded-xl bg-oe-gold/10 border border-oe-gold/20">
+                      <p className="text-xs text-oe-gold font-medium">👥 {pack.ideal}</p>
+                    </div>
+                  )}
+                  {pack.bestFor && (
+                    <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/30">
+                      <p className="text-xs text-blue-400 font-medium">✨ {pack.bestFor}</p>
+                    </div>
+                  )}
                 </div>
 
                 <a
-                  href={`${WA_LINK}%20-%20${encodeURIComponent(pack.name)}`}
+                  href={buildWhatsAppUrl(
+                    `Hola! Quiero info sobre el ${pack.name} (${pack.price}) para una discomóvil`
+                  )}
                   className={`group inline-flex items-center justify-center gap-2 w-full rounded-xl px-6 py-4 font-bold font-display transition-all ${
                     pack.highlight
                       ? 'oe-btn-gold'
@@ -445,9 +383,11 @@ export default function ClientShell() {
                   }`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => track('Click_Pack_Discomovil', { pack: pack.name, price: pack.price })}
+                  onClick={() =>
+                    track('Click_Pack_Discomovil', { pack: pack.id, price: pack.priceValue })
+                  }
                 >
-                  {pack.cta}
+                  {pack.cta || 'Reservar Pack'}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -456,10 +396,11 @@ export default function ClientShell() {
 
           <div className="mt-12 text-center">
             <p className="text-text-muted mb-4">
-              ¿No estás seguro de qué pack elegir? Cuéntanos tu fiesta y te recomendamos el mejor.
+              ¿No tienes claro qué pack encaja mejor? Cuéntanos espacio, horario y nº de personas y te decimos
+              cuál tiene más sentido.
             </p>
             <a
-              href={`${WA_LINK}%20-%20Necesito%20ayuda%20eligiendo%20pack`}
+              href={buildWhatsAppUrl('Hola! Necesito ayuda eligiendo pack de discomóvil')}
               className="inline-flex items-center gap-2 text-oe-gold hover:underline"
               onClick={() => track('CTA_Ayuda_Pack')}
             >
@@ -480,8 +421,8 @@ export default function ClientShell() {
           </h2>
 
           <p className="text-xl text-text-muted text-center max-w-3xl mx-auto mb-16">
-            No te fíes solo de nosotros. Mira lo que dicen las personas que ya contrataron Òrbita para sus
-            fiestas.
+            Opiniones de gente que ya ha confiado en Òrbita para dejar la música en manos de alguien que sabe
+            lo que hace.
           </p>
 
           <div className="grid lg:grid-cols-3 gap-8">
@@ -495,7 +436,7 @@ export default function ClientShell() {
                   <img
                     src={testimonial.image}
                     alt={`Fiesta ${testimonial.name}`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform	duration-500"
                   />
                   <div className="absolute bottom-3 right-3 z-20 bg-oe-gold/90 backdrop-blur-sm px-3 py-1 rounded-full">
                     <p className="text-xs font-bold text-black">Pack {testimonial.pack}</p>
@@ -546,36 +487,36 @@ export default function ClientShell() {
               <Heart className="w-10 h-10 text-oe-gold" />
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-white mb-4">
+            <h2 className="text-3xl sm:4xl font-display font-black text-white mb-4">
               Garantía "Pista Llena"
             </h2>
 
             <p className="text-xl text-text-muted mb-8 leading-relaxed">
-              Si tu pista no está llena hasta que se vayan,{' '}
-              <span className="text-oe-gold font-bold">te devolvemos el 50% del dinero</span>. Así de
-              seguros estamos de que nuestro DJ sabe leer la pista y mantener el ambiente.
+              Si la música no acompaña y la pista se vacía por nuestra culpa,{' '}
+              <span className="text-oe-gold font-bold">te devolvemos el 50% del dinero</span>. No tiene sentido
+              llamarnos si no es para tener buena fiesta.
             </p>
 
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="p-4 rounded-xl bg-bg-main">
                 <TrendingUp className="w-8 h-8 text-oe-gold mx-auto mb-2" />
                 <p className="text-sm text-white font-bold">93%</p>
-                <p className="text-xs text-text-muted">Pista llena 3 horas</p>
+                <p className="text-xs text-text-muted">Pista activa más de 3 horas</p>
               </div>
               <div className="p-4 rounded-xl bg-bg-main">
                 <Clock className="w-8 h-8 text-oe-gold mx-auto mb-2" />
                 <p className="text-sm text-white font-bold">Hasta las 5am</p>
-                <p className="text-xs text-text-muted">Tiempo medio fiesta</p>
+                <p className="text-xs text-text-muted">Duración media de las fiestas largas</p>
               </div>
               <div className="p-4 rounded-xl bg-bg-main">
                 <Star className="w-8 h-8 text-oe-gold mx-auto mb-2" />
                 <p className="text-sm text-white font-bold">4.9/5</p>
-                <p className="text-xs text-text-muted">Valoración ambiente</p>
+                <p className="text-xs text-text-muted">Valoración de ambiente</p>
               </div>
             </div>
 
             <p className="text-sm text-text-muted">
-              * Garantía válida si se siguen recomendaciones básicas de espacio y horario
+              * Garantía válida si se respetan recomendaciones de horario, espacio y aforo
             </p>
           </div>
         </div>
@@ -584,21 +525,21 @@ export default function ClientShell() {
       {/* CTA FINAL */}
       <section className="py-20 sm:py-32 bg-gradient-to-b from-bg-surface to-bg-main">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-4xl sm:text-6xl font-display font-black text-white mb-6 leading-tight">
+          <h2 className="text-4xl sm:6xl font-display font-black text-white mb-6 leading-tight">
             ¿Lista Para La Fiesta
             <br />
             <span className="text-oe-gold">Del Año?</span>
           </h2>
 
           <p className="text-xl text-text-muted mb-10 leading-relaxed">
-            Solo <span className="text-oe-gold font-bold">4 fechas disponibles en diciembre</span>.
+            Solo <span className="text-oe-gold font-bold">unas pocas fechas libres</span> en los próximos meses.
             <br />
-            Los fines de semana se llenan 6-8 semanas antes. Reserva YA.
+            Si tienes fecha aproximada, mejor mirarla ahora que lamentarlo luego.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
-              href={`${WA_LINK}%20-%20Quiero%20reservar%20mi%20fiesta`}
+              href={buildWhatsAppUrl('Hola! Quiero reservar mi fiesta de discomóvil')}
               target="_blank"
               rel="noopener noreferrer"
               className="oe-btn-gold text-xl px-10 py-6 inline-flex items-center justify-center gap-3"
@@ -611,11 +552,11 @@ export default function ClientShell() {
           </div>
 
           <p className="text-sm text-text-muted">
-            ⚡ Respondemos en menos de 2h (incluso fines de semana)
+            ⚡ Respondemos en menos de 2h (incluidos fines de semana)
             <br />
-            💶 Señal 30% | Resto día evento
+            💶 Señal 30% | Resto el día del evento
             <br />
-            🎁 Reserva hoy y te regalamos 1 hora extra
+            🎁 A veces incluimos alguna hora extra según el evento y la fecha
           </p>
         </div>
       </section>
@@ -623,7 +564,7 @@ export default function ClientShell() {
       {/* CTA STICKY MOBILE */}
       <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
         <a
-          href={WA_LINK}
+          href={buildWhatsAppUrl('Hola! Quiero info para mi fiesta de discomóvil')}
           target="_blank"
           rel="noopener noreferrer"
           className="oe-btn-gold w-full flex items-center justify-center gap-2 shadow-2xl animate-bounce"

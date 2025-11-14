@@ -1,162 +1,113 @@
-// app/servicios/produccion/client.tsx
-'use client';
+// app/servicios/produccion/page.tsx
+import type { Metadata } from 'next';
+import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
+import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
+import FAQ from '@/app/components/seo/FAQ';
+import dynamic from 'next/dynamic';
 
-import { useEffect } from "react";
-import ContactForm from "@/app/components/forms/ContactForm.client";
-import { Mic, Speaker, Lightbulb, Star, Check, MessageCircle, Shield, RotateCcw } from "lucide-react";
+const ProduccionClient = dynamic(() => import('./client'));
 
-// Analytics
-let track: (event: string, data?: any) => void = () => {};
-if (typeof window !== "undefined" && process.env.NODE_ENV === "production") {
-  import("@vercel/analytics").then((mod) => {
-    track = mod.track;
-  });
-}
+export const metadata: Metadata = {
+  title: 'Producción Técnica Profesional | Escenarios + Sonido + Luces LED | Òrbita Events',
+  description:
+    'Producción técnica integral para eventos grandes: escenarios certificados, sonido line array EV, iluminación DMX y pantallas LED P3.9. Técnico onsite, montaje seguro y backup total. Barcelona, Lleida, Girona.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat'),
+  alternates: { canonical: '/servicios/produccion' },
+  openGraph: {
+    title: 'Producción Técnica Profesional | Sin Fallos',
+    description:
+      'Escenarios, sonido line array, luces DMX y pantallas LED para eventos grandes. Técnico onsite y sistema redundante.',
+    url: '/servicios/produccion',
+    images: [
+      {
+        url: '/api/og?title=Producción%20Técnica',
+        alt: 'Producción técnica profesional Òrbita Events',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Producción Técnica | Escenarios + Sonido + Luces',
+    description: 'Soluciones técnicas integrales para eventos grandes con técnico onsite.',
+    images: ['/api/og?title=Producción%20Técnica'],
+  },
+  robots: { index: true, follow: true },
+  keywords: [
+    'producción técnica Barcelona',
+    'alquiler escenarios Barcelona',
+    'sonido line array',
+    'pantallas LED eventos',
+    'iluminación DMX',
+    'producción eventos corporativos',
+    'técnico eventos Barcelona',
+    'montaje eventos profesional',
+  ],
+};
 
-const WA_LINK = `https://wa.me/34699121023?text=${encodeURIComponent(
-  "Hola! Quiero info sobre producción técnica"
-)}`;
-
-export default function ProduccionClient() {
-  useEffect(() => {
-    track("View_Produccion");
-  }, []);
-
-  // Parche anti-salto: desactiva restauración de scroll y fuerza top al montar
-  useEffect(() => {
-    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
-    }
-    const t = setTimeout(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    }, 120);
-    return () => clearTimeout(t);
-  }, []);
-
+export default function ProduccionPage() {
   return (
-    <div className="min-h-screen bg-bg-main">
-      {/* HERO */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-bg-main z-10" />
-          <img
-            src="/img/portfolio/produccion-cover.webp"
-            alt="Producción técnica de eventos Òrbita"
-            className="w-full h-full object-cover animate-slow-zoom"
-          />
-        </div>
+    <>
+      <Breadcrumbs
+        items={[
+          { name: 'Inicio', url: '/' },
+          { name: 'Servicios', url: '/servicios' },
+          { name: 'Producción Técnica', url: '/servicios/produccion' },
+        ]}
+      />
 
-        <div className="relative z-20 mx-auto max-w-6xl px-4 py-20 text-center">
-          <h1 className="text-5xl sm:text-7xl font-display font-black text-white mb-6 leading-[1.05]">
-            Producción Técnica
-            <br />
-            <span className="gradient-text breathe">Profesional y Sin Fallos</span>
-          </h1>
-          <p className="text-xl sm:text-2xl text-text-muted max-w-3xl mx-auto mb-10 leading-relaxed">
-            Escenarios, sonido, luces y pantallas LED para eventos grandes.
-            <br />Montaje limpio, seguro y con técnico onsite.
-          </p>
+      {/* JSON-LD OPTIMIZADO */}
+      <ServiceJsonLD
+        name="Producción Técnica Profesional"
+        slugPath="/servicios/produccion"
+        description="Producción técnica integral para eventos de gran formato: escenarios certificados, sonido line array de alto rendimiento (EV), iluminación escénica con DMX, pantallas LED P3.9 y técnico especializado onsite durante todo el evento. Sistema redundante en puntos críticos."
+        serviceType={[
+          'Producción técnica',
+          'Alquiler escenarios',
+          'Sonido profesional',
+          'Iluminación escénica',
+          'Pantallas LED',
+          'Técnico de eventos',
+        ]}
+        areaServed={['Barcelona', 'Lleida', 'Girona', 'Tarragona', 'Catalunya']}
+        priceCurrency="EUR"
+        availability="https://schema.org/InStock"
+        aggregateRating={{
+          ratingValue: 4.9,
+          reviewCount: 52,
+        }}
+      />
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="oe-btn-gold text-lg px-8 py-5 inline-flex items-center justify-center gap-3"
-              onClick={() => track("CTA_WhatsApp_Produccion")}
-            >
-              <MessageCircle className="w-5 h-5" />
-              Consultar Disponibilidad
-            </a>
-          </div>
-        </div>
-      </section>
+      <ProduccionClient />
 
-      {/* SERVICIOS */}
-      <section className="py-20 sm:py-32 bg-gradient-to-b from-bg-main to-bg-surface">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-h2 text-center text-white mb-12">
-            Soluciones Técnicas <span className="text-oe-gold">Integrales</span>
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Mic,
-                title: "Sonido Profesional",
-                text: "Equipos EV / Line Array de alto rendimiento. Cobertura perfecta sin distorsión.",
-              },
-              {
-                icon: Lightbulb,
-                title: "Iluminación Escénica",
-                text: "Focos LED, barras móviles, truss con DMX sincronizado. Efecto visual y control total.",
-              },
-              {
-                icon: Speaker,
-                title: "Pantallas LED y Escenarios",
-                text: "Estructuras certificadas, pantallas P3.9 y montaje rápido, limpio y seguro.",
-              },
-            ].map((s, i) => (
-              <div
-                key={i}
-                className="p-8 rounded-3xl bg-bg-surface border border-border hover:border-oe-gold/50 transition-all text-center"
-              >
-                <s.icon className="w-12 h-12 text-oe-gold mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">{s.title}</h3>
-                <p className="text-text-muted text-sm leading-relaxed">{s.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* GARANTÍA */}
-      <section className="py-20 sm:py-32 bg-bg-surface">
-        <div className="mx-auto max-w-5xl px-4 text-center">
-          <div className="oe-card p-10 rounded-3xl border-2 border-oe-gold/50">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-oe-gold/10 flex items-center justify-center">
-              <Shield className="w-10 h-10 text-oe-gold" />
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-white mb-4">
-              Garantía de Estabilidad y Seguridad
-            </h2>
-            <p className="text-xl text-text-muted mb-8 leading-relaxed">
-              Todo el material certificado, con técnico onsite durante el evento y redundancia completa en puntos críticos (audio, potencia, señal).
-            </p>
-
-            <div className="grid sm:grid-cols-3 gap-6 text-center">
-              <div className="p-4 bg-bg-main rounded-xl">
-                <Star className="w-6 h-6 text-oe-gold mx-auto mb-2" />
-                <p className="text-white font-bold">4.9/5</p>
-                <p className="text-text-muted text-xs">Valoración media</p>
-              </div>
-              <div className="p-4 bg-bg-main rounded-xl">
-                <Check className="w-6 h-6 text-oe-gold mx-auto mb-2" />
-                <p className="text-white font-bold">100%</p>
-                <p className="text-text-muted text-xs">Montajes sin incidencias</p>
-              </div>
-              <div className="p-4 bg-bg-main rounded-xl">
-                <RotateCcw className="w-6 h-6 text-oe-gold mx-auto mb-2" />
-                <p className="text-white font-bold">Backup total</p>
-                <p className="text-text-muted text-xs">Sistema redundante</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FORMULARIO */}
-      <section className="py-20 sm:py-32 bg-gradient-to-b from-bg-surface to-bg-main">
-        <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-4xl font-display font-black text-white mb-6">
-            Cuéntanos Tu Evento
-          </h2>
-          <p className="text-lg text-text-muted mb-10">
-            Dinos qué necesitas y te enviaremos una propuesta técnica adaptada a tu espacio.
-          </p>
-          <ContactForm />
-        </div>
-      </section>
-    </div>
+      <FAQ
+        items={[
+          {
+            q: '¿Qué incluye exactamente el servicio de producción técnica?',
+            a: 'Incluye escenarios certificados (estructuras seguras), sonido line array de alta potencia (EV/similar), iluminación escénica con control DMX, pantallas LED P3.9 para proyección y técnico especializado onsite durante el evento. Todo con sistema redundante en audio, potencia y señal para evitar fallos.',
+          },
+          {
+            q: '¿Trabajáis en eventos al aire libre?',
+            a: 'Sí. Adaptamos el montaje a exteriores con estructuras reforzadas, protección IP para equipos sensibles y plan B ante condiciones meteorológicas adversas. Revisamos siempre el espacio antes del montaje.',
+          },
+          {
+            q: '¿Cuánto tiempo necesitáis para montar?',
+            a: 'Depende del tamaño del evento. Para un montaje medio (escenario 6x4, sonido, luces y pantalla), entre 4 y 6 horas. Para producciones grandes, entre 8 y 12 horas. Siempre llegamos con margen para pruebas completas.',
+          },
+          {
+            q: '¿Qué garantías tenéis si algo falla durante el evento?',
+            a: 'Sistema redundante en todos los puntos críticos: doble línea de audio, doble fuente de alimentación y backup de señal. Técnico onsite con herramientas y repuestos. En más de 50 eventos no hemos tenido que detener un acto por fallo técnico.',
+          },
+          {
+            q: '¿Hacéis eventos corporativos y conferencias?',
+            a: 'Sí. Corporativos, conferencias, congresos, presentaciones y eventos institucionales. Incluimos micros inalámbricos, proyección, streaming si se necesita y coordinación con speakers y equipo de protocolo.',
+          },
+          {
+            q: '¿Cómo se solicita presupuesto?',
+            a: 'Necesitamos saber: tipo de evento, número de asistentes, espacio (interior/exterior), servicios necesarios (escenario, sonido, luces, pantallas) y fecha. Con eso enviamos propuesta técnica detallada y presupuesto ajustado.',
+          },
+        ]}
+      />
+    </>
   );
 }

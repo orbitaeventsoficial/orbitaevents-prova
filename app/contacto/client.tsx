@@ -90,7 +90,7 @@ function ContactFormInner() {
     <section className="mx-auto max-w-3xl px-4 py-16">
       <h1 className="text-h2 text-center">Pide presupuesto</h1>
       <p className="mt-3 text-center text-white/70">
-        Producción técnica y DJ sin humo. Respuesta en 24h.
+        Producción técnica, DJ, tematizaciones. Respuesta en 24h.
       </p>
 
       <Formik initialValues={initialValues} validationSchema={schema} onSubmit={onSubmit}>

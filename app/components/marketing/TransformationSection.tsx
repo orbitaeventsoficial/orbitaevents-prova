@@ -9,19 +9,19 @@ const comparisons = [
     wrong: 'Playlist de Spotify en aleatorio',
     problem: 'Pista vacía a medianoche, gente aburrida',
     right: 'DJ que LEE la pista en tiempo real',
-    benefit: 'Adapta música al ambiente. Pista LLENA garantizada.',
+    benefit: 'Adapta música al ambiente. Invitados que disfrutan.',
   },
   {
     wrong: 'Luces estáticas aburridas',
     problem: '"Estuvo bien... pero nada especial"',
     right: 'Luces sincronizadas con música',
-    benefit: 'Cada cambio = nuevo ambiente. IMPACTO visual continuo.',
+    benefit: 'Cada cambio = nuevo ambiente. IMPACTO visual.',
   },
   {
     wrong: 'Equipamiento cutre de Amazon',
     problem: 'Sonido distorsionado, problemas técnicos',
     right: 'Equipamiento profesional EV + Pioneer',
-    benefit: 'Sonido cristalino 3000W. Backup completo. CERO problemas.',
+    benefit: 'Sonido cristalino 4000W. Backup completo. CERO problemas.',
   },
 ];
 
@@ -48,7 +48,7 @@ export default function TransformationSection() {
 
           <p className="text-xl text-text-muted max-w-3xl mx-auto">
             La diferencia entre una fiesta "que estuvo bien" y una fiesta{' '}
-            <span className="text-oe-gold font-bold">que recuerdan durante años</span>.
+            <span className="text-oe-gold font-bold">que se recordará durante años</span>.
           </p>
         </div>
 

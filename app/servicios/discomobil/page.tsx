@@ -1,36 +1,37 @@
 // app/servicios/discomobil/page.tsx
-// 🔥 MANOLO VERSION - Corregido + Optimizado
 
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
 import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
 import FAQ from '@/app/components/seo/FAQ';
 import Client from './client';
+import { getMinPriceByService, getPacksByService } from '@/lib/packs-config';
+
+const DISCO_MIN_PRICE = getMinPriceByService('discomobil');
+const DISCO_PACKS = getPacksByService('discomobil');
 
 export const metadata: Metadata = {
-  title: 'Discomóvil Barcelona | DJ + EV ETX + B-150 LED | La Fiesta que NO Olvidarán | Órbita Events',
-  description:
-    'La discomóvil que mantiene la pista LLENA hasta que se van. DJ profesional + sonido EV ETX 3000W + 4 luces B-150 LED. No ponemos playlists, leemos la pista. Desde 690€. Barcelona, Lleida, Girona, Tarragona.',
+  title: 'Discomóvil Barcelona | DJ + EV + Luces LED | La Fiesta que NO Olvidarán | Òrbita Events',
+  description: `Discomóvil con DJ profesional, sonido EV profesional y luces LED para que la pista tenga sentido toda la noche. Leemos la pista, no ponemos playlists en aleatorio. Packs desde ${DISCO_MIN_PRICE}€. Barcelona, Lleida, Girona, Tarragona.`,
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat'),
   alternates: { canonical: '/servicios/discomobil' },
   openGraph: {
     title: 'Discomóvil | La Fiesta Que Tus Amigos NO Olvidarán',
-    description:
-      'DJ que lee la pista + equipamiento profesional + efectos especiales. Pista llena garantizada. Desde 690€.',
+    description: `DJ que lee la pista, equipamiento profesional EV y luces LED pensadas para la pista. Packs desde ${DISCO_MIN_PRICE}€ para fiestas, bodas y eventos privados.`,
     url: '/servicios/discomobil',
     images: [
       {
-        url: '/api/og?title=Discomóvil%20Desde%20690€',
-        alt: 'Discomóvil profesional con DJ y efectos especiales',
+        url: '/api/og?title=Discomovil',
+        alt: 'Discomóvil profesional con DJ y luces para fiestas privadas',
       },
     ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Discomóvil | Pista Llena Garantizada desde 690€',
-    description: 'DJ profesional + EV ETX + B-150 LED. La fiesta que tus amigos recordarán.',
-    images: ['/api/og?title=Discomóvil%20690€'],
+    title: `Discomóvil | Pista Llena Garantizada desde ${DISCO_MIN_PRICE}€`,
+    description: 'DJ profesional + sonido EV + luces LED. La fiesta que tus amigos recordarán.',
+    images: ['/api/og?title=Discomovil'],
   },
   robots: { index: true, follow: true },
   keywords: [
@@ -60,45 +61,31 @@ export default function DiscomobilPage() {
       <ServiceJsonLD
         name="Discomóvil Profesional Barcelona"
         slugPath="/servicios/discomobil"
-        description="DJ profesional que lee la pista en tiempo real. Sonido EV ETX 3000W, 4 luces B-150 LED 150W, efectos especiales sincronizados. Pista llena garantizada."
-        serviceType={['Discomóvil', 'DJ para fiestas', 'DJ bodas', 'DJ cumpleaños', 'Iluminación LED']}
+        description={`Discomóvil con DJ profesional que lee la pista en tiempo real. Sonido EV profesional según pack, iluminación LED para pista y efectos en momentos clave. Pensado para fiestas, bodas y eventos privados en Catalunya. Packs desde ${DISCO_MIN_PRICE}€.`}
+        serviceType={[
+          'Discomóvil',
+          'DJ para fiestas',
+          'DJ bodas',
+          'DJ cumpleaños',
+          'Iluminación LED',
+        ]}
         areaServed={['Barcelona', 'Lleida', 'Girona', 'Tarragona', 'Catalunya']}
-        priceFrom="690"
+        priceFrom={String(DISCO_MIN_PRICE)}
         priceCurrency="EUR"
         availability="https://schema.org/InStock"
         aggregateRating={{
           ratingValue: 4.9,
           reviewCount: 203,
         }}
-        offers={[
-          {
-            '@type': 'Offer',
-            name: 'Fiesta Básica - DJ 4h + Sonido 2000W',
-            price: '690',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/discomobil#fiesta-basica',
-            description: 'DJ profesional 4 horas, sonido 2000W, luces LED básicas. Perfecto para fiestas privadas.',
-          },
-          {
-            '@type': 'Offer',
-            name: 'Fiesta Premium - La Que NO Olvidarán',
-            price: '990',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/discomobil#fiesta-premium',
-            description: 'DJ 5h, sonido EV 3000W, 4 B-150 LED, humo, confeti, photocall. El pack más vendido.',
-          },
-          {
-            '@type': 'Offer',
-            name: 'Fiesta VIP - Nivel Discoteca Profesional',
-            price: '1490',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/discomobil#fiesta-vip',
-            description: 'DJ 6h, sonido 4000W, show luces completo, tematización, videomapping, zona chill-out. Experiencia total.',
-          },
-        ]}
+        offers={DISCO_PACKS.map((pack) => ({
+          '@type': 'Offer',
+          name: pack.name,
+          price: String(pack.priceValue),
+          priceCurrency: 'EUR',
+          availability: 'https://schema.org/InStock',
+          url: `/servicios/discomobil#${pack.slug}`,
+          description: pack.tagline,
+        }))}
       />
 
       <Client />
@@ -107,35 +94,35 @@ export default function DiscomobilPage() {
         items={[
           {
             q: '¿Cuánto tiempo tardáis en montar la discomóvil?',
-            a: '30 minutos máximo. Llegamos 1 hora antes del evento para montaje completo y prueba de sonido. Tú solo preocúpate de disfrutar.',
+            a: 'Entre 45 y 60 minutos según el acceso y el espacio. Llegamos siempre con antelación para montar con calma, hacer prueba de sonido y dejar todo listo antes de que lleguen los invitados.',
           },
           {
             q: '¿Qué diferencia hay entre vuestro DJ y una playlist de Spotify?',
-            a: 'Nuestro DJ LEE la pista en tiempo real: si la gente no baila con una canción, cambia inmediatamente. Si están a tope, mantiene el ritmo. Una playlist es estática y aburrida. Nosotros adaptamos la música al ambiente para mantener la pista LLENA.',
+            a: 'Nuestro DJ lee la pista en tiempo real: si un tema no funciona, cambia; si el ambiente sube, aprieta. Una playlist es estática. Nosotros adaptamos la música al público para mantener la pista activa el máximo tiempo posible.',
           },
           {
             q: '¿Incluye luces LED móviles y efectos especiales?',
-            a: 'Sí, en el pack Premium y VIP incluimos 4 B-150 LED 150W con beam 6°, gobos, prismas y efectos sincronizados con la música. También máquina de humo, confeti y CO2 según el pack.',
+            a: 'En el pack básico tienes luz suficiente para que la pista tenga ambiente. En los packs superiores añadimos más puntos de luz, máquina de humo y, según el espacio, algunos efectos especiales extra. Todo se define según tu evento y las limitaciones del local.',
           },
           {
             q: '¿Puedo elegir la música o el estilo?',
-            a: 'Por supuesto. Puedes darnos una lista de canciones que quieres, artistas favoritos o estilo musical (reggaeton, pop, años 80, etc). El DJ combina tus preferencias con lectura de pista para mantener el ambiente.',
+            a: 'Sí. Puedes enviarnos una lista de temas imprescindibles, artistas y estilos que quieres (reggaeton, pop, 80s, techno suave, etc.). A partir de ahí, el DJ mezcla tu criterio con la lectura de pista para que tenga sentido musicalmente y la gente baile.',
           },
           {
             q: '¿Trabajáis fuera de Barcelona? ¿En Lleida, Girona, Tarragona?',
-            a: 'Sí, cubrimos toda Catalunya. Desplazamiento incluido en todos los packs. Sin recargos ocultos.',
+            a: 'Sí, trabajamos en toda Catalunya. En muchos casos el desplazamiento alrededor de Barcelona está incluido; para otras zonas aplicamos un pequeño suplemento que siempre se detalla en el presupuesto antes de confirmar.',
           },
           {
             q: '¿Qué pasa si hay problemas técnicos durante la fiesta?',
-            a: 'Llevamos equipamiento backup completo. Si algún equipo falla (rarísimo), tenemos repuesto inmediato. Tu fiesta nunca se para. Garantizado.',
+            a: 'Llevamos equipo de backup preparado (cables, controladora y solución alternativa de sonido). Si algo falla, cambiamos rápido y la música no se para. El objetivo es que tú ni te enteres del problema.',
           },
           {
             q: '¿Cuánto tiempo antes hay que reservar?',
-            a: 'Mínimo 2 semanas. Para fines de semana (viernes/sábados) recomendamos 6-8 semanas porque se llenan rápido. Consulta disponibilidad por WhatsApp.',
+            a: 'Como mínimo 2 semanas, pero para viernes y sábados lo normal es reservar con 6-8 semanas de antelación. Son los días que se llenan primero. Lo mejor es consultar disponibilidad por WhatsApp cuanto antes.',
           },
           {
             q: '¿Qué incluye exactamente cada pack?',
-            a: 'Básico: DJ 4h + sonido 2000W + luces LED básicas. Premium: TODO lo básico + sonido 3000W + 4 B-150 LED + humo + confeti + photocall. VIP: TODO premium + 6h DJ + tematización completa + videomapping + zona chill-out. Ver detalles completos en los packs.',
+            a: 'Todos los packs incluyen DJ profesional, sonido EV e iluminación de pista acordes al espacio. A partir de ahí, cambian las horas de servicio, la potencia de sonido, la cantidad de luz y los efectos extra. Lo normal es elegir pack según nº de personas, tipo de fiesta y horario, y ajustar detalles en la propuesta.',
           },
         ]}
       />

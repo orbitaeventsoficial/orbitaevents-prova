@@ -40,14 +40,14 @@ const rentalPackages = [
     category: 'sonido',
     includes: [
       '1 EV ETX-15P 2000W (altavoz activo)',
-      '1 micrófono diadema Shure',
-      'Pie micrófono + cable XLR 10m',
-      'Entrega y recogida incluida',
+      '1 micrófono de diadema Shure',
+      'Pie de micrófono + cable XLR 10 m',
+      'Entrega y recogida incluidas',
     ],
     popular: true,
     bestFor: 'Charlas, presentaciones, ceremonias',
     rating: 4.9,
-    specs: 'Cobertura: 150-200 personas | Setup: 15min',
+    specs: 'Cobertura: 150-200 personas | Setup: 15 min',
   },
   {
     id: 'pack-sonido',
@@ -56,14 +56,14 @@ const rentalPackages = [
     category: 'sonido',
     includes: [
       '2 EV ETX-15P 2000W (sonido estéreo)',
-      'Mesa mezcladora 8 canales digital',
+      'Mesa mezcladora digital de 8 canales',
       'Cables XLR + trípodes',
       'Técnico opcional (+150€)',
     ],
     popular: false,
     bestFor: 'Fiestas pequeñas (50-80 personas), eventos medianos',
     rating: 4.8,
-    specs: 'Cobertura: 80-120 personas | Setup: 30min',
+    specs: 'Cobertura: 80-120 personas | Setup: 30 min',
   },
   {
     id: 'pack-luces',
@@ -73,13 +73,13 @@ const rentalPackages = [
     includes: [
       '4 B-150 LED 150W Narrow Beam 6°',
       'Control DMX con programación básica',
-      'Trípodes + cables + case transporte',
+      'Trípodes + cables + case de transporte',
       'Efectos: gobos, prismas, color mixing',
     ],
     popular: false,
-    bestFor: 'Ambiente, pista de baile, iluminación arquitectural',
+    bestFor: 'Ambiente, pista de baile, iluminación arquitectónica',
     rating: 5.0,
-    specs: 'Cobertura: Sala 100m² | Setup: 45min',
+    specs: 'Cobertura: sala 100 m² | Setup: 45 min',
   },
   {
     id: 'pack-pioneer',
@@ -87,8 +87,7 @@ const rentalPackages = [
     price: '380',
     category: 'dj',
     includes: [
-      'Pioneer DJM-900 NXS2 (mezcladora 4 canales)',
-      '2x CDJ-3000 (reproductores profesionales)',
+      'Pioneer DDJ-REV7 (controladora de 2 canales)',
       'Cables XLR/RCA completos',
       'Soporte DJ + auriculares',
       'Técnico opcional (+150€)',
@@ -96,7 +95,7 @@ const rentalPackages = [
     popular: true,
     bestFor: 'DJ profesional, bodas, eventos corporativos',
     rating: 5.0,
-    specs: 'Equipamiento profesional club | Setup: 20min',
+    specs: 'Equipamiento profesional de club | Setup: 20 min',
   },
   {
     id: 'pack-completo',
@@ -106,15 +105,15 @@ const rentalPackages = [
     includes: [
       '2 EV ETX-15P 2000W + subwoofer',
       '4 B-150 LED 150W + control DMX',
-      'Pioneer DJM-900 + 2x CDJ-3000',
-      'Técnico dedicado FULL día incluido',
+      'Pioneer DDJ-REV7 (controladora de 2 canales)',
+      'Técnico dedicado todo el día incluido',
       'Montaje completo + pruebas',
-      'Soporte 24h durante evento',
+      'Soporte 24 h durante el evento',
     ],
     popular: false,
     bestFor: 'Bodas, fiestas grandes (100-150 personas), eventos importantes',
     rating: 5.0,
-    specs: 'Solución completa profesional | Setup: 90min',
+    specs: 'Solución completa profesional | Setup: 90 min',
   },
 ];
 
@@ -137,7 +136,7 @@ const whyRentFromUs = [
   {
     icon: Zap,
     title: 'Backup Garantizado',
-    description: 'Si hay cualquier problema técnico, equipo de backup en menos de 2h (área Barcelona).',
+    description: 'Si hay cualquier problema técnico, equipo de backup en menos de 2 h (área Barcelona).',
   },
 ];
 
@@ -162,7 +161,7 @@ const useCases = [
   },
   {
     title: 'Ceremonia / Boda',
-    description: 'Sonido cristalino para voto y música ceremonia',
+    description: 'Sonido cristalino para votos y música de ceremonia',
     pack: 'Pack Voz',
     icon: Mic2,
   },
@@ -205,15 +204,15 @@ export default function ClientShell() {
             <div className="flex flex-wrap items-center justify-center gap-6 mb-10 text-sm">
               <div className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-oe-gold" />
-                <span className="text-white/80">Entrega y recogida incluida</span>
+                <span className="text-white/80">Entrega y recogida incluidas</span>
               </div>
               <div className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-oe-gold" />
-                <span className="text-white/80">Equipamiento revisado pre-alquiler</span>
+                <span className="text-white/80">Equipamiento revisado prealquiler</span>
               </div>
               <div className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-oe-gold" />
-                <span className="text-white/80">Soporte técnico 24h</span>
+                <span className="text-white/80">Soporte técnico 24 h</span>
               </div>
             </div>
 
@@ -429,8 +428,8 @@ export default function ClientShell() {
                 <div className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-oe-gold flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-white font-bold text-sm">Período alquiler</p>
-                    <p className="text-text-muted text-sm">24h estándar. Finde (3 días) +50%</p>
+                    <p className="text-white font-bold text-sm">Período de alquiler</p>
+                    <p className="text-text-muted text-sm">24 h estándar. Fin de semana (3 días) +50%</p>
                   </div>
                 </div>
 
@@ -438,7 +437,7 @@ export default function ClientShell() {
                   <Check className="w-5 h-5 text-oe-gold flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-white font-bold text-sm">Entrega</p>
-                    <p className="text-text-muted text-sm">Barcelona y área metro incluida. Catalunya +50€</p>
+                    <p className="text-text-muted text-sm">Barcelona y área metropolitana incluidas. Catalunya +50€</p>
                   </div>
                 </div>
 
@@ -464,7 +463,7 @@ export default function ClientShell() {
                   <Check className="w-5 h-5 text-oe-gold flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-white font-bold text-sm">Backup</p>
-                    <p className="text-text-muted text-sm">Equipo de repuesto disponible en menos de 2h (área Barcelona)</p>
+                    <p className="text-text-muted text-sm">Equipo de repuesto disponible en menos de 2 h (área Barcelona)</p>
                   </div>
                 </div>
 
@@ -472,7 +471,7 @@ export default function ClientShell() {
                   <Check className="w-5 h-5 text-oe-gold flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-white font-bold text-sm">Cancelación</p>
-                    <p className="text-text-muted text-sm">Hasta 48h antes: reembolso 100%</p>
+                    <p className="text-text-muted text-sm">Hasta 48 h antes: reembolso 100%</p>
                   </div>
                 </div>
               </div>
@@ -485,12 +484,12 @@ export default function ClientShell() {
       <section className="py-20 sm:py-32 bg-bg-main">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <h2 className="text-4xl sm:text-6xl font-display font-black text-white mb-6 leading-tight">
-            ¿Listo Para Alquilar
+            ¿Listo para alquilar
             <br />
-            <span className="text-oe-gold">Equipo Profesional?</span>
+            <span className="text-oe-gold">equipo profesional?</span>
           </h2>
 
-          <p className="text-xl text-text-muted mb-10 leading-relaxed">
+        <p className="text-xl text-text-muted mb-10 leading-relaxed">
             Consulta disponibilidad y reserva tu equipamiento.
             <br />
             <span className="text-oe-gold font-bold">Respondemos en menos de 2 horas.</span>
@@ -505,13 +504,13 @@ export default function ClientShell() {
               onClick={() => track('CTA_Final_Alquiler')}
             >
               <MessageCircle className="w-7 h-7" />
-              Consultar Disponibilidad
+              Consultar disponibilidad
               <ArrowRight className="w-6 h-6" />
             </a>
           </div>
 
           <p className="text-sm text-text-muted mt-8">
-            ⚡ Respuesta en menos de 2h · 📦 Entrega incluida · 🛡️ Soporte 24h
+            ⚡ Respuesta en menos de 2 h · 📦 Entrega incluida · 🛡️ Soporte 24 h
           </p>
         </div>
       </section>
@@ -526,7 +525,7 @@ export default function ClientShell() {
           onClick={() => track('Sticky_WA_Alquiler')}
         >
           <MessageCircle className="w-5 h-5" />
-          Consultar Alquiler
+          Consultar alquiler
         </a>
       </div>
     </div>

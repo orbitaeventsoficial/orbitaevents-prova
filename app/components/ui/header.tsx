@@ -3,23 +3,24 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Calculator } from 'lucide-react';
 
 const servicios = [
-  { name: 'Bodas', href: '/servicios/bodas' },
+  { name: 'DJ Bodas', href: '/servicios/bodas' },
   { name: 'Fiestas Privadas', href: '/servicios/fiestas' },
-  { name: 'Empresas', href: '/servicios/empresas' },
+  { name: 'Discomóvil', href: '/servicios/discomobil' },
+  { name: 'Eventos Empresas', href: '/servicios/empresas' },
   { name: 'Producción Técnica', href: '/servicios/produccion' },
   { name: 'Alquiler de Equipos', href: '/servicios/alquiler' },
-  { name: 'Fiestas Temáticas', href: '/servicios/tematicas' },
 ];
 
 const navItems = [
   { name: 'Inicio', href: '/' },
   { name: 'Servicios', submenu: servicios },
+  { name: 'Configurador', href: '/configurador', highlight: true }, // NUEVO
   { name: 'Portfolio', href: '/portfolio' },
-  { name: 'FAQs', href: '/faqs' },
-  { name: 'Sobre Nosotros', href: '/sobre-nosotros' },
+  { name: 'FAQ', href: '/faq' }, // CORREGIDO (sin 's')
+  { name: 'Opiniones', href: '/opiniones' },
 ];
 
 export default function Header({ className = '' }: { className?: string }) {
@@ -42,7 +43,7 @@ export default function Header({ className = '' }: { className?: string }) {
         </motion.div>
 
         {/* NAV DESKTOP */}
-        <nav className="hidden md:flex items-center gap-8 relative">
+        <nav className="hidden lg:flex items-center gap-6 relative">
           {navItems.map((item) =>
             item.submenu ? (
               <div
@@ -91,8 +92,13 @@ export default function Header({ className = '' }: { className?: string }) {
               <motion.div key={item.name} whileHover={{ y: -2 }}>
                 <Link
                   href={item.href}
-                  className="text-white/80 hover:text-oe-gold font-medium transition"
+                  className={`font-medium transition ${
+                    item.highlight
+                      ? 'text-oe-gold hover:text-oe-gold-light flex items-center gap-2'
+                      : 'text-white/80 hover:text-oe-gold'
+                  }`}
                 >
+                  {item.highlight && <Calculator className="w-4 h-4" />}
                   {item.name}
                 </Link>
               </motion.div>
@@ -108,7 +114,7 @@ export default function Header({ className = '' }: { className?: string }) {
 
         {/* BOTÓN MOBILE */}
         <button
-          className="md:hidden p-2"
+          className="lg:hidden p-2"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Abrir menú"
         >
@@ -120,7 +126,7 @@ export default function Header({ className = '' }: { className?: string }) {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="md:hidden bg-bg-main/95 backdrop-blur-xl border-t border-white/10"
+            className="lg:hidden bg-bg-main/95 backdrop-blur-xl border-t border-white/10"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -151,9 +157,14 @@ export default function Header({ className = '' }: { className?: string }) {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-white/80 text-lg font-medium"
+                    className={`text-lg font-medium ${
+                      item.highlight
+                        ? 'text-oe-gold flex items-center gap-2'
+                        : 'text-white/80'
+                    }`}
                     onClick={() => setMobileOpen(false)}
                   >
+                    {item.highlight && <Calculator className="w-5 h-5" />}
                     {item.name}
                   </Link>
                 )

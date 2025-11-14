@@ -1,225 +1,320 @@
+// app/packs/client.tsx
 'use client';
-import { motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
-import { Sparkles, Lightbulb, Speaker, Wind, Clock3, Crown, Check, Star, MessageCircle } from "lucide-react";
-import type { ReactNode, MouseEventHandler } from "react";
-import type { LucideIcon as LucideIconType } from "lucide-react";
 
-type LucideIcon = LucideIconType;
+import { useEffect } from 'react';
+import {
+  Sparkles,
+  Layers,
+  SlidersHorizontal,
+  ArrowRight,
+  Check,
+  Calendar,
+  MessageCircle,
+} from 'lucide-react';
+import {
+  getPacksByService,
+  getMinPriceByService,
+  type ServiceSlug,
+  type PackDefinition,
+} from '@/lib/packs-config';
 
-interface Pack {
-  name: string;
-  icon: LucideIcon;
-  price: string;
-  bullets: readonly string[];
-  extras: readonly string[];
-  best?: boolean;
+// Analytics
+let track: (event: string, data?: any) => void = () => {};
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
+  import('@vercel/analytics').then((mod) => {
+    track = mod.track;
+  });
 }
 
-interface Bullet {
+const WA_BASE = 'https://wa.me/34699121023';
+
+function buildWhatsAppUrl(message: string) {
+  return `${WA_BASE}?text=${encodeURIComponent(message)}`;
+}
+
+type ServiceInfo = {
+  id: ServiceSlug;
   title: string;
-  desc: string;
-}
-
-const GOLD = "var(--oe-gold, #d7b86e)";
-
-function ChromeText({ children }: { children: ReactNode }) {
-  return (
-    <span
-      className="inline-block bg-clip-text text-transparent bg-gradient-to-br from-white via-gray-200 to-gray-100"
-      style={{
-        WebkitTextStroke: "0.5px rgba(255,255,255,0.25)",
-        textShadow: "0 0 24px rgba(255,255,255,0.15)",
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-function Button({
-  children,
-  href,
-  className = "",
-  onClick,
-}: {
-  children: ReactNode;
+  description: string;
   href: string;
-  className?: string;
-  onClick?: MouseEventHandler<HTMLAnchorElement>;
+};
+
+const SERVICES: ServiceInfo[] = [
+  {
+    id: 'bodas',
+    title: 'Bodas',
+    description: 'Desde solo el baile hasta día completo: ceremonia, cóctel, banquete y fiesta.',
+    href: '/servicios/bodas',
+  },
+  {
+    id: 'fiestas',
+    title: 'Fiestas Privadas',
+    description: 'Cumpleaños, despedidas y temáticas con DJ, sonido y luz en condiciones.',
+    href: '/servicios/fiestas',
+  },
+  {
+    id: 'discomobil',
+    title: 'Discomóvil',
+    description: 'Formato “disco” para fiestas de pueblo, salas y eventos con pista seria.',
+    href: '/servicios/discomobil',
+  },
+  {
+    id: 'empresas',
+    title: 'Eventos de Empresa',
+    description: 'Presentaciones, corporativos y galas que necesitan que todo funcione a la primera.',
+    href: '/servicios/empresas',
+  },
+  {
+    id: 'alquiler',
+    title: 'Alquiler Técnico',
+    description: 'Sonido, luces y mesas DJ para quien ya tiene el evento montado pero le falta equipo.',
+    href: '/servicios/alquiler',
+  },
+];
+
+function cleanPrice(price: string) {
+  // Si en packs-config pones "desde 720€", lo respetamos tal cual
+  return price;
+}
+
+function ServiceSection({
+  service,
+  packs,
+  minPrice,
+}: {
+  service: ServiceInfo;
+  packs: PackDefinition[];
+  minPrice: number;
 }) {
-  return (
-    <Link
-      href={href}
-      onClick={(e) => onClick?.(e)}
-      className={`oe-btn oe-btn-gold w-full py-3 rounded-xl font-bold text-center block transition-all hover:scale-105 ${className}`}
-      prefetch={false}
-    >
-      {children}
-    </Link>
-  );
-}
-
-function track(event: string, data: Record<string, string>) {
-  if (typeof window !== "undefined" && (window as any).gtag) {
-    (window as any).gtag("event", event, data);
-  }
-}
-
-function Hero() {
-  return (
-    <section className="relative pt-32 pb-16 text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mx-auto max-w-3xl px-4"
-      >
-        <h1 className="mb-3 text-[40px] font-black leading-[1.05] tracking-tight text-white md:text-[56px]">
-          <ChromeText>Packs y tarifas</ChromeText>
-        </h1>
-        <p className="text-lg text-white/80 mb-6">
-          Precio cerrado con EV ETX-15P, B-150 LED y Pioneer DJ. Elige y amplía según tu evento.
-        </p>
-        <div className="flex items-center justify-center gap-1 text-[#d7b86e] mb-4">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-5 h-5 fill-current" />
-          ))}
-          <span className="ml-1 text-sm text-white/70">(35 reseñas)</span>
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
-const PACKS: readonly Pack[] = [
-  {
-    name: "Esencial",
-    icon: Speaker,
-    price: "desde 490 €",
-    bullets: ["50–100 personas", "2 EV ETX-15P 2000W + luz cálida", "DJ hasta 4h con Pioneer DJM-900"],
-    extras: ["+100€ subwoofer", "+150€ técnico extra", "+200€ 4 B-150 LED 150W"],
-    best: true,
-  },
-  {
-    name: "Pro",
-    icon: Lightbulb,
-    price: "desde 750 €",
-    bullets: ["100–150 personas", "2 EV ETX-15P + sub", "DJ 6h + 4 B-150 LED gobos"],
-    extras: ["+150€ Pioneer CDJ-3000", "+100€ luces ambiente", "+200€ extensión fiesta"],
-  },
-  {
-    name: "Premium",
-    icon: Crown,
-    price: "desde 1200 €",
-    bullets: ["150+ personas", "Full setup ETX + B-150 LED + Pioneer DJ", "DJ full + técnico"],
-    extras: ["+200€ video mapping", "+150€ micros inalámbricos", "+300€ escenografía"],
-  },
-] as const;
-
-function Packs() {
-  const reduce = useReducedMotion();
+  if (!packs.length) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-16">
-      <div className="grid md:grid-cols-3 gap-8">
-        {PACKS.map((p, i) => (
-          <motion.div
-            key={p.name}
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            className={`oe-card p-8 rounded-3xl relative transition-all duration-300 hover:-translate-y-1 hover:border-[#d7b86e]/40 ${
-              p.best ? "ring-2 ring-[#d7b86e] ring-offset-2 ring-offset-transparent" : ""
-            }`}
-          >
-            {p.best && (
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="bg-gradient-to-r from-[#d7b86e] to-[#b9994b] text-black px-4 py-1.5 rounded-full text-sm font-bold flex items-center gap-1">
-                  <Check className="w-4 h-4" />
-                  MEJOR VALORADO
-                </span>
-              </div>
-            )}
-            <div className="flex items-center justify-center mb-4">
-              <div className="p-3 rounded-xl bg-[#d7b86e]/10 border border-[#d7b86e]/20">
-                <p.icon className="w-6 h-6 text-[#d7b86e]" />
-              </div>
-            </div>
-            <h3 className="text-2xl font-bold text-center mb-2 text-white">{p.name}</h3>
-            <p className="text-3xl font-black text-[#d7b86e] text-center mb-6">{p.price}</p>
-            <ul className="space-y-2 mb-8 text-sm text-white/80">
-              {p.bullets.map((b) => (
-                <li key={b} className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-[#d7b86e] mt-0.5 flex-shrink-0" />
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-            <h4 className="text-lg font-semibold mb-3 text-white">Extras opcionales</h4>
-            <ul className="space-y-2 text-sm text-white/70">
-              {p.extras.map((e) => (
-                <li key={e} className="flex items-start gap-2">
-                  <Wind className="w-4 h-4 text-[#d7b86e] mt-0.5 flex-shrink-0" />
-                  <span>{e}</span>
-                </li>
-              ))}
-            </ul>
-            <Button
-              href={`/contacto?pack=${encodeURIComponent(p.name.toLowerCase())}`}
-              className="w-full mt-6"
-              onClick={() => track("Click_Pack", { pack: p.name })}
+    <section className="py-12 sm:py-16 border-t border-border">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-white mb-2">
+              {service.title}
+            </h2>
+            <p className="text-text-muted max-w-2xl">{service.description}</p>
+            <p className="text-sm text-oe-gold mt-2">
+              Packs desde <span className="font-bold">{minPrice}€</span>
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={service.href}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border text-sm text-text-muted hover:border-oe-gold hover:text-white transition-colors"
+              onClick={() => track('Packs_Ver_Servicio', { service: service.id })}
             >
-              Elegir {p.name}
-            </Button>
-          </motion.div>
-        ))}
+              Ver página de servicio
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href={buildWhatsAppUrl(
+                `Hola, tengo un evento de tipo "${service.title}" y quiero que me ayudéis a elegir pack.`
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-oe-gold text-black text-sm font-semibold hover:bg-oe-gold-light transition-colors"
+              onClick={() => track('Packs_WA_Servicio', { service: service.id })}
+            >
+              <MessageCircle className="w-4 h-4" />
+              Pedir ayuda rápida
+            </a>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {packs.map((pack) => (
+            <article
+              key={pack.id}
+              id={`${service.id}-${pack.slug}`}
+              className={`relative rounded-3xl p-6 bg-bg-surface border ${
+                pack.highlight
+                  ? 'border-oe-gold ring-2 ring-oe-gold/30'
+                  : pack.popular
+                  ? 'border-oe-gold/60'
+                  : 'border-border hover:border-oe-gold/50'
+              } transition-all`}
+            >
+              {pack.badge && (
+                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-oe-gold text-black text-xs font-bold">
+                  {pack.badge}
+                </div>
+              )}
+
+              <div className="mb-4">
+                <h3 className="text-xl font-bold text-white mb-1">{pack.name}</h3>
+                <p className="text-sm text-text-muted">{pack.tagline}</p>
+                {pack.emotion && (
+                  <p className="text-xs text-text-muted/80 italic mt-2">"{pack.emotion}"</p>
+                )}
+              </div>
+
+              <div className="mb-4">
+                <div className="text-3xl font-black text-oe-gold">
+                  {cleanPrice(pack.price)}
+                </div>
+                {pack.duration && (
+                  <div className="text-xs text-text-muted mt-1">{pack.duration}</div>
+                )}
+                {pack.ideal && (
+                  <div className="mt-2 text-[11px] text-text-muted">
+                    👥 Ideal: <span className="text-white">{pack.ideal}</span>
+                  </div>
+                )}
+              </div>
+
+              <ul className="space-y-2 mb-5 text-sm text-text-muted">
+                {pack.features.slice(0, 6).map((feature, i) => (
+                  <li key={i} className="flex gap-2 items-start">
+                    <Check className="w-4 h-4 text-oe-gold mt-0.5 flex-shrink-0" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+                {pack.features.length > 6 && (
+                  <li className="text-xs text-text-muted/70">
+                    +{pack.features.length - 6} puntos más pensados para este tipo de evento.
+                  </li>
+                )}
+              </ul>
+
+              <div className="flex flex-col gap-2">
+                <a
+                  href={`/servicios/${pack.service}#${pack.slug}`}
+                  className="inline-flex items-center justify-center gap-2 w-full rounded-xl px-4 py-3 text-sm font-semibold bg-bg-main text-white border border-border hover:border-oe-gold hover:bg-bg-main/80 transition-all"
+                  onClick={() => track('Packs_Ver_Detalle', { pack: pack.id })}
+                >
+                  Ver detalle del pack
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+
+                <a
+                  href={buildWhatsAppUrl(
+                    `Hola, me interesa el pack "${pack.name}" (${pack.price}). ¿Lo veis encajado para mi evento?`
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 w-full rounded-xl px-4 py-3 text-xs font-semibold text-oe-gold hover:text-oe-gold-light"
+                  onClick={() => track('Packs_WA_Pack', { pack: pack.id })}
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Consultar este pack por WhatsApp
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-const BULLETS: readonly Bullet[] = [
-  { title: "Montaje", desc: "Incluido. Llegamos 2h antes." },
-  { title: "Desplazamiento", desc: "Gratis Barcelona. Resto +50€." },
-  { title: "Técnico", desc: "Opcional en esencial (+150€)." },
-  { title: "Ampliaciones", desc: "Por hora +100€." },
-  { title: "Pagos", desc: "50% reserva, 50% fin evento." },
-  { title: "Cancelación", desc: "Devolución total si >30 días." },
-] as const;
-
-function Condiciones() {
-  const reduce = useReducedMotion();
+export default function PacksClient() {
+  useEffect(() => {
+    track('View_Packs_Resumen');
+  }, []);
 
   return (
-    <section className="mx-auto max-w-5xl px-4 pb-16">
-      <h2 className="text-3xl font-bold text-center mb-8 text-white">Condiciones claras</h2>
-      <div className="grid md:grid-cols-3 gap-6">
-        {BULLETS.map((b, i) => (
-          <motion.div
-            key={b.title}
-            initial={reduce ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: i * 0.05 }}
-            className="oe-card p-6 rounded-3xl text-center"
+    <div className="bg-bg-main text-white">
+      {/* HERO */}
+      <section className="relative py-20 sm:py-28 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-40">
+          <div className="absolute -top-32 -left-32 w-72 h-72 rounded-full bg-oe-gold/10 blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-oe-gold/5 blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-5xl px-4 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-oe-gold/40 bg-oe-gold/10 text-oe-gold text-xs font-semibold mb-6">
+            <Layers className="w-4 h-4" />
+            Packs depurados: capacidad + horas + potencia
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-black mb-4">
+            Todos tus <span className="text-oe-gold">packs</span>,
+            <br />
+            en un solo sitio
+          </h1>
+
+          <p className="text-lg sm:text-xl text-text-muted max-w-3xl mx-auto mb-8">
+            Bodas, fiestas privadas, discomóvil, empresa y alquiler técnico.
+            <br />
+            Mismos packs, mismos precios, sin contradicciones entre páginas.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/configurador"
+              className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-oe-gold text-black font-semibold text-sm hover:bg-oe-gold-light transition-colors"
+              onClick={() => track('Packs_CTA_Configurador')}
+            >
+              <SlidersHorizontal className="w-4 h-4" />
+              Probar el configurador
+            </a>
+            <a
+              href={buildWhatsAppUrl(
+                'Hola, quiero orientarme rápido: tengo un evento y quiero que me digáis qué pack tiene más sentido.'
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-border text-sm text-text-muted hover:border-oe-gold hover:text-white transition-colors"
+              onClick={() => track('Packs_CTA_WA_Hero')}
+            >
+              <MessageCircle className="w-4 h-4" />
+              Hablar por WhatsApp
+            </a>
+          </div>
+
+          <p className="mt-4 text-xs text-text-muted flex items-center justify-center gap-2">
+            <Sparkles className="w-3 h-3 text-oe-gold" />
+            Todas las páginas de servicios leen de estos mismos packs. Si se cambia un precio, se
+            actualiza en toda la web.
+          </p>
+        </div>
+      </section>
+
+      {/* SECCIONES POR SERVICIO */}
+      {SERVICES.map((service) => {
+        const packs = getPacksByService(service.id);
+        const minPrice = getMinPriceByService(service.id);
+        return (
+          <ServiceSection
+            key={service.id}
+            service={service}
+            packs={packs}
+            minPrice={minPrice}
+          />
+        );
+      })}
+
+      {/* Capa tranquilizadora final */}
+      <section className="py-16 bg-gradient-to-b from-bg-main to-bg-surface border-t border-border">
+        <div className="mx-auto max-w-4xl px-4 text-center">
+          <Calendar className="w-10 h-10 text-oe-gold mx-auto mb-4" />
+          <h2 className="text-2xl sm:text-3xl font-display font-black mb-3">
+            Packs claros. Luego ya afinamos juntos.
+          </h2>
+          <p className="text-sm sm:text-base text-text-muted mb-6">
+            El objetivo no es que te lo comas todo tú solo, sino que tengas una base clara:
+            <br />
+            qué incluye cada pack, cuánto cuesta y para qué tipo de evento está pensado.
+          </p>
+          <a
+            href={buildWhatsAppUrl(
+              'He mirado la página de packs pero quiero que me ayudéis a aterrizarlo en mi evento concreto.'
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-oe-gold text-black text-sm font-semibold hover:bg-oe-gold-light transition-colors"
+            onClick={() => track('Packs_CTA_WA_Final')}
           >
-            <h4 className="mb-1 text-white font-semibold">{b.title}</h4>
-            <p className="text-sm text-white/70">{b.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export default function PacksPage() {
-  return (
-    <>
-      <Hero />
-      <Packs />
-      <Condiciones />
-    </>
+            <MessageCircle className="w-4 h-4" />
+            Revisar mi evento por WhatsApp
+          </a>
+        </div>
+      </section>
+    </div>
   );
 }

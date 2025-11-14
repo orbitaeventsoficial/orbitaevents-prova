@@ -3,23 +3,44 @@ import type { Metadata } from 'next';
 import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
 import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
 import FAQ from '@/app/components/seo/FAQ';
-import Client from './Client';
+import Client from './client';
+import {
+  getMinPriceByService,
+  getPacksByService,
+  getPackById,
+} from '@/lib/packs-config';
 
+// ===============================
+// DATOS CENTRALIZADOS DESDE packs-config
+// ===============================
+const FIESTAS_MIN_PRICE = getMinPriceByService('fiestas');
+const FIESTAS_PACKS = getPacksByService('fiestas');
+
+const PACK_ESENCIAL = getPackById('fiestas-cumple-basico')!;
+const PACK_FIESTA_PLUS = getPackById('fiestas-despedida-plus')!;
+const PACK_TEMATICA = getPackById('fiestas-tematica-completa')!;
+
+const cleanName = (name: string) =>
+  name.replace(/[^\wÀ-ÿ ]/g, '').trim();
+
+// ===============================
+// METADATA SEO (USANDO CONFIG)
+// ===============================
 export const metadata: Metadata = {
-  title: 'Fiestas Privadas Barcelona | Cumpleaños, Despedidas, Temáticas | DJ + Efectos | Òrbita Events',
-  description:
-    'La fiesta privada que tus amigos recordarán. DJ profesional + EV ETX 3000W + 4 luces B-150 LED + efectos especiales. Cumpleaños, despedidas, fiestas temáticas (Halloween, años 80, Harry Potter). Desde 490€. Barcelona, Lleida, Girona.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat'),
+  title:
+    'Fiestas Privadas Barcelona | Cumpleaños, Despedidas, Temáticas | DJ + Luces | Òrbita Events',
+  description: `La fiesta privada que tus amigos recordarán. DJ profesional, 2 altavoces de 2.000W cada uno (4.000W totales), multibox LED para pista y máquina de humo (si el espacio lo permite). Cumpleaños, despedidas y fiestas temáticas (Halloween, años 80, mundo mágico). Desde ${FIESTAS_MIN_PRICE}€. Barcelona, Girona, Lleida y Tarragona.`,
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.com'),
   alternates: { canonical: '/servicios/fiestas' },
   openGraph: {
     title: 'Fiestas Privadas | La Fiesta Que Tus Amigos Recordarán',
     description:
-      'Cumpleaños épicos, despedidas memorables, fiestas temáticas únicas. DJ + sonido profesional + efectos especiales. Desde 490€.',
+      `Cumpleaños épicos, despedidas memorables y fiestas temáticas con DJ profesional, buen sonido y luz en condiciones. Desde ${FIESTAS_MIN_PRICE}€.`,
     url: '/servicios/fiestas',
     images: [
       {
         url: '/api/og?title=Fiestas%20Privadas%20Barcelona',
-        alt: 'Fiestas privadas con DJ y efectos especiales',
+        alt: 'Fiestas privadas con DJ y efectos de luz',
       },
     ],
     type: 'website',
@@ -27,7 +48,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Fiestas Privadas | Cumpleaños + Despedidas + Temáticas',
-    description: 'DJ profesional + EV ETX + B-150 LED + efectos. La fiesta que recordarán.',
+    description:
+      'DJ profesional, 2 altavoces de 2.000W cada uno, multibox LED y buena selección musical. La fiesta que recordarán.',
     images: ['/api/og?title=Fiestas%20Privadas'],
   },
   robots: { index: true, follow: true },
@@ -44,6 +66,9 @@ export const metadata: Metadata = {
   ],
 };
 
+// ===============================
+// PÁGINA
+// ===============================
 export default function FiestasPage() {
   return (
     <>
@@ -55,11 +80,11 @@ export default function FiestasPage() {
         ]}
       />
 
-      {/* JSON-LD OPTIMIZADO */}
+      {/* JSON-LD tirando de packs-config */}
       <ServiceJsonLD
         name="Fiestas Privadas y Temáticas"
         slugPath="/servicios/fiestas"
-        description="DJ profesional para cumpleaños, despedidas y fiestas temáticas. Sonido EV ETX 3000W, 4 luces B-150 LED 150W, efectos especiales sincronizados. Tematización personalizada disponible."
+        description={`DJ profesional para cumpleaños, despedidas y fiestas temáticas. Equipo base con 2 altavoces de 2.000W cada uno (4.000W totales), multibox LED para pista de baile y máquina de humo (si el espacio lo permite). Tematización opcional y packs con más horas y complejidad. Desde ${FIESTAS_MIN_PRICE}€.`}
         serviceType={[
           'DJ para fiestas',
           'Fiestas privadas',
@@ -69,79 +94,61 @@ export default function FiestasPage() {
           'Iluminación LED',
         ]}
         areaServed={['Barcelona', 'Lleida', 'Girona', 'Tarragona', 'Catalunya']}
-        priceFrom="490"
+        priceFrom={String(FIESTAS_MIN_PRICE)}
         priceCurrency="EUR"
         availability="https://schema.org/InStock"
         aggregateRating={{
           ratingValue: 4.9,
           reviewCount: 167,
         }}
-        offers={[
-          {
-            '@type': 'Offer',
-            price: '490',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/fiestas#cumple-basico',
-            name: 'Pack Cumpleaños Básico',
-          },
-          {
-            '@type': 'Offer',
-            price: '790',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/fiestas#despedida-premium',
-            name: 'Pack Despedida Premium',
-          },
-          {
-            '@type': 'Offer',
-            price: '990',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/fiestas#tematica-completa',
-            name: 'Pack Fiesta Temática Completa',
-          },
-        ]}
+        offers={FIESTAS_PACKS.map((pack) => ({
+          '@type': 'Offer',
+          price: String(pack.priceValue),
+          priceCurrency: 'EUR',
+          availability: 'https://schema.org/InStock',
+          url: `/servicios/fiestas#${pack.slug}`,
+          name: pack.name,
+        }))}
       />
+
+      <Client />
 
       <FAQ
         items={[
           {
-            q: '¿Cuánto cuesta una fiesta privada con DJ y efectos especiales?',
-            a: 'Desde 490€ para fiestas básicas (50-80 personas, 4h DJ, sonido 2000W, luces LED básicas). Pack Premium con efectos especiales desde 790€. Incluye montaje, desmontaje y desplazamiento en Catalunya.',
+            q: '¿Cuánto cuesta una fiesta privada con DJ?',
+            a: `El ${cleanName(PACK_ESENCIAL.name)} parte de ${PACK_ESENCIAL.price}: hasta 3 horas de DJ, 2 altavoces de 2.000W cada uno (4.000W totales), multibox LED para pista y máquina de humo si el espacio lo permite. El ${cleanName(PACK_FIESTA_PLUS.name)} sube a ${PACK_FIESTA_PLUS.price} con más horas, más juego de luz y más trabajo en los momentos clave. Y el ${cleanName(PACK_TEMATICA.name)} empieza ${PACK_TEMATICA.price}, pensado para cuando quieres fiesta con concepto y tematización.`,
           },
           {
-            q: '¿Hacéis fiestas temáticas (Halloween, años 80, Harry Potter)?',
-            a: 'Sí, somos especialistas en tematización completa. Adaptamos música, luces, efectos especiales y decoración al tema que elijas. Tematización básica incluida en pack Premium, tematización completa desde 990€.',
+            q: '¿Hacéis fiestas temáticas (Halloween, años 80, mundo mágico)?',
+            a: `Sí. El ${cleanName(PACK_TEMATICA.name)} está pensado justo para eso: definimos tema, adaptamos música, luz y momentos especiales al concepto (Halloween, años 80, mundo mágico, tropical, etc.). Es el pack para cuando quieres algo con más intención que “poner música y ya está”.`,
           },
           {
             q: '¿Qué diferencia hay entre vuestro DJ y poner música con Spotify?',
-            a: 'Nuestro DJ LEE la pista en tiempo real y adapta la música al ambiente. Si una canción no funciona, cambia inmediatamente. Si la gente está a tope, mantiene el ritmo. Una playlist es estática y aburrida. Nosotros garantizamos pista llena.',
+            a: 'Nuestro DJ lee la pista en tiempo real: si un tema no funciona, cambia; si el ambiente sube, aprieta. Una playlist es estática. Nosotros adaptamos la música al público para mantener la pista activa el máximo tiempo posible.',
           },
           {
             q: '¿Trabajáis fuera de Barcelona? ¿En Lleida, Girona, Tarragona?',
-            a: 'Sí, cubrimos toda Catalunya. Desplazamiento incluido en todos los packs sin recargos ocultos. Trabajamos en espacios privados, locales, jardines, fincas, etc.',
+            a: 'Sí, trabajamos en toda Catalunya: Barcelona, Lleida, Girona y Tarragona. Fincas, jardines, locales privados, pabellones… Ajustamos el montaje al espacio.',
           },
           {
             q: '¿Puedo elegir las canciones o el estilo musical?',
-            a: 'Por supuesto. Antes de la fiesta hacemos reunión (presencial o videollamada) para crear playlist personalizada con tus canciones favoritas y momentos clave. El DJ combina tus preferencias con lectura de pista para mantener el ambiente.',
+            a: 'Sí. Antes del evento revisamos estilos, “imprescindibles” y “prohibidos”. Con eso montamos una base de playlist y el DJ remata con lectura de pista para que funcione con tu grupo, no solo en teoría.',
           },
           {
-            q: '¿Qué incluye exactamente el pack de despedida?',
-            a: 'DJ profesional 5 horas, sonido EV ETX 3000W, 4 B-150 LED con gobos/prismas, técnico dedicado, playlist personalizada con momentos especiales (entrada, brindis, sorpresas). Ideal para 80-120 personas.',
+            q: '¿Qué incluye exactamente el Pack Fiesta Plus?',
+            a: 'Hasta 4 horas de DJ, mismo equipo base de sonido, más juego de luz y más trabajo en los momentos clave (entrada, brindis, tarta, sorpresas). Es el punto medio cuando no quieres quedarte corto y encaja muy bien para despedidas y grupos grandes.',
           },
           {
             q: '¿Cuánto tiempo antes hay que reservar?',
-            a: 'Mínimo 3 semanas para fiestas normales. Para fines de semana (viernes/sábados) recomendamos 6-8 semanas porque se llenan muy rápido. Consulta disponibilidad por WhatsApp.',
+            a: 'Para fiestas normales, mínimo 3 semanas. Para viernes y sábados, mejor 6–8 semanas porque son las primeras fechas que se llenan.',
           },
           {
-            q: '¿Qué pasa si llueve (fiesta en exterior)?',
-            a: 'Todo nuestro equipamiento está preparado para exterior. Si hay lluvia intensa, montamos carpa protectora para el equipo (sin coste adicional). Recomendamos tener plan B de espacio interior por si lluvia extrema.',
+            q: '¿Qué pasa si la fiesta es en exterior y llueve?',
+            a: 'Recomendamos siempre tener plan B cubierto. El equipo se protege con estructura y cobertura, pero si la lluvia es intensa o con viento fuerte, lo sensato es mover DJ y pista a zona cubierta. Lo hablamos siempre antes del evento para evitar improvisaciones de última hora.',
           },
         ]}
       />
-
-      <Client />
     </>
   );
 }

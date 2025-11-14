@@ -9,15 +9,44 @@ export default function ServiciosClient() {
   const shouldReduceMotion = useReducedMotion();
 
   const servicios = [
-    { name: "Discomóvil", href: "/servicios/discomobil", desc: "Sonido, luz y cabina con criterio.", icon: Music },
-    { name: "Bodas", href: "/servicios/bodas", desc: "Ceremonia clara, cóctel elegante y fiesta sólida.", icon: Mic2 },
-    { name: "Fiestas", href: "/servicios/fiestas", desc: "Cumples y privadas sin cableado salvaje.", icon: Lightbulb },
-    { name: "Empresas", href: "/servicios/empresas", desc: "Eventos corporativos sin sustos técnicos.", icon: Briefcase },
-    { name: "Producción técnica", href: "/servicios/produccion", desc: "Montaje, patch y operación serios.", icon: Wrench },
-    { name: "Alquiler", href: "/servicios/alquiler", desc: "Packs listos o con técnico, como toca.", icon: Package },
+    {
+      name: "Discomóvil",
+      href: "/servicios/discomobil",
+      desc: "Equipo completo de sonido y luz para que la fiesta soni bé, sense cablejat salvatge ni invents raros.",
+      icon: Music,
+    },
+    {
+      name: "Bodas",
+      href: "/servicios/bodas",
+      desc: "Cerimònia clara, còctel amb bon ambient i festa on ballen fins i tot els cunyats. Sense karaoke accidental.",
+      icon: Mic2,
+    },
+    {
+      name: "Fiestas",
+      href: "/servicios/fiestas",
+      desc: "Cumples, despedides i liades diverses amb DJ que llegeix la pista, no una playlist en aleatori.",
+      icon: Lightbulb,
+    },
+    {
+      name: "Empresas",
+      href: "/servicios/empresas",
+      desc: "Esdeveniments corporatius seriosos en tècnica i relaxats en ambient. Presentacions, sopars i equips que no pateixen.",
+      icon: Briefcase,
+    },
+    {
+      name: "Producción técnica",
+      href: "/servicios/produccion",
+      desc: "Muntatge, patch i operació perquè tot funcioni i ningú hagi de tocar una regleta en mig de l’acte.",
+      icon: Wrench,
+    },
+    {
+      name: "Alquiler",
+      href: "/servicios/alquiler",
+      desc: "Equips llestos per endollar o amb tècnic si no vols barallar-te amb la taula. Sense sorpreses.",
+      icon: Package,
+    },
   ] as const;
 
-  // Animación base (ease como tupla literal + validates con `satisfies Variants`)
   const cardVariants = {
     hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 },
     visible: (i: number = 0) => ({
@@ -40,8 +69,12 @@ export default function ServiciosClient() {
         transition={{ duration: 0.4 }}
         className="text-center mb-16"
       >
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">Nuestros servicios</h1>
-        <p className="text-lg text-white/70 max-w-2xl mx-auto">Técnica cuidada, montaje impecable. Elige lo que necesitas.</p>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
+          Servicios sin humo (del malo)
+        </h1>
+        <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          Tècnica cuidada, muntatge net i events que funcionen. Tu demanes, nosaltres ho fem decent.
+        </p>
       </motion.div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

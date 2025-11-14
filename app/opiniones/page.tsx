@@ -8,7 +8,7 @@ import FAQ from "@/app/components/seo/FAQ";
 
 export const metadata: Metadata = {
   title: "Opiniones Reales DJ Bodas Barcelona | 5/5 en 42 Reseñas | Òrbita Events",
-  description: "Reseñas verificadas de bodas, fiestas y eventos. Sonido impecable, luces mágicas, DJ que enciende la pista. Lee experiencias reales.",
+description: "Opiniones reales de bodas, fiestas y eventos. Sonido impecable, iluminación cuidada y lleno de momentos inolvidables. Descubre experiencias auténticas.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://orbitaevents.com"),
   alternates: { canonical: "/opiniones" },
   openGraph: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Opiniones Reales | Òrbita Events",
-    description: "Lee reseñas de bodas premium con EV ETX y B-150 LED.",
+    description: "Lee reseñas de bodas premium",
     images: ["/api/og?title=Opiniones%20Reales"],
   },
   robots: { index: true, follow: true },
@@ -65,22 +65,22 @@ export default function OpinionesPage() {
         }}
       />
 
-      <FAQ
-        items={[
-          {
-            q: "¿Qué opinan los clientes de Òrbita Events?",
-            a: "Media 5/5 en 42 reseñas. Destacan sonido claro, montaje rápido y DJ que lee la sala.",
-          },
-          {
-            q: "¿Son reseñas reales?",
-            a: "Sí, verificadas de bodas en Barcelona y Girona. Enlazamos a Google y WeddingWire.",
-          },
-          {
-            q: "¿Cómo dejar una reseña?",
-            a: "Envía por email o Google. ¡Tu opinión nos ayuda!",
-          },
-        ]}
-      />
+<FAQ
+  items={[
+    {
+      q: "¿Qué opinan los clientes de Òrbita Events?",
+      a: "Valoración media de 5/5 en 42 reseñas. Nuestros clientes destacan el sonido impecable, el montaje ágil y la capacidad del DJ para mantener la pista encendida.",
+    },
+    {
+      q: "¿Son reseñas reales?",
+      a: "Sí, todas verificadas de bodas y eventos en Barcelona y Girona. Enlazamos directamente a Google y WeddingWire.",
+    },
+    {
+      q: "¿Cómo puedo dejar una reseña?",
+      a: "Puedes hacerlo desde Google o enviándola por correo. Cada opinión cuenta y nos ayuda a seguir mejorando.",
+    },
+  ]}
+/>
 
       <OpinionesClient />
     </>

@@ -53,7 +53,7 @@ export default function FinalCTA() {
           <h2 className="text-4xl sm:text-6xl font-display font-black text-white mb-6 leading-tight">
             ¿Listo Para El Evento
             <br />
-            <span className="gradient-text breathe">Que Tu Gente NO Olvidará?</span>
+            <span className="gradient-text breathe">Que Tus invitados NO Olvidarán?</span>
           </h2>
 
           {/* Subheadline */}
@@ -68,7 +68,7 @@ export default function FinalCTA() {
           <div className="flex flex-wrap items-center justify-center gap-6 mb-10 text-sm">
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-oe-gold fill-oe-gold" />
-              <span className="text-white/80">4.9/5 · 300+ eventos</span>
+              <span className="text-white/80">4.9/5 · 150+ eventos</span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-5 h-5 text-oe-gold" />
@@ -141,7 +141,6 @@ export default function FinalCTA() {
             <div className="w-8 h-8 rounded-full bg-oe-gold/10 flex items-center justify-center">
               <span className="text-oe-gold font-bold text-xs">✓</span>
             </div>
-            <span>Seguro RC 600k€</span>
           </div>
         </motion.div>
       </div>

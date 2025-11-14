@@ -37,7 +37,7 @@ export default function StructuredData() {
         url: base,
         image: `${base}/img/brand/og-square.png`,
         telephone: "+34699121023",
-        email: "info@orbitaevents.cat",
+        email: "info@orbitaevents.com",
         priceRange: "€€",
         areaServed: ["ES-CN", "ES-B", "ES"],
         address: {
@@ -54,6 +54,11 @@ export default function StructuredData() {
           "producción técnica",
           "bodas",
           "eventos corporativos",
+          "tematización",
+          "Harry Potter",
+          "Halloween",
+          "Navidad",
+
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
@@ -84,6 +89,9 @@ export default function StructuredData() {
                 {
                   "@type": "Offer",
                   itemOffered: { "@type": "Service", name: "Producción técnica" },
+                },{
+                  "@type": "Offer",
+                  itemOffered: { "@type": "Service", name: "Tematización" },
                 },
               ],
             },

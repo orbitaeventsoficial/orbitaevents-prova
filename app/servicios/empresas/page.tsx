@@ -4,31 +4,34 @@ import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
 import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
 import FAQ from '@/app/components/seo/FAQ';
 import Client from './client';
+import { getMinPriceByService, getPacksByService } from '@/lib/packs-config';
+
+const EMP_MIN_PRICE = getMinPriceByService('empresas');
+const EMP_PACKS = getPacksByService('empresas');
 
 export const metadata: Metadata = {
-  title: 'Eventos Corporativos Barcelona | Team Building con Tematización | Òrbita Events',
+  title: 'Eventos Corporativos Barcelona | DJ, Cenas de Empresa y Team Building | Òrbita Events',
   description:
-    'Eventos corporativos que tu equipo recordará durante meses. Team building Harry Potter, cenas de empresa con efectos especiales, presentaciones impactantes. Equipamiento profesional Pioneer + EV.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat'),
+    'Eventos corporativos que tu equipo recordará durante meses. Cenas de empresa con DJ, dinámicas, bingo musical y team building. Sonido profesional Pioneer + EV.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.com'),
   alternates: { canonical: '/servicios/empresas' },
   openGraph: {
     title: 'Eventos Corporativos | El Evento que Te Hace Quedar Como un Crack',
     description:
-      'Team building inmersivo, cenas de empresa épicas, presentaciones con impacto. Equipamiento profesional + tematización personalizada.',
+      'Cenas de empresa, DJ, actividades y team building. Sonido profesional y producción cuidada sin complicaciones.',
     url: '/servicios/empresas',
     images: [
       {
-        url: '/api/og?title=Eventos%20Corporativos%20Barcelona',
-        alt: 'Eventos corporativos profesionales con tematización',
+        url: '/api/og?title=Eventos%20Corporativos',
+        alt: 'Eventos corporativos profesionales con DJ y producción técnica',
       },
     ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Eventos Corporativos | Team Building + Cenas Empresa',
-    description:
-      'El evento que hace que tu equipo hable de tu empresa durante meses.',
+    title: 'Eventos Corporativos | DJ, Cenas Empresa y Team Building',
+    description: 'Eventos corporativos con buen sonido, buena música y cero dramas técnicos.',
     images: ['/api/og?title=Eventos%20Corporativos'],
   },
   robots: { index: true, follow: true },
@@ -38,9 +41,9 @@ export const metadata: Metadata = {
     'cenas de empresa',
     'eventos empresariales',
     'presentaciones corporativas',
-    'animación corporativa',
+    'bingo musical empresa',
     'DJ eventos empresa',
-    'tematización corporativa',
+    'dinámicas de equipo',
   ],
 };
 
@@ -55,83 +58,63 @@ export default function EmpresasPage() {
         ]}
       />
 
-      {/* JSON-LD para eventos corporativos */}
       <ServiceJsonLD
         name="Eventos Corporativos Profesionales"
         slugPath="/servicios/empresas"
-        description="Producción integral de eventos corporativos: team building tematizado, cenas de empresa, presentaciones impactantes, celebraciones de logros. Equipamiento Pioneer profesional + tematización personalizada."
+        description="Eventos corporativos con DJ, cenas de empresa, dinámicas de equipo y team building. Producción técnica cuidada con sonido Pioneer + EV."
         serviceType={[
           'Eventos corporativos',
           'Team building',
           'Cenas de empresa',
-          'Presentaciones corporativas',
+          'Eventos empresariales',
           'Animación empresarial',
         ]}
         areaServed={['Barcelona', 'Lleida', 'Girona', 'Tarragona', 'Catalunya']}
-        priceFrom="1200"
+        priceFrom={String(EMP_MIN_PRICE)}
         priceCurrency="EUR"
         availability="https://schema.org/InStock"
         aggregateRating={{
           ratingValue: 4.9,
           reviewCount: 47,
         }}
-        offers={[
-          {
-            '@type': 'Offer',
-            price: '1800',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/empresas#team-building',
-            name: 'Team Building Tematizado',
-          },
-          {
-            '@type': 'Offer',
-            price: '2000',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/empresas#cenas-empresa',
-            name: 'Cenas de Empresa Premium',
-          },
-          {
-            '@type': 'Offer',
-            price: '1200',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/empresas#presentaciones',
-            name: 'Presentaciones Impactantes',
-          },
-        ]}
+        offers={EMP_PACKS.map((pack) => ({
+          '@type': 'Offer',
+          name: pack.name,
+          price: String(pack.priceValue),
+          priceCurrency: 'EUR',
+          url: `/servicios/empresas#${pack.slug}`,
+          availability: 'https://schema.org/InStock',
+          description: pack.tagline,
+        }))}
       />
 
-      {/* Contenido principal */}
       <Client />
 
-      {/* FAQ al final */}
       <FAQ
         items={[
           {
             q: '¿Podéis facturar a nombre de la empresa?',
-            a: 'Sí, factura digital con IVA desglosado en menos de 24h. Incluimos todos los datos fiscales necesarios.',
+            a: 'Sí, factura digital con IVA desglosado en menos de 24h.',
           },
           {
-            q: '¿Trabajáis en espacios empresariales (oficinas, naves)?',
-            a: 'Sí, adaptamos sonido e iluminación a cualquier espacio: oficinas, naves industriales, hoteles, fincas. Hacemos visita previa sin coste.',
+            q: '¿Trabajáis en oficinas, hoteles o naves?',
+            a: 'Sí, adaptamos sonido e iluminación a cualquier espacio. Incluye visita previa.',
           },
           {
-            q: '¿Qué pasa si hay problemas técnicos durante el evento?',
-            a: 'Equipamiento backup completo + técnico on-site durante todo el evento. Plan B garantizado para cada elemento técnico.',
+            q: '¿Qué pasa si hay problemas técnicos?',
+            a: 'Trabajamos con equipo profesional y backup completo. El evento NO se para.',
           },
           {
-            q: '¿Hacéis eventos con branding corporativo?',
-            a: 'Sí, desde proyección de logos hasta tematización completa con colores corporativos. Videomapping con datos de empresa, logros, etc.',
+            q: '¿Incluye branding o personalización?',
+            a: 'Podemos integrar logo, colores y mensajes corporativos en pantallas y dinámicas.',
           },
           {
-            q: '¿Incluye coordinación con otros proveedores (catering, espacios)?',
-            a: 'Sí, coordinamos con catering, espacios y otros proveedores. Tienes un coordinador dedicado disponible 24h el día del evento.',
+            q: '¿Coordináis con el espacio o catering?',
+            a: 'Sí, nos encargamos de la coordinación técnica y de tiempos.',
           },
           {
-            q: '¿Cuánto tiempo antes hay que reservar un evento corporativo?',
-            a: 'Recomendamos mínimo 4 semanas para eventos grandes (>100 personas). Para eventos más pequeños, 2 semanas. Consulta disponibilidad por WhatsApp.',
+            q: '¿Con cuánta antelación hay que reservar?',
+            a: 'Para eventos grandes, unas 4 semanas. Para eventos menores, 2 semanas suele ser suficiente.',
           },
         ]}
       />

@@ -36,7 +36,7 @@ export default function FAQClient() {
           Respuestas reales. Sin marketing. Sin filtros.
         </p>
         <p className="text-white/60 max-w-2xl mx-auto">
-          La competencia te vende humo. Nosotros te contamos la verdad ANTES de que reserves.
+          Sabes exactamente lo que contratas, antes de hacerlo.
         </p>
       </div>
 

@@ -109,7 +109,7 @@ export default function ContactForm() {
           Te respondemos en menos de 2h con tu presupuesto personalizado.
         </p>
         <p className="text-oe-gold font-bold mt-4">
-          ⚡ 20% OFF aplicado en tu presupuesto
+          ⚡ 10% OFF aplicado en tu presupuesto
         </p>
       </motion.div>
     );
@@ -217,6 +217,7 @@ export default function ContactForm() {
           <option value="empresa">Evento empresa</option>
           <option value="fiesta">Fiesta privada</option>
           <option value="cumpleaños">Cumpleaños</option>
+          <option value="tematizacion">Tematización</option>
           <option value="otro">Otro</option>
         </select>
         {errors.event && (
@@ -263,7 +264,7 @@ export default function ContactForm() {
           <Send className="w-5 h-5" />
         )}
         <span className="font-bold">
-          {loading ? "Enviando..." : "Enviar (¡20% OFF hoy!)"}
+          {loading ? "Enviando..." : "Enviar (¡10% OFF hoy!)"}
         </span>
       </motion.button>
 

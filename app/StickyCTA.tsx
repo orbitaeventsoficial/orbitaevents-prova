@@ -2,11 +2,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MessageCircle, Sparkles, Calendar, Zap } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import dynamic from 'next/dynamic';
-
-const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
+import { MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 // Analytics
 let track: (event: string, data?: any) => void = () => {};
@@ -17,61 +14,20 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
 }
 
 const WA_LINK = `https://wa.me/34699121023?text=${encodeURIComponent(
-  '¡Hola! Quiero presupuesto rápido para mi evento'
+  '¡Hola! Quiero presupuesto para mi evento'
 )}`;
 
-// Copy rotativo para crear urgencia
-const rotatingCopy = [
-  { text: 'Presupuesto en 2h', icon: Zap,       bg: 'from-oe-gold to-yellow-500' },
-  { text: '20% OFF hoy',       icon: Sparkles,  bg: 'from-oe-gold to-amber-500' },
-  { text: 'Solo 3 fechas libres', icon: Calendar, bg: 'from-oe-gold to-orange-500' },
-] as const;
-
 export default function StickyCTA() {
-  const [confetti, setConfetti] = useState(false);
-  const [currentCopyIndex, setCurrentCopyIndex] = useState(0);
-  const [size, setSize] = useState({ w: 0, h: 0 });
   const [isVisible, setIsVisible] = useState(false);
 
-  // Rotación del copy cada 4 segundos
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentCopyIndex((prev) => (prev + 1) % rotatingCopy.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Tamaño confetti
-  useEffect(() => {
-    const onResize = () => setSize({ w: window.innerWidth, h: window.innerHeight });
-    onResize();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
-  // Retraso de visibilidad
+  // Mostrar después de 2 segundos
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Índice y valores seguros
-  const safeIndex =
-    rotatingCopy.length > 0
-      ? ((currentCopyIndex % rotatingCopy.length) + rotatingCopy.length) % rotatingCopy.length
-      : 0;
-
-  const currentCopy = rotatingCopy[safeIndex] ?? { text: 'WhatsApp', icon: MessageCircle, bg: 'from-oe-gold to-amber-500' };
-  const Icon = currentCopy.icon ?? MessageCircle;
-  const bg = currentCopy.bg ?? 'from-oe-gold to-amber-500';
-
   const handleClick = () => {
-    setConfetti(true);
-    setTimeout(() => setConfetti(false), 3000);
-
-    // Track evento con texto seguro
-    track('Click_Sticky_CTA', {
-      copy: currentCopy?.text ?? 'WhatsApp',
+    track('Click_Sticky_WhatsApp', {
       timestamp: new Date().toISOString(),
     });
   };
@@ -79,88 +35,56 @@ export default function StickyCTA() {
   if (!isVisible) return null;
 
   return (
-    <>
-      {/* Confetti */}
-      {confetti && size.w > 0 && (
-        <Confetti
-          width={size.w}
-          height={size.h}
-          recycle={false}
-          numberOfPieces={150}
-          gravity={0.3}
-          colors={['#d7b86e', '#f8e5a1', '#b9994b', '#ffffff']}
-          className="pointer-events-none"
-        />
-      )}
-
-      {/* Sticky CTA */}
-      <motion.div
-        className="fixed bottom-6 left-4 right-4 z-50 pointer-events-none md:bottom-8 md:left-8 md:right-auto"
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+    <motion.div
+      className="fixed bottom-6 left-6 z-50"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
+      <motion.a
+        href={WA_LINK}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={handleClick}
+        className="group relative flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 py-4 rounded-full shadow-2xl transition-all duration-300"
+        whileHover={{ scale: 1.05, y: -2 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Contactar por WhatsApp"
       >
-        <motion.a
-          href={WA_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="pointer-events-auto group relative inline-flex items-center gap-2 px-6 py-4 rounded-2xl text-black font-display text-base font-bold border border-oe-gold/60 shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
-          style={{
-            background: `linear-gradient(135deg, ${bg.replace('from-', '#').replace('to-', ', #')})`,
-            boxShadow:
-              '0 0 0 1px rgba(215,184,110,.3), 0 20px 50px rgba(215,184,110,.4), 0 0 60px rgba(215,184,110,.3)',
-          }}
-          onClick={handleClick}
-          whileHover={{ y: -4 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label="Contactar por WhatsApp para presupuesto rápido"
-        >
-          {/* Barrido brillante */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-            animate={{ x: ['-100%', '100%'] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-          />
+        {/* Pulso animado de fondo */}
+        <span className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75" />
 
-          {/* Icons */}
-          <MessageCircle className="w-5 h-5 relative z-10 group-hover:scale-110 transition-transform" />
-          <Icon className="w-5 h-5 relative z-10 group-hover:rotate-12 transition-transform" />
+        {/* Icono WhatsApp */}
+        <MessageCircle className="w-6 h-6 relative z-10" />
 
-          {/* Texto rotativo */}
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={safeIndex}
-              className="hidden sm:inline relative z-10"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              {currentCopy.text}
-            </motion.span>
-          </AnimatePresence>
+        {/* Texto - solo visible en desktop */}
+        <span className="hidden sm:inline relative z-10 font-bold">
+          ¡Hablemos!
+        </span>
 
-          {/* Texto móvil estático */}
-          <span className="sm:hidden relative z-10">WhatsApp</span>
+        {/* Badge de notificación */}
+        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
+          1
+        </span>
 
-          {/* Indicador pulso */}
-          <motion.span
-            className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full"
-            animate={{ scale: [1, 1.2, 1], opacity: [1, 0.8, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </motion.a>
+        {/* Tooltip al hover - solo desktop */}
+        <span className="absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden lg:block">
+          <span className="bg-bg-surface border border-oe-gold/50 text-white px-4 py-2 rounded-lg shadow-xl whitespace-nowrap">
+            <span className="block font-bold text-oe-gold">Presupuesto Rápido</span>
+            <span className="block text-sm text-white/70">Respuesta en 2h 📱</span>
+          </span>
+        </span>
+      </motion.a>
 
-        {/* Nota bajo CTA */}
-        <motion.p
-          className="text-xs text-white/60 mt-2 ml-2 hidden md:block"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          ⚡ Respuesta en menos de 2 horas
-        </motion.p>
-      </motion.div>
-    </>
+      {/* Texto debajo - solo mobile */}
+      <motion.p
+        className="sm:hidden text-xs text-white/60 mt-2 text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        Respuesta rápida 📱
+      </motion.p>
+    </motion.div>
   );
 }

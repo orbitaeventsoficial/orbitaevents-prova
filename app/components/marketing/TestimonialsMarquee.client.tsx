@@ -4,10 +4,10 @@ import Section from '../ui/Section';
 
 
 const TESTIMONIOS = [
-'“Todo salió perfecto, cero estrés.” — Laura & Pau',
-'“Equipo serio, producción impecable.” — CMO, Retail',
-'“Sonido brutal y ritmos bien medidos.” — Agencia X',
-'“Repetimos el año que viene.” — Gala ONG',
+'“Todo salió perfecto, cero estrés.” — Raquel, Camping Maresma',
+'“Equipo serio, producción impresionante.” — Motoffroadacademy',
+'“Sonido brutal y pautas bien medidas.” — Oriol y Anna',
+'“Repetimos el año que viene.” — AECC',
 ];
 
 

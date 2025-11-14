@@ -5,13 +5,13 @@ export default function JsonLdOrganization() {
     '@type': 'Organization',
     name: 'Òrbita Events',
     alternateName: 'Orbita Events',
-    url: 'https://orbitaevents.cat',
-    logo: 'https://orbitaevents.cat/logo.png',
-    image: 'https://orbitaevents.cat/og-default.jpg',
+    url: 'https://orbitaevents.com',
+    logo: 'https://orbitaeventcom/logo.png',
+    image: 'https://orbitaevents.com/og-default.jpg',
     description:
-      'Eventos profesionales en Catalunya: bodas, fiestas privadas, eventos corporativos. DJ profesional + luces sincronizadas + efectos especiales. +300 eventos. 4.9/5 estrellas.',
+      'Eventos profesionales en Catalunya: bodas, fiestas privadas, eventos corporativos. DJ profesional. Tematización de fiestas, efectos especiales. +150 eventos. 4.9/5 estrellas.',
     telephone: '+34699121023',
-    email: 'info@orbitaevents.cat',
+    email: 'info@orbitaevents.com',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Barcelona',
@@ -46,8 +46,8 @@ export default function JsonLdOrganization() {
       },
     ],
     sameAs: [
-      'https://www.instagram.com/orbitaevents',
-      'https://www.facebook.com/orbitaevents',
+      'https://www.instagram.com/orbitaeventsoficial',
+      'https://www.facebook.com/orbitaeventsoficial',
       // Añade más perfiles sociales si existen
     ],
     contactPoint: {

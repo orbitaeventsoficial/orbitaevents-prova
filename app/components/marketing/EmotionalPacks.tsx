@@ -32,7 +32,7 @@ const packs = [
     icon: Building2,
     name: '🏢 Corporate Power',
     tagline: 'Tus empleados aún hablarán de esto en 6 meses',
-    emotion: 'Team building que NO aburre. Lanzamiento que impacta. Gala que impresiona.',
+    emotion: 'Team building que NO aburre. Lanzamos tu idea, en una Gala que quedaran impresionados',
     price: 'desde 1.990€',
     originalPrice: '2.490€',
     discount: '20%',
@@ -53,17 +53,17 @@ const packs = [
   {
     icon: Sparkles,
     name: '🎉 Fiesta Salvaje',
-    tagline: 'Cumpleaños, aniversarios, lo que sea',
+    tagline: 'Cumpleaños, despedidas,fiestas soprpesa, lo que sea',
     emotion: 'Esa fiesta de la que tus amigos hablarán durante años',
-    price: 'desde 790€',
-    originalPrice: '990€',
+    price: 'desde 590€',
+    originalPrice: '790€',
     discount: '20%',
     features: [
       '🎵 DJ + setup completo 4h',
       '💡 Luces LED programables',
       '🔊 Sonido potente 2.000W',
       '🌈 Efectos de luz sincronizados',
-      '📱 Control remoto desde tu móvil',
+      '📱 Personalizacion completa',
       '🎊 Efectos especiales básicos',
     ],
     highlight: false,
@@ -106,7 +106,7 @@ export default function EmotionalPacks() {
           <div className="inline-block mb-4 px-4 py-2 rounded-full glass border border-oe-gold/30 animate-fade-in">
             <span className="text-oe-gold font-bold text-sm flex items-center gap-2">
               <Zap className="w-4 h-4" />
-              PACKS DISEÑADOS PARA IMPACTAR
+              PACKS DISEÑADOS PARA TI
             </span>
           </div>
           
@@ -117,7 +117,7 @@ export default function EmotionalPacks() {
           </h2>
           
           <p className="text-xl text-text-muted max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Elige tu pack y empieza a imaginar las caras de tu gente
+            Elige tu pack y empieza a imaginar las caras de los invitados
           </p>
         </div>
 
@@ -276,7 +276,7 @@ export default function EmotionalPacks() {
         <div className="mt-12 text-center">
           <div className="inline-flex items-center gap-2 text-green-400 text-sm font-medium">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span>Garantía "Pista Llena" o reembolso 50%</span>
+            <span>Garantía Satisfacción </span>
           </div>
         </div>
       </div>

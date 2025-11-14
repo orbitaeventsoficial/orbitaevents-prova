@@ -45,7 +45,7 @@ export default function ServiceJsonLD({
   aggregateRating,
   offers, // 🔥 Prop opcional para múltiples ofertas
 }: Props) {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat';
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.com';
   const url = `${base}${slugPath}`;
 
   // 🔥 LÓGICA: Si hay offers custom, úsalos. Si no, genera el default simple
@@ -85,8 +85,8 @@ export default function ServiceJsonLD({
       url: base,
       logo: `${base}/og.jpg`,
       sameAs: [
-        'https://instagram.com/orbitaevents',
-        'https://tiktok.com/@orbitaevents',
+        'https://instagram.com/orbitaeventsoficial',
+        'https://tiktok.com/@orbitaeventsoficial',
       ],
       contactPoint: {
         '@type': 'ContactPoint',

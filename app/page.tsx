@@ -14,7 +14,7 @@ import FinalCTA from './components/marketing/FinalCTA';
 export const metadata: Metadata = {
   title: 'Òrbita Events | El Evento Que Tu Gente NO Olvidará | Barcelona, Lleida, Girona',
   description:
-    'No es "estuvo bien". Es "FUE ÉPICO". DJ profesional + luces sincronizadas + efectos especiales para bodas, empresas y fiestas en toda Catalunya. +300 eventos. 4.9⭐ (243 reseñas). Pista llena garantizada o reembolso 50%.',
+    'No es "estuvo bien". Es "FUE ÉPICO". DJ profesional + luces sincronizadas + efectos especiales para bodas, empresas y fiestas en toda Catalunya. +150 eventos. 4.9⭐ (90 reseñas). Pista llena garantizada o reembolso 50%.',
   keywords: [
     'eventos catalunya',
     'dj bodas barcelona',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Òrbita Events | El Evento Que Tu Gente NO Olvidará',
     description:
-      'DJ + Luces + Efectos Especiales. +300 eventos en Barcelona, Lleida, Girona, Tarragona. 4.9/5⭐ Pista llena garantizada.',
+      'DJ + Luces + Efectos Especiales. +150 eventos en Barcelona, Lleida, Girona, Tarragona. 4.9/5⭐ Pista llena garantizada.',
     type: 'website',
     url: '/',
     images: [
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Òrbita Events | El Evento Épico',
-    description: 'DJ + Luces + Efectos. +300 eventos en Catalunya. 4.9/5⭐',
+    description: 'DJ + Luces + Efectos. +150 eventos en Catalunya. 4.9/5⭐',
     images: ['/og-home.jpg'],
   },
   alternates: {
@@ -87,19 +87,20 @@ export default function HomePage() {
         items={[
           {
             q: '¿Qué hace diferente a Òrbita de otros DJ/proveedores de eventos?',
-            a: 'Nosotros NO ponemos playlists. Nuestro DJ LEE la pista en tiempo real y adapta música, luces y efectos al ambiente. Si la gente no baila, cambiamos inmediatamente. Resultado: pista llena durante todo el evento (o te devolvemos 50% del dinero). +300 eventos con 4.9/5 estrellas lo demuestran.',
+            a: 'Nosotros NO ponemos playlists. Nuestro DJ LEE la pista en tiempo real y adapta música, luces y efectos al ambiente. Si la gente no baila, cambiamos inmediatamente. Resultado: pista llena durante todo el evento (o te devolvemos 50% del dinero). Más de 150 eventos con 4.9/5 estrellas lo demuestran.',
           },
           {
             q: '¿Cuánto cuesta contratar Òrbita para mi boda/fiesta/evento?',
-            a: 'Desde 690€ para fiestas básicas hasta 2.500€ para bodas completas con tematización. Cada evento es único, por eso hacemos propuesta personalizada en menos de 24h. Sin sorpresas, sin letra pequeña. WhatsApp: 699 12 10 23',
+            a: 'Trabajamos con packs claros y configurador según necesidades. Los precios se calculan automáticamente según horas, equipo y tipo de evento. Puedes ver todas las opciones en el configurador o pedir propuesta por WhatsApp en menos de 24h.',
           },
+
           {
             q: '¿Trabajáis fuera de Barcelona? ¿En Lleida, Girona, Tarragona?',
             a: 'Sí, cubrimos toda Catalunya. Desplazamiento incluido en todos los packs sin recargos ocultos. Hemos hecho eventos en Barcelona, Lleida, Girona, Tarragona, Manresa, Vic, Figueres... Si está en Catalunya, llegamos.',
           },
           {
             q: '¿Qué pasa si hay problemas técnicos durante el evento?',
-            a: 'Llevamos equipamiento BACKUP completo de todo: sonido, luces, mezcladora, reproductores. Si algo falla (rarísimo), tenemos repuesto en menos de 5 minutos. Tu evento NUNCA se para. +300 eventos sin problemas técnicos nos respaldan.',
+            a: 'Llevamos equipamiento BACKUP completo de todo: sonido, luces, mezcladora, reproductores. Si algo falla (rarísimo), tenemos repuesto en menos de 5 minutos. Tu evento NUNCA se para. Más de 150 eventos sin incidencias técnicas serias nos respaldan.',
           },
           {
             q: '¿Puedo elegir la música o sois vosotros los que decidís?',
@@ -111,7 +112,7 @@ export default function HomePage() {
           },
           {
             q: '¿Ofrecéis garantía de satisfacción?',
-            a: 'Sí. "Garantía Pista Llena": Si tu pista no está llena la mayor parte del evento, te devolvemos el 50% del dinero. Así de seguros estamos de que sabemos mantener el ambiente. En 300+ eventos, solo 2 personas han pedido reembolso (y fue por problemas de espacio, no nuestros).',
+            a: 'Sí. "Garantía Pista Llena": Si tu pista no está llena la mayor parte del evento, te devolvemos el 50% del dinero. Así de seguros estamos de que sabemos mantener el ambiente. En más de 150 eventos, solo 2 personas han pedido reembolso (y fue por motivos ajenos a la parte musical).',
           },
           {
             q: '¿Qué incluye exactamente el servicio?',

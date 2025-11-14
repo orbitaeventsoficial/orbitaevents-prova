@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 
 const services = [
-{ href: '/servicios/bodas', title: 'Bodas', points: ['DJ + técnica completa', 'Ceremonia y banquete', 'Show y animación'] },
+{ href: '/servicios/bodas', title: 'Bodas', points: ['DJ + Efectos y luces', 'Ceremonia y banquete', 'Show y animación'] },
 { href: '/servicios/empresas', title: 'Empresas', points: ['Team building', 'Galas y lanzamientos', 'Brand experiences'] },
 { href: '/servicios/alquiler', title: 'Alquiler técnico', points: ['Sonido', 'Iluminación', 'Efectos y microfonía'] },
 ];

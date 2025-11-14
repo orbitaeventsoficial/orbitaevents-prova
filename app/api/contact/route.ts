@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     // Email al administrador
     await transporter.sendMail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: process.env.CONTACT_TO || "info@orbitaevents.cat",
+      to: process.env.CONTACT_TO || "info@orbitaevents.com",
       subject: `🎉 Nuevo Lead: ${name} (${event})`,
       html: `
         <h2>Nuevo contacto desde la web</h2>

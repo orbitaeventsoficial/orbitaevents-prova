@@ -9,8 +9,8 @@ interface FAQProps {
 
 const DEFAULT_QA: QA[] = [
   { q: '¿Trabajáis fuera de Barcelona?', a: 'Sí, cubrimos toda Cataluña y desplazamientos bajo presupuesto.' },
-  { q: '¿Ofrecéis DJ y técnica completa?', a: 'Sí, sonido, iluminación, microfonía, efectos y operación.' },
-  { q: '¿Presupuestos cerrados?', a: 'Paquetes base con add-ons. Todo por contrato, sin sorpresas.' },
+  { q: '¿Ofrecéis DJ y equipo completo?', a: 'Sí, sonido, iluminación, microfonía, efectos y logistica.' },
+  { q: '¿Presupuestos cerrados?', a: 'Paquetes diversos. Todo por contrato, sin sorpresas.' },
 ];
 
 const FAQ: FC<FAQProps> = ({ items = DEFAULT_QA, title = 'Preguntas frecuentes' }) => {

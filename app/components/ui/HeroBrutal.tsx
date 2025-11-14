@@ -84,7 +84,7 @@ export default function HeroBrutal() {
             "FUE ÉPICO"
           </span>
           <br />
-          DJ + Luces + Efectos Especiales para bodas, empresas y fiestas que dejan huella.
+          DJ + Luces + Efectos Especiales para bodas, empresas y fiestas tematicas que dejan huella.
         </p>
 
         {/* Proof social */}
@@ -155,7 +155,7 @@ export default function HeroBrutal() {
             <span className="text-white/30">•</span>
             <div className="flex items-center gap-2">
               <span className="text-white/90">
-                💯 <span className="font-bold text-white">Satisfacción garantizada</span> o reembolso
+                💯 <span className="font-bold text-white">Satisfacción garantizada</span>
               </span>
             </div>
           </div>

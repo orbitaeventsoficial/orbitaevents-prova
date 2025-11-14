@@ -25,10 +25,10 @@ const titleMap: Record<string, string> = {
   'produccion-tecnica': 'Producción Técnica',
 };
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const safeTitle: string = String((titleMap as any)[slug] ?? slug);
   const title = safeTitle ?? String(slug);
   if (!VALID_SLUGS.includes(slug)) return { title: 'No encontrado' };
@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function PortfolioSlugPage({ params }: Props) {
-  const { slug } = params;
+export default async function PortfolioSlugPage({ params }: Props) {
+  const { slug } = await params;
   const safeTitle: string = String((titleMap as any)[slug] ?? slug);
   if (!VALID_SLUGS.includes(slug)) notFound();
 

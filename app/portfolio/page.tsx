@@ -5,7 +5,7 @@ import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
 export const metadata: Metadata = {
   title: 'Portfolio | Òrbita Events',
   description:
-    'Casos reales de sonido, iluminación y DJ: bodas, discomóvil, empresas y más.',
+    'Casos reales de eventos, tematizacion y DJ: bodas, discomóvil, empresas y más.',
   alternates: { canonical: '/portfolio' },
   robots: { index: true, follow: true },
   openGraph: {
@@ -18,10 +18,14 @@ export const metadata: Metadata = {
 };
 
 const CATS = [
-  { slug: 'bodas', label: 'Bodas', cover: '/images/portfolio/caso1.jpg' },
-  { slug: 'discomovil', label: 'Discomóvil', cover: '/images/portfolio/caso2.jpg' },
-  { slug: 'empresas', label: 'Empresas', cover: '/images/portfolio/caso3.jpg' },
-  { slug: 'fiestas-privadas', label: 'Fiestas privadas', cover: '/images/portfolio/caso4.jpg' },
+  { slug: 'bodas', label: 'Bodas', cover: '/img/portfolio/bodas-cover.jpg' },
+  { slug: 'discomovil', label: 'Discomóvil', cover: '/img/portfolio/discomovil-cover.jpg' },
+  { slug: 'empresas', label: 'Empresas', cover: '/img/portfolio/empresas-cover.jpg' },
+  { slug: 'fiestas-privadas', label: 'Fiestas privadas', cover: '/img/portfolio/fiestas-privadas-cover.jpg' },
+  { slug: 'fiestas-tematicas', label: 'Fiestas temáticas', cover: '/img/portfolio/fiestas-tematicas-cover.jpg' },
+  { slug: 'infantil', label: 'Infantil', cover: '/img/portfolio/infantil-cover.jpg' },
+  { slug: 'navidad', label: 'Navidad', cover: '/img/portfolio/navidad-cover.jpg' },
+  { slug: 'produccion-tecnica', label: 'Producción técnica', cover: '/img/portfolio/produccion-tecnica-cover.jpg' },
 ];
 
 export default function PortfolioHome() {
@@ -37,10 +41,11 @@ export default function PortfolioHome() {
       <section className="mx-auto max-w-6xl px-4 py-16">
         <h1 className="text-h2 text-center">Portfolio</h1>
         <p className="mt-4 text-center text-white/70">
-          Selección de eventos reales: técnica, música y resultados.
+          Selección de eventos reales:
         </p>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* CAMBIO ÚNICO: grid de 4 -> 3 columnas */}
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {CATS.map((c) => (
             <Link
               key={c.slug}
@@ -48,7 +53,6 @@ export default function PortfolioHome() {
               className="group relative overflow-hidden rounded-2xl border border-[var(--border)]"
               aria-label={`Ver ${c.label}`}
             >
-              {/* Imagen simple para no arrastrar client hooks aquí */}
               <img
                 src={c.cover}
                 alt={c.label}

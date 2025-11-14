@@ -5,23 +5,23 @@ import type { Metadata } from 'next';
 import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
 import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
 import FAQ from '@/app/components/seo/FAQ';
-import Client from './Client';
+import Client from './client';
 
 export const metadata: Metadata = {
   title: 'Alquiler Sonido Profesional Barcelona | EV ETX 2000W + B-150 LED + Pioneer DJ | Órbita Events',
   description:
-    'Alquila equipamiento audiovisual PRO: altavoces EV ETX-15P 2000W, 4 luces B-150 LED 150W con efectos, Pioneer DJM-900 + CDJ-3000. Con o sin técnico. Entrega/recogida incluida Barcelona. Desde 150€/día. Empresas y particulares.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat'),
+    'Alquila equipamiento audiovisual profesional: altavoces EV ETX-15P 2000 W, 4 luces B-150 LED 150 W con efectos, Pioneer DDJ REV7. Con o sin técnico. Entrega y recogida incluidas en Barcelona. Desde 150 €/día. Empresas y particulares.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.com'),
   alternates: { canonical: '/servicios/alquiler' },
   openGraph: {
-    title: 'Alquiler Equipo Audiovisual PRO | EV + Pioneer + LED desde 150€',
+    title: 'Alquiler Equipo Audiovisual PRO | EV + Pioneer + LED desde 150 €',
     description:
-      'Sonido EV ETX, luces móviles B-150 LED, mesas Pioneer DJ. Con técnico opcional. Entrega gratis Barcelona.',
+      'Sonido EV ETX, luces móviles B-150 LED y mesas Pioneer DJ. Técnico opcional. Entrega incluida en Barcelona.',
     url: '/servicios/alquiler',
     images: [
       {
         url: '/api/og?title=Alquiler%20Equipo%20desde%20150€',
-        alt: 'Alquiler equipamiento audiovisual profesional Barcelona',
+        alt: 'Alquiler de equipamiento audiovisual profesional en Barcelona',
       },
     ],
     type: 'website',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Alquiler Equipo Audiovisual | EV + Pioneer + LED',
-    description: 'Desde 150€/día. Entrega incluida Barcelona.',
+    description: 'Desde 150 €/día. Entrega incluida en Barcelona.',
     images: ['/api/og?title=Alquiler%20Equipo%20150€'],
   },
   robots: { index: true, follow: true },
@@ -62,7 +62,7 @@ export default function AlquilerPage() {
       <ServiceJsonLD
         name="Alquiler Equipo Audiovisual Profesional Barcelona"
         slugPath="/servicios/alquiler"
-        description="Alquiler de equipamiento audiovisual profesional: altavoces EV ETX-15P 2000W RMS, 4 luces B-150 LED 150W con beam 6° y efectos gobos/prism, Pioneer DJM-900 + CDJ-3000. Con o sin técnico dedicado. Entrega y recogida incluida en Barcelona y área metropolitana. Ideal para bodas, eventos corporativos, fiestas privadas y producciones audiovisuales."
+        description="Alquiler de equipamiento audiovisual profesional: altavoces EV ETX-15P 2000 W RMS, 4 luces B-150 LED 150 W con beam de 6° y efectos gobo/prisma, Pioneer DDJ REV7. Con o sin técnico dedicado. Entrega y recogida incluidas en Barcelona y área metropolitana. Ideal para bodas, eventos corporativos, fiestas privadas y producciones."
         serviceType={[
           'Alquiler sonido profesional',
           'Alquiler iluminación LED',
@@ -71,7 +71,7 @@ export default function AlquilerPage() {
           'Alquiler sonido bodas',
           'Alquiler luces eventos',
         ]}
-        areaServed={['Barcelona', 'Girona', 'Tarragona', 'Lleida', 'Catalunya', 'Área Metropolitana Barcelona']}
+        areaServed={['Barcelona', 'Girona', 'Tarragona', 'Lleida', 'Catalunya', 'Área Metropolitana de Barcelona']}
         priceFrom="150"
         priceCurrency="EUR"
         availability="https://schema.org/InStock"
@@ -82,39 +82,31 @@ export default function AlquilerPage() {
         offers={[
           {
             '@type': 'Offer',
-            name: 'Pack Sonido PRO - 2x EV ETX + Mezcladora',
+            name: 'Pack Sonido PRO — 2x EV ETX + mezcladora',
             price: '280',
             priceCurrency: 'EUR',
             availability: 'https://schema.org/InStock',
             url: '/servicios/alquiler#pack-sonido',
-            description: '2 altavoces EV ETX-15P 2000W + mezcladora + cables. Perfecto para fiestas 50-150 personas.',
+            description: '2 altavoces EV ETX-15P 2000 W + mezcladora + cableado. Ideal para 50–150 personas.',
           },
           {
             '@type': 'Offer',
-            name: 'Pack Luces LED - 4x B-150 Moving Head',
+            name: 'Pack Luces LED — 4x B-150 moving head',
             price: '220',
             priceCurrency: 'EUR',
             availability: 'https://schema.org/InStock',
             url: '/servicios/alquiler#pack-luces',
-            description: '4 luces B-150 LED 150W con control DMX, trípodes, efectos gobos/prism. Iluminación profesional.',
+            description: '4 B-150 LED 150 W con control DMX, trípodes y efectos (gobos, prisma, beam 6°).',
           },
+          
           {
             '@type': 'Offer',
-            name: 'Pack DJ Pioneer - DJM-900 + 2x CDJ-3000',
-            price: '380',
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: '/servicios/alquiler#pack-pioneer',
-            description: 'Equipamiento DJ club profesional. Mezcladora Pioneer DJM-900 + 2 CDJ-3000 + cables.',
-          },
-          {
-            '@type': 'Offer',
-            name: 'Pack Completo + Técnico - Sonido + Luces + DJ + Operador',
+            name: 'Pack Completo + técnico — Sonido + luces + DJ + operador',
             price: '750',
             priceCurrency: 'EUR',
             availability: 'https://schema.org/InStock',
             url: '/servicios/alquiler#pack-completo',
-            description: 'Todo incluido: sonido EV, luces LED, Pioneer DJ, técnico full day. Solución llave en mano.',
+            description: 'Sonido EV, luces LED, Pioneer DJ y técnico full day. Solución llave en mano.',
           },
         ]}
       />
@@ -127,35 +119,32 @@ export default function AlquilerPage() {
         items={[
           {
             q: '¿El precio incluye entrega y recogida del equipamiento?',
-            a: 'SÍ, entrega y recogida INCLUIDA en Barcelona y área metropolitana (hasta 25km). Resto de Catalunya +50€. Montamos el equipo, hacemos prueba de sonido y dejamos todo operativo. Sin costes ocultos.',
+            a: 'Sí, entrega y recogida incluidas en Barcelona y área metropolitana (hasta 25 km). Resto de Catalunya +50 €. Montamos el equipo, hacemos la prueba y lo dejamos operativo. Sin costes ocultos.',
           },
           {
             q: '¿Puedo alquilar solo las luces B-150 LED sin sonido?',
-            a: 'SÍ. Pack de 4 luces B-150 LED 150W desde 220€/día. Incluye control DMX, 4 trípodes, todos los cables, programación básica de efectos. Gobos, prismas y beam 6° incluidos. Perfecto para ambientar eventos sin sonido.',
+            a: 'Sí. Pack de 4 B-150 LED 150 W desde 220 €/día. Incluye control DMX, cableado y programación básica de efectos.',
           },
           {
             q: '¿Ofrecéis técnico con el alquiler? ¿Cuánto cuesta?',
-            a: 'SÍ. Técnico dedicado disponible por +150€/día. Incluye: montaje completo profesional, configuración y calibración, pruebas exhaustivas, soporte in situ durante TODO el evento. MUY recomendado si es tu primer alquiler o evento importante.',
+            a: 'Sí. Técnico dedicado disponible por +150 €/día. Incluye montaje profesional, configuración y calibración, pruebas y soporte in situ durante todo el evento. Muy recomendable si es tu primer alquiler o un evento importante.',
           },
           {
             q: '¿Cuánto dura el período de alquiler? ¿Puedo extenderlo?',
-            a: '24 horas estándar (recogida día siguiente mismo horario). Fin de semana viernes-lunes: +50% del precio diario. Semana completa (7 días): paga 5 días. Alquileres mensuales: consultar descuento especial.',
+            a: '24 horas estándar (devolución al día siguiente a la misma hora). Fin de semana viernes-lunes: +50% del precio diario. Semana completa (7 días): pagas 5. Para mensuales, consulta descuentos.',
           },
           {
             q: '¿Qué pasa si hay un problema técnico con el equipo durante mi evento?',
-            a: 'TODO el equipamiento se revisa y testea antes de cada alquiler. Si surge cualquier problema: equipo de backup disponible en menos de 2h (área Barcelona). Técnico disponible por teléfono 24h durante tu alquiler. Garantía total.',
+            a: 'Todo el equipamiento se revisa y se testea antes de cada alquiler. Si surge cualquier problema, tenemos equipo de backup en menos de 2 h (área Barcelona). Soporte telefónico 24 h durante tu alquiler.',
           },
-          {
-            q: '¿Puedo alquilar solo el equipamiento DJ Pioneer sin contratar DJ ni sonido?',
-            a: 'SÍ. Pioneer DJM-900 + 2x CDJ-3000 por 380€/día. Incluye todos los cables XLR/RCA, flight case y soporte técnico DJ. Ideal para DJs que quieren usar equipamiento club profesional en su evento privado.',
-          },
+        
           {
             q: '¿Hay descuentos para alquileres de varios días o recurrentes?',
-            a: 'SÍ. Fin de semana (3 días) = +50% del diario. Semana completa (7 días) = paga 5. Alquileres recurrentes (mismo cliente mensual) o empresas con volumen: descuentos especiales hasta 30%. Consulta tu caso.',
+            a: 'Sí. Fin de semana (3 días) = +50% del diario. Semana (7 días) = pagas 5. Recurrentes o empresas con volumen: descuentos hasta el 30%. Consúltanos.',
           },
           {
             q: '¿Qué documentación necesito para alquilar? ¿Hay fianza?',
-            a: 'Particulares: DNI/NIE + fianza reembolsable (100-300€ según pack). Empresas: CIF/NIF, factura a nombre empresa, SIN fianza. Fianza se devuelve inmediatamente al verificar estado equipamiento tras devolución. Pago: transferencia o Bizum.',
+            a: 'Particulares: DNI/NIE + fianza reembolsable (100–300 € según pack). Empresas: CIF/NIF, factura a nombre de la empresa y sin fianza. La fianza se devuelve al verificar el estado del equipo. Pago por transferencia o Bizum.',
           },
         ]}
       />

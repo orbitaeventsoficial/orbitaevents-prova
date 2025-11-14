@@ -2,9 +2,9 @@ import { REVIEWS } from "@/data/reviews-data";
 // app/opiniones/page.tsx
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import Breadcrumbs from "@/app/components/seo/Breadcrumbs";
-import ServiceJsonLD from "@/app/components/seo/ServiceJsonLD";
-import FAQ from "@/app/components/seo/FAQ";
+import Breadcrumbs from "@\/components/seo/Breadcrumbs";
+import ServiceJsonLD from "@\/components/seo/ServiceJsonLD";
+import FAQ from "@\/components/seo/FAQ";
 
 export const metadata: Metadata = {
   title: "Opiniones Reales DJ Bodas Barcelona | 5/5 en 42 Reseñas | Òrbita Events",

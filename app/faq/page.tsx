@@ -3,7 +3,7 @@
 
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import Breadcrumbs from "@/app/components/seo/Breadcrumbs";
+import Breadcrumbs from "@\/components/seo/Breadcrumbs";
 import { FAQ_DATA } from "@/data/faq-data";
 
 export const metadata: Metadata = {

@@ -1,10 +1,9 @@
-// lib/packs-config.ts
+// data/packs-config.ts
 // 🔥 FUENTE ÚNICA DE VERDAD - TODOS LOS PACKS DE ÒRBITA EVENTS
 // Si cambias un precio aquí, cambia en toda la web. Sin perseguir gremlins.
 
 export type ServiceSlug = 'fiestas' | 'bodas' | 'discomobil' | 'alquiler' | 'empresas';
 
-// >>> AÑADIDO ÚNICO, LO QUE FALTABA <<<
 export const ALL_SERVICES: ServiceSlug[] = [
   'fiestas',
   'bodas',
@@ -12,7 +11,6 @@ export const ALL_SERVICES: ServiceSlug[] = [
   'alquiler',
   'empresas',
 ];
-// >>> FIN DEL ÚNICO CAMBIO <<<
 
 export type PackId =
   // Fiestas
@@ -37,6 +35,124 @@ export type PackId =
   | 'empresas-corporativo-premium'
   | 'empresas-corporativo-vip';
 
+// ==========================================
+// 🎁 EXTRAS CENTRALIZADOS
+// ==========================================
+export interface ExtraDefinition {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  icon: string;
+  popular?: boolean;
+  premium?: boolean;
+  category?: 'effects' | 'visual' | 'time' | 'other';
+}
+
+export const EXTRAS: ExtraDefinition[] = [
+  {
+    id: 'confeti',
+    name: 'Confeti + Chispas Frías',
+    description: 'Momento WOW con confeti biodegradable + chispas frías seguras',
+    price: 150,
+    icon: '🎊',
+    popular: true,
+    category: 'effects',
+  },
+  {
+    id: 'co2',
+    name: 'Cañones CO2',
+    description: 'Efectos de CO2 para momentos épicos (entrada novios, cierre fiesta)',
+    price: 200,
+    icon: '❄️',
+    premium: true,
+    category: 'effects',
+  },
+  {
+    id: 'humo-bajo',
+    name: 'Máquina Humo Bajo (Nube)',
+    description: 'Efecto alfombra de nubes para primer baile romántico',
+    price: 180,
+    icon: '☁️',
+    popular: true,
+    category: 'effects',
+  },
+  {
+    id: 'pantalla',
+    name: 'Pantalla LED para Visuales',
+    description: 'Pantalla LED 2x3m con proyección de fotos/vídeos personalizados',
+    price: 300,
+    icon: '📺',
+    category: 'visual',
+  },
+  {
+    id: 'photobooth',
+    name: 'Photobooth con Props',
+    description: 'Rincón de fotos con atrezzo + impresión instantánea',
+    price: 250,
+    icon: '📸',
+    category: 'visual',
+  },
+  {
+    id: 'dj-extra',
+    name: 'Hora Extra de DJ',
+    description: 'Porque cuando la fiesta arrasa, nadie quiere que termine',
+    price: 120,
+    icon: '⏰',
+    category: 'time',
+  },
+];
+
+// ==========================================
+// 💰 SISTEMA DE OFERTAS/DESCUENTOS
+// ==========================================
+export interface OfferDefinition {
+  id: string;
+  name: string;
+  discount: number; // porcentaje
+  minAmount?: number; // mínimo para aplicar
+  minExtras?: number; // mínimo número de extras
+  months?: number[]; // meses válidos
+  validUntil?: string; // fecha límite
+  description: string;
+  badge: string;
+  priority?: number; // mayor = más prioridad al aplicar
+}
+
+export const OFFERS = {
+  earlyBird: {
+    id: 'early-bird',
+    name: 'Reserva Hoy - 10% OFF',
+    discount: 10,
+    minAmount: 800, // mínimo 800€ para aplicar
+    validUntil: '2025-12-31',
+    description: 'Reserva hoy y ahorra 10% en tu pack base',
+    badge: '🔥 OFERTA LIMITADA',
+    priority: 3,
+  } as OfferDefinition,
+  combo: {
+    id: 'combo-extras',
+    name: 'Pack de 3 Extras',
+    discount: 15, // 15% en extras si coges 3 o más
+    minExtras: 3,
+    description: 'Contrata 3+ extras y ahorra 15%',
+    badge: '💎 COMBO',
+    priority: 2,
+  } as OfferDefinition,
+  seasonal: {
+    id: 'temporada-baja',
+    name: 'Descuento Temporada Baja',
+    discount: 12,
+    months: [1, 2, 11, 12], // Enero, Febrero, Noviembre, Diciembre
+    description: 'Eventos en temporada baja tienen 12% descuento',
+    badge: '📅 TEMPORADA',
+    priority: 1,
+  } as OfferDefinition,
+};
+
+// ==========================================
+// 📦 DEFINICIÓN DE PACKS
+// ==========================================
 export interface PackDefinition {
   id: PackId;
   service: ServiceSlug;
@@ -106,7 +222,6 @@ const PACKS: PackDefinition[] = [
       '🌫️ Máquina de humo + efectos',
       '🎤 Multibox LED para pista',
       '📱 Playlist personalizada',
-      
     ],
     ideal: '80-120 personas',
     bestFor: 'Despedidas, fiestas de 30/40, grupos grandes de amigos',
@@ -190,8 +305,6 @@ const PACKS: PackDefinition[] = [
       '💡 4 cabezas mobiles led 150 watt',
       '📅 2 reuniones de planificación',
       '🫧 Burbujas para primer baile',
-
-
     ],
     ideal: 'Ceremonia + baile',
     bestFor: 'La mayoría de bodas que quieren todo cubierto',
@@ -485,7 +598,11 @@ const PACKS: PackDefinition[] = [
     ],
     ideal: '300+ personas',
     bestFor: 'Congresos, eventos institucionales, grandes producciones',
-  }, // ← ESTA COMA ES LO QUE FALTABA
+    highlight: false,
+    popular: false,
+    badge: null,
+    cta: 'Solicitar Presupuesto',
+  },
 ];
 
 // ==========================================
@@ -508,4 +625,40 @@ export function getMinPriceByService(service: ServiceSlug): number {
   const packs = PACKS.filter((p) => p.service === service);
   if (!packs.length) return 0;
   return Math.min(...packs.map((p) => p.priceValue));
+}
+
+// Helper para obtener extras por categoría
+export function getExtrasByCategory(category: ExtraDefinition['category']): ExtraDefinition[] {
+  return EXTRAS.filter((e) => e.category === category);
+}
+
+// Helper para calcular mejor oferta aplicable
+export function getBestApplicableOffer(
+  totalPrice: number,
+  extrasCount: number,
+  eventDate?: string
+): OfferDefinition | null {
+  const applicableOffers: OfferDefinition[] = [];
+
+  // Verificar Early Bird
+  if (totalPrice >= (OFFERS.earlyBird.minAmount || 0)) {
+    applicableOffers.push(OFFERS.earlyBird);
+  }
+
+  // Verificar Combo
+  if (extrasCount >= (OFFERS.combo.minExtras || 0)) {
+    applicableOffers.push(OFFERS.combo);
+  }
+
+  // Verificar Temporada
+  if (eventDate) {
+    const month = new Date(eventDate).getMonth() + 1;
+    if (OFFERS.seasonal.months?.includes(month)) {
+      applicableOffers.push(OFFERS.seasonal);
+    }
+  }
+
+  // Devolver la oferta con mayor descuento (mayor prioridad)
+  if (applicableOffers.length === 0) return null;
+  return applicableOffers.sort((a, b) => (b.priority || 0) - (a.priority || 0))[0];
 }

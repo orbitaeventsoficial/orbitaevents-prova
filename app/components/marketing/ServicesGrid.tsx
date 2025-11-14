@@ -1,4 +1,3 @@
-import Section from '../ui/Section';
 import Link from 'next/link';
 
 
@@ -11,7 +10,7 @@ const services = [
 
 export default function ServicesGrid() {
 return (
-<Section className="py-20">
+  <div>
 <h2 className="text-h2 text-center">Servicios</h2>
 <div className="mt-10 grid gap-6 sm:grid-cols-3">
 {services.map(s => (
@@ -24,6 +23,6 @@ return (
 </Link>
 ))}
 </div>
-</Section>
+  </div>
 );
 }

@@ -1,9 +1,9 @@
 // app/packs/page.tsx
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import Breadcrumbs from "@/app/components/seo/Breadcrumbs";
-import ServiceJsonLD from "@/app/components/seo/ServiceJsonLD";
-import FAQ from "@/app/components/seo/FAQ";
+import Breadcrumbs from "@\/components/seo/Breadcrumbs";
+import ServiceJsonLD from "@\/components/seo/ServiceJsonLD";
+import FAQ from "@\/components/seo/FAQ";
 
 export const metadata: Metadata = {
   title: "Packs y Tarifas | EV ETX + B-150 LED + Pioneer DJ desde 350€ | Òrbita Events",

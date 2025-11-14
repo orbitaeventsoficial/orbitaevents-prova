@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect } from "react";
-import ContactForm from "@/app/components/forms/ContactForm.client";
+import ContactForm from "@\/components/forms/ContactForm.client";
 import { Mic, Speaker, Lightbulb, Star, Check, MessageCircle, Shield, RotateCcw } from "lucide-react";
 
 // Analytics

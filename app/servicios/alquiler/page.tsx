@@ -2,9 +2,9 @@
 // 🔥 MANOLO VERSION - CORREGIDO + Optimizado para conversión máxima
 
 import type { Metadata } from 'next';
-import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
-import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
-import FAQ from '@/app/components/seo/FAQ';
+import Breadcrumbs from '@\/components/seo/Breadcrumbs';
+import ServiceJsonLD from '@\/components/seo/ServiceJsonLD';
+import FAQ from '@\/components/seo/FAQ';
 import Client from './client';
 
 export const metadata: Metadata = {

@@ -1,8 +1,8 @@
 // app/servicios/bodas/page.tsx
 
 import type { Metadata } from 'next';
-import ServiceJsonLD from '@/app/components/seo/ServiceJsonLD';
-import FAQ from '@/app/components/seo/FAQ';
+import ServiceJsonLD from '@\/components/seo/ServiceJsonLD';
+import FAQ from '@\/components/seo/FAQ';
 import dynamic from 'next/dynamic';
 
 import { getMinPriceByService, getPacksByService } from '@/data/packs-config';

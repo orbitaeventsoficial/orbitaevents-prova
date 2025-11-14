@@ -6,8 +6,8 @@ import { Inter, Space_Grotesk } from 'next/font/google';
 
 import Header from './components/ui/header';
 import Footer from './components/ui/footer';
-import StickyCTA from './StickyCTA';
-import WhatsAppSticky from './components/ui/WhatsAppSticky';
+import StickyCTA from './components/ui/StickyCTA';
+import ConfiguradorSticky from './components/ui/ConfiguradorSticky';
 import PageTransition from './components/ui/PageTransition.client';
 import OfferModal from './components/marketing/OfferModal.client';
 import CookieConsent from './components/legal/CookieConsent.client';
@@ -167,9 +167,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <Footer />
 
-          {/* CTAs flotantes estratégicos */}
+          {/* 🔥 CTAs flotantes estratégicos OPTIMIZADOS */}
           <StickyCTA />
-          <WhatsAppSticky />
+          <ConfiguradorSticky />
         </Suspense>
 
         {/* Analytics & Tracking (solo en producción) */}

@@ -1,6 +1,6 @@
 // app/configurador/page.tsx
 import type { Metadata } from 'next';
-import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
+import Breadcrumbs from '@\/components/seo/Breadcrumbs';
 import dynamic from 'next/dynamic';
 
 const ConfiguradorClient = dynamic(() => import('./client'));

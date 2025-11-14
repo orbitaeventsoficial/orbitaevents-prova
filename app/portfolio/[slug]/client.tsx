@@ -1,7 +1,6 @@
 'use client';
 
-import Section from '@/components/ui/Section';
-import SmartImage, { getPortfolioImage } from '@/components/ui/SmartImage';
+import SmartImage, { getPortfolioImage } from '../../../app/components/ui/SmartImage';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
@@ -31,7 +30,6 @@ export default function PortfolioClient({ slug, title }: PortfolioClientProps) {
   // 🔥 CASO ESPECIAL: fiestas temáticas → tarjetas de subcategorías
   if (slug === 'fiestas-tematicas') {
     return (
-      <Section className="py-16">
         <div className="mx-auto max-w-6xl px-4">
           <h1 className="text-4xl font-bold text-center mb-4">{title}</h1>
           <p className="text-center text-white/70 mb-12">
@@ -58,7 +56,6 @@ export default function PortfolioClient({ slug, title }: PortfolioClientProps) {
             ))}
           </div>
         </div>
-      </Section>
     );
   }
 
@@ -108,17 +105,14 @@ export default function PortfolioClient({ slug, title }: PortfolioClientProps) {
 
   if (loading) {
     return (
-      <Section className="py-16">
         <div className="text-center">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#d7b86e] border-t-transparent" />
           <p className="mt-4 text-white/70">Cargando galería...</p>
         </div>
-      </Section>
     );
   }
 
   return (
-    <Section className="py-16">
       <div className="mx-auto max-w-6xl px-4">
         <h1 className="text-4xl font-bold text-center mb-4">{title}</h1>
         <p className="text-center text-white/70 mb-12">
@@ -150,6 +144,5 @@ export default function PortfolioClient({ slug, title }: PortfolioClientProps) {
           })}
         </div>
       </div>
-    </Section>
   );
 }

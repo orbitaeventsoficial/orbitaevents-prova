@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
+import Breadcrumbs from '../../components/seo/Breadcrumbs';
 import type { Metadata } from 'next';
 import Client from './client';
 

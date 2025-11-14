@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Breadcrumbs from '@/app/components/seo/Breadcrumbs';
+import Breadcrumbs from '@\/components/seo/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Portfolio | Òrbita Events',

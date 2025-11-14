@@ -20,7 +20,6 @@ const WA_LINK = `https://wa.me/34699121023?text=${encodeURIComponent(
 export default function StickyCTA() {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Mostrar después de 2 segundos
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 2000);
     return () => clearTimeout(timer);
@@ -46,45 +45,39 @@ export default function StickyCTA() {
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}
-        className="group relative flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 py-4 rounded-full shadow-2xl transition-all duration-300"
-        whileHover={{ scale: 1.05, y: -2 }}
+        className="group relative flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white pl-4 pr-5 py-3 rounded-full shadow-2xl transition-all duration-300"
+        whileHover={{ scale: 1.05, x: -3 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Contactar por WhatsApp"
       >
-        {/* Pulso animado de fondo */}
+        {/* Pulso animado */}
         <span className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75" />
 
-        {/* Icono WhatsApp */}
+        {/* Icono */}
         <MessageCircle className="w-6 h-6 relative z-10" />
 
-        {/* Texto - solo visible en desktop */}
-        <span className="hidden sm:inline relative z-10 font-bold">
+        {/* Texto desktop */}
+        <span className="hidden sm:inline relative z-10 font-bold text-sm">
           ¡Hablemos!
         </span>
 
-        {/* Badge de notificación */}
+        {/* Badge notificación */}
         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
           1
         </span>
-
-        {/* Tooltip al hover - solo desktop */}
-        <span className="absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden lg:block">
-          <span className="bg-bg-surface border border-oe-gold/50 text-white px-4 py-2 rounded-lg shadow-xl whitespace-nowrap">
-            <span className="block font-bold text-oe-gold">Presupuesto Rápido</span>
-            <span className="block text-sm text-white/70">Respuesta en 2h 📱</span>
-          </span>
-        </span>
       </motion.a>
 
-      {/* Texto debajo - solo mobile */}
-      <motion.p
-        className="sm:hidden text-xs text-white/60 mt-2 text-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
+      {/* Tooltip hover - desktop */}
+      <motion.div
+        className="hidden lg:block absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        initial={{ x: -10 }}
+        animate={{ x: 0 }}
       >
-        Respuesta rápida 📱
-      </motion.p>
+        <div className="bg-bg-surface border border-green-500/50 text-white px-4 py-2 rounded-lg shadow-xl whitespace-nowrap">
+          <p className="font-bold text-green-400">Respuesta en 2h 📱</p>
+          <p className="text-xs text-white/70">Lun-Dom 10:00-22:00</p>
+        </div>
+      </motion.div>
     </motion.div>
   );
 }

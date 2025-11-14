@@ -1,6 +1,5 @@
 'use client';
 import { useRef, useEffect } from 'react';
-import Section from '../ui/Section';
 
 
 const TESTIMONIOS = [
@@ -28,7 +27,6 @@ el.animate(
 
 
 return (
-<Section className="py-16">
 <div className="overflow-hidden border-y border-[var(--border)]">
 <div ref={ref} className="whitespace-nowrap py-6">
 {[...TESTIMONIOS, ...TESTIMONIOS].map((t, i) => (
@@ -36,6 +34,5 @@ return (
 ))}
 </div>
 </div>
-</Section>
 );
 }

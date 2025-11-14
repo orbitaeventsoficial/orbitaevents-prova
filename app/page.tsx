@@ -1,13 +1,13 @@
 // app/page.tsx
+import ProofSection from './components/marketing/ProofSection';
+import TransformationSection from './components/marketing/TransformationSection';
+import GuaranteeSection from './components/marketing/GuaranteeSection';
 import type { Metadata } from 'next';
 
 import HeroBrutal from './components/ui/HeroBrutal';
-import ProofSection from './components/marketing/ProofSection';
 import EmotionalPacks from './components/marketing/EmotionalPacks';
 import UrgencyBanner from './components/marketing/UrgencyBanner';
 import VideoTestimonials from './components/marketing/VideoTestimonials';
-import TransformationSection from './components/marketing/TransformationSection';
-import GuaranteeSection from './components/marketing/GuaranteeSection';
 import FAQ from './components/seo/FAQ';
 import FinalCTA from './components/marketing/FinalCTA';
 

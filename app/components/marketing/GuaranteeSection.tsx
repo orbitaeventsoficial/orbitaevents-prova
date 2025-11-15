@@ -54,7 +54,7 @@ export default function GuaranteeSection() {
 
           <p className="text-xl text-text-muted max-w-3xl mx-auto">
             En cada boda nos implicamos como si fuera propia: planificamos al detalle, preparamos soluciones de respaldo
-            y cuidamos el ritmo para que la pista esté viva toda la noche.
+            y cuidamos el ritmo para que los invitados disfruten toda la noche.
             <span className="text-oe-gold font-bold">Tu satisfacción no es una promesa, es nuestro estándar</span>.
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function GuaranteeSection() {
 
           <div className="mt-8 p-4 rounded-xl bg-green-500/10 border border-green-500/30">
             <p className="text-sm text-green-400 text-center">
-              ✅ Más de 150 celebraciones ejecutadas con éxito y valoración media sobresaliente.
+              ✅ Más de 150 celebraciones con éxito y la opinión media es sobresaliente.
             </p>
           </div>
         </motion.div>

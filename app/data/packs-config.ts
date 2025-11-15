@@ -2,12 +2,12 @@
 // 🔥 FUENTE ÚNICA DE VERDAD - TODOS LOS PACKS DE ÒRBITA EVENTS
 // Si cambias un precio aquí, cambia en toda la web. Sin perseguir gremlins.
 
-export type ServiceSlug = 'fiestas' | 'bodas' | 'discomobil' | 'alquiler' | 'empresas';
+export type ServiceSlug = 'fiestas' | 'bodas' | 'discomovil' | 'alquiler' | 'empresas';
 
 export const ALL_SERVICES: ServiceSlug[] = [
   'fiestas',
   'bodas',
-  'discomobil',
+  'discomovil',
   'alquiler',
   'empresas',
 ];
@@ -17,6 +17,8 @@ export type PackId =
   | 'fiestas-cumple-basico'
   | 'fiestas-despedida-plus'
   | 'fiestas-tematica-completa'
+  // Low Cost
+  | 'lowcost-cumple-bolo'
   // Bodas
   | 'bodas-esencial'
   | 'bodas-premium'
@@ -52,8 +54,8 @@ export interface ExtraDefinition {
 export const EXTRAS: ExtraDefinition[] = [
   {
     id: 'confeti',
-    name: 'Confeti + Chispas Frías',
-    description: 'Momento WOW con confeti biodegradable + chispas frías seguras',
+    name: 'Confeti o Chispas Frías',
+    description: 'Momento WOW con confeti biodegradable o chispas frías seguras',
     price: 150,
     icon: '🎊',
     popular: true,
@@ -86,10 +88,10 @@ export const EXTRAS: ExtraDefinition[] = [
     category: 'visual',
   },
   {
-    id: 'photobooth',
-    name: 'Photobooth con Props',
+    id: 'photocall',
+    name: 'Photocall con atrezzo',
     description: 'Rincón de fotos con atrezzo + impresión instantánea',
-    price: 250,
+    price: 350,
     icon: '📸',
     category: 'visual',
   },
@@ -97,7 +99,7 @@ export const EXTRAS: ExtraDefinition[] = [
     id: 'dj-extra',
     name: 'Hora Extra de DJ',
     description: 'Porque cuando la fiesta arrasa, nadie quiere que termine',
-    price: 120,
+    price: 100,
     icon: '⏰',
     category: 'time',
   },
@@ -117,6 +119,7 @@ export interface OfferDefinition {
   description: string;
   badge: string;
   priority?: number; // mayor = más prioridad al aplicar
+  applicablePacks?: PackId[]; // solo para low cost
 }
 
 export const OFFERS = {
@@ -124,7 +127,7 @@ export const OFFERS = {
     id: 'early-bird',
     name: 'Reserva Hoy - 10% OFF',
     discount: 10,
-    minAmount: 800, // mínimo 800€ para aplicar
+    minAmount: 800,
     validUntil: '2025-12-31',
     description: 'Reserva hoy y ahorra 10% en tu pack base',
     badge: '🔥 OFERTA LIMITADA',
@@ -133,7 +136,7 @@ export const OFFERS = {
   combo: {
     id: 'combo-extras',
     name: 'Pack de 3 Extras',
-    discount: 15, // 15% en extras si coges 3 o más
+    discount: 15,
     minExtras: 3,
     description: 'Contrata 3+ extras y ahorra 15%',
     badge: '💎 COMBO',
@@ -143,7 +146,7 @@ export const OFFERS = {
     id: 'temporada-baja',
     name: 'Descuento Temporada Baja',
     discount: 12,
-    months: [1, 2, 11, 12], // Enero, Febrero, Noviembre, Diciembre
+    months: [1, 2, 9, 10],
     description: 'Eventos en temporada baja tienen 12% descuento',
     badge: '📅 TEMPORADA',
     priority: 1,
@@ -160,8 +163,8 @@ export interface PackDefinition {
   name: string;
   tagline: string;
   emotion?: string;
-  price: string; // '400€' para mostrar
-  priceValue: number; // 400 para cálculos
+  price: string;
+  priceValue: number;
   priceOriginal?: string | null;
   features: string[];
   ideal?: string;
@@ -171,9 +174,42 @@ export interface PackDefinition {
   popular?: boolean;
   badge?: string | null;
   cta?: string;
+  lowCost?: boolean; // para banner
 }
 
 const PACKS: PackDefinition[] = [
+  // ==========================================
+  // LOW COST - SOLO CUMPLEAÑOS Y BOLOS PEQUEÑOS
+  // ==========================================
+  {
+    id: 'lowcost-cumple-bolo',
+    service: 'fiestas',
+    slug: 'cumple-bolo',
+    name: '🎉 Pack Cumple Bolo',
+    tagline: '2h DJ + 2 altavoces + controladora + luces. Solo 200€.',
+    emotion: 'Llegas, montas, pones temazo y la fiesta explota. Ideal para bolos rápidos.',
+    price: '250€',
+    priceValue: 250,
+    priceOriginal: '350€',
+    duration: '2 horas de sesión',
+    features: [
+      '🎵 DJ profesional 2 horas',
+      '🔊 2 altavoces EV de 2000W cada uno (sistema total 4000W)',
+      '🎚️ Mesa controladora Pioneer DDJ',
+      '💡 Multibox LED multicolor',
+      '🌫️ Máquina de humo',
+      '🚚 Montaje y desmontaje incluidos',
+      '📱 Playlist personalizada',
+    ],
+    ideal: 'Hasta 50 personas',
+    bestFor: 'Cumpleaños pequeños, afterworks, bolos rápidos, eventos informales',
+    highlight: true,
+    popular: true,
+    badge: '⚡ LOW COST',
+    cta: 'Reservar Pack Flash 250€',
+    lowCost: true,
+  },
+
   // ==========================================
   // FIESTAS PRIVADAS
   // ==========================================
@@ -190,13 +226,13 @@ const PACKS: PackDefinition[] = [
     duration: 'Hasta 3 horas de DJ',
     features: [
       '🎵 DJ profesional hasta 3 horas',
-      '🔊 2 altavoces de 2.000W (sistema total)',
+      '🔊 2 altavoces EV de 2000W cada uno (sistema total 4000W)',
       '💡 Iluminación LED multicolor',
       '🌫️ Máquina de humo',
       '📱 Selección musical personalizada',
       '🚚 Montaje y desmontaje incluidos',
     ],
-    ideal: 'Hasta 80 personas',
+    ideal: 'Hasta 40 personas',
     bestFor: 'Cumples en casa, locales pequeños, fiestas sencillas pero bien hechas',
     highlight: false,
     popular: false,
@@ -213,12 +249,12 @@ const PACKS: PackDefinition[] = [
     price: '520€',
     priceValue: 520,
     priceOriginal: null,
-    duration: 'Hasta 4 horas de DJ',
+    duration: 'Hasta 3 horas de DJ',
     features: [
       '✨ TODO lo del Pack Esencial',
-      '⏱️ Hasta 4 horas de DJ',
-      '🔊 2 altavoces (4.000W total)',
-      '💡 4 Cabezas mobilesLed 150 Watt',
+      '⏱️ Hasta 3 horas de DJ',
+      '🔊 2 altavoces EV de 2000W cada uno (sistema total 4000W)',
+      '💡 4 cabezas móviles LED de 150W cada una',
       '🌫️ Máquina de humo + efectos',
       '🎤 Multibox LED para pista',
       '📱 Playlist personalizada',
@@ -268,15 +304,15 @@ const PACKS: PackDefinition[] = [
     name: '🔥 Boda Esencial',
     tagline: 'Solo el baile - Lo esencial',
     emotion: 'La base sólida: DJ profesional, buen sonido y luces de fiesta.',
-    price: '400€',
-    priceValue: 400,
+    price: '550€',
+    priceValue: 550,
     priceOriginal: null,
     duration: 'Hasta 3 horas de baile',
     features: [
       '🎵 DJ profesional con lectura de pista',
-      '🔊 Sistema de sonido 4.000W (2 altavoces EV)',
-      '💡 Iluminación LED para pista',
-      '🌫️ Máquina de humo + humo bajo',
+      '🔊 Sistema de sonido 4000W (2 altavoces EV de 2000W cada uno)',
+      '💡 Multibox LED que ilumina la pista',
+      '🌫️ Máquina de humo',
       '📱 Planificación musical previa',
     ],
     ideal: 'Solo el baile final',
@@ -296,13 +332,13 @@ const PACKS: PackDefinition[] = [
     price: '950€',
     priceValue: 950,
     priceOriginal: null,
-    duration: 'Ceremonia + hasta 4h baile',
+    duration: 'Ceremonia + hasta 3h baile',
     features: [
       '✨ Todo lo de Boda Esencial',
       '💒 Música y sonido para ceremonia',
       '🍾 Música ambiente cóctel/banquete',
       '🎤 Micro inalámbrico para lecturas',
-      '💡 4 cabezas mobiles led 150 watt',
+      '💡 4 cabezas móviles LED de 150W cada una',
       '📅 2 reuniones de planificación',
       '🫧 Burbujas para primer baile',
     ],
@@ -346,7 +382,7 @@ const PACKS: PackDefinition[] = [
   // ==========================================
   {
     id: 'discomovil-basica',
-    service: 'discomobil',
+    service: 'discomovil',
     slug: 'fiesta-basica',
     name: '🎵 Fiesta Básica',
     tagline: 'Para fiestas de hasta 100 personas',
@@ -357,7 +393,7 @@ const PACKS: PackDefinition[] = [
     duration: 'Hasta 3 horas de DJ',
     features: [
       '🎵 DJ profesional',
-      '🔊 2 altavoces potentes (2.000W)',
+      '🔊 Sistema de sonido 4000W (2 altavoces EV de 2000W cada uno)',
       '💡 Iluminación LED básica',
       '🌫️ Máquina de humo',
       '🎚️ Mesa DJ Pioneer',
@@ -371,19 +407,19 @@ const PACKS: PackDefinition[] = [
   },
   {
     id: 'discomovil-premium',
-    service: 'discomobil',
+    service: 'discomovil',
     slug: 'fiesta-premium',
     name: '💫 Fiesta Premium',
     tagline: 'Para fiestas de 100-200 personas',
-    emotion: 'Potencia real, luz que funciona y ambiente que aguanta toda la noche.',
+    emotion: 'Potencia real, luz que funciona y ambiente quefcb que aguanta toda la noche.',
     price: '590€',
     priceValue: 590,
     priceOriginal: null,
-    duration: 'Hasta 4 hours de DJ',
+    duration: 'Hasta 4 horas de DJ',
     features: [
       '🎵 DJ profesional',
-      '🔊 2 altavoces (4.000W)',
-      '💡 Iluminación LED avanzada',
+      '🔊 Sistema de sonido 4000W (2 altavoces EV de 2000W cada uno)',
+      '💡 4 cabezas móviles LED de 150W cada una',
       '🌫️ Máquina de humo + efectos',
       '🎚️ Mesa DJ Pioneer',
       '✨ Multibox LED para pista',
@@ -397,7 +433,7 @@ const PACKS: PackDefinition[] = [
   },
   {
     id: 'discomovil-vip',
-    service: 'discomobil',
+    service: 'discomovil',
     slug: 'fiesta-vip',
     name: '🚀 Fiesta VIP',
     tagline: 'Nivel discoteca para 200+ personas',
@@ -408,10 +444,10 @@ const PACKS: PackDefinition[] = [
     duration: 'Hasta 5 horas de DJ',
     features: [
       '🎵 DJ profesional',
-      '🔊 Sistema line array (6.000W+)',
+      '🔊 Sistema de sonido 4000W (2 altavoces EV de 2000W cada uno)',
       '💡 Iluminación profesional completa',
       '🌫️ Humo + efectos especiales',
-      '🎚️ Mesa Pioneer + backup',
+      '🎚️ Mesa DJ Pioneer',
       '📺 Pantalla LED para visuales',
       '👨‍💼 Técnico de soporte',
     ],
@@ -433,12 +469,12 @@ const PACKS: PackDefinition[] = [
     name: '🔊 Pack Sonido PRO',
     tagline: 'Sistema profesional para DJs',
     emotion: 'El mismo equipo que usamos nosotros, en tus manos.',
-    price: '280€',
-    priceValue: 280,
+    price: '180€',
+    priceValue: 180,
     priceOriginal: null,
     duration: 'Por día',
     features: [
-      '🔊 2x Altavoces EV ETX-35P (3.000W)',
+      '🔊 2x Altavoces EV ETX-18P (4000W total)',
       '🔌 Cables XLR y conexiones',
       '🎚️ Trípodes reforzados',
       '🚚 Recogida y entrega incluidas',
@@ -462,7 +498,7 @@ const PACKS: PackDefinition[] = [
     priceOriginal: null,
     duration: 'Por día',
     features: [
-      '💡 4x Focos B-150 LED RGBW',
+      '💡 4x Focos B-150 LED RGBW de 150W cada uno',
       '🎛️ Controlador DMX',
       '🔧 Estructura y cables',
       '🚚 Recogida y entrega incluidas',
@@ -538,9 +574,9 @@ const PACKS: PackDefinition[] = [
     priceOriginal: null,
     duration: 'Hasta 4 horas',
     features: [
-      '🔊 Sonido profesional para presentaciones',
+      '🔊 Sistema de sonido 4000W (2 altavoces EV de 2000W cada uno)',
       '🎤 2 micros inalámbricos',
-      '💡 Iluminación pro (4 cabezas moviles led)',
+      '💡 4 cabezas móviles LED de 150W cada una',
       '🎵 Música ambiente',
       '👨‍💼 Técnico durante el evento',
     ],
@@ -563,7 +599,7 @@ const PACKS: PackDefinition[] = [
     priceOriginal: null,
     duration: 'Hasta 6 horas',
     features: [
-      '🔊 Sonido line array profesional',
+      '🔊 Sistema de sonido ampliado (4 altavoces EV de 2000W cada uno - 8000W total)',
       '🎤 4 micros inalámbricos',
       '💡 Iluminación escénica completa',
       '📺 Pantalla LED para proyección',
@@ -577,32 +613,7 @@ const PACKS: PackDefinition[] = [
     badge: '⭐ RECOMENDADO',
     cta: 'Solicitar Presupuesto',
   },
-  {
-    id: 'empresas-corporativo-vip',
-    service: 'empresas',
-    slug: 'corporativo-vip',
-    name: '👑 Producción Corporativa VIP',
-    tagline: 'Para congresos y eventos de gran formato',
-    emotion: 'Producción completa de alto nivel. Congreso, streaming, todo.',
-    price: '3.000€',
-    priceValue: 3000,
-    priceOriginal: null,
-    duration: 'Todo el día',
-    features: [
-      '🔥 Todo lo de Premium',
-      '🎭 Escenario profesional',
-      '📹 Streaming y grabación',
-      '🎤 Coordinación con ponentes',
-      '💫 Efectos especiales',
-      '👨‍💼 Equipo técnico completo',
-    ],
-    ideal: '300+ personas',
-    bestFor: 'Congresos, eventos institucionales, grandes producciones',
-    highlight: false,
-    popular: false,
-    badge: null,
-    cta: 'Solicitar Presupuesto',
-  },
+  
 ];
 
 // ==========================================
@@ -662,3 +673,15 @@ export function getBestApplicableOffer(
   if (applicableOffers.length === 0) return null;
   return applicableOffers.sort((a, b) => (b.priority || 0) - (a.priority || 0))[0];
 }
+
+// ==========================================
+// 🔥 PRECIO MÍNIMO GLOBAL DE PACKS PRINCIPALES (SEO, HERO, FAQ)
+// EXCLUYE extras como alquiler-tecnico (80€)
+// ==========================================
+const PRINCIPAL_SERVICES: ServiceSlug[] = ['fiestas', 'bodas', 'discomovil', 'empresas'];
+
+export const MIN_PRICE_GLOBAL = Math.min(
+  ...PACKS
+    .filter(p => PRINCIPAL_SERVICES.includes(p.service))
+    .map(p => p.priceValue)
+); // → 200€ (lowcost-cumple-bolo)

@@ -37,11 +37,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-oe-gold" />
-                <a href="mailto:info@orbitaevents.cat" className="hover:text-oe-gold transition">info@orbitaevents.cat</a>
+                <a href="mailto:info@orbitaevents.cat" className="hover:text-oe-gold transition">info@orbitaevents.com</a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-oe-gold" />
-                <span>Lleida, Catalunya</span>
+                <span>Barcelona, Catalunya</span>
               </li>
             </ul>
           </div>

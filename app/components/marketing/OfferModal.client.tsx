@@ -5,7 +5,7 @@ import { X, Sparkles, Percent } from 'lucide-react';
 
 const LS_KEY = 'oe.offer.v1';     // cambia versión si quieres forzar reaparición
 const SUPPRESS_DAYS = 7;          // días sin mostrar tras cerrar
-const SHOW_DELAY_MS = 2500;       // retardo antes de aparecer
+const SHOW_DELAY_MS = 25000;       // retardo antes de aparecer
 
 function daysFromNow(n: number) {
   const d = new Date();
@@ -123,8 +123,7 @@ export default function OfferModal() {
           Reserva hoy y llévate <span className="gradient-text">10% de descuento</span>
         </h2>
         <p className="mt-3 text-white/70">
-          Válido para nuevas reservas confirmadas en las próximas 24 horas. Producción técnica y DJ
-          con contrato, sin humo.
+          Válido para nuevas reservas confirmadas en las próximas 24 horas. Producción técnica, discomobil, Dj Tematización, FX.
         </p>
 
         <div className="mt-6 flex flex-col sm:flex-row gap-3">

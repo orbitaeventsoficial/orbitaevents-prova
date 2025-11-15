@@ -543,7 +543,7 @@ ${pricing.discount > 0 ? `🎁 Descuento ${pricing.discountReason}: -${pricing.d
         {/* Social proof */}
         <div className="text-center pt-6 border-t border-border">
           <p className="text-sm text-text-muted">
-            ⭐⭐⭐⭐⭐ <strong className="text-white">+42 clientes</strong> han reservado con esta
+            ⭐⭐⭐⭐⭐ <strong className="text-white">+12 clientes</strong> han reservado con esta
             oferta este mes
           </p>
         </div>

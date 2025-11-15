@@ -53,7 +53,7 @@ export default function FinalCTA() {
           <h2 className="text-4xl sm:text-6xl font-display font-black text-white mb-6 leading-tight">
             ¿Listo Para El Evento
             <br />
-            <span className="gradient-text breathe">Que Tus invitados NO Olvidarán?</span>
+            <span className="gradient-text breathe">Que Tus Invitados NO Olvidarán?</span>
           </h2>
 
           {/* Subheadline */}
@@ -112,7 +112,7 @@ export default function FinalCTA() {
               💶 Señal 30% | Resto día evento
             </p>
             <p className="text-sm text-oe-gold font-bold">
-              🎁 Reserva esta semana y te regalamos 1 hora extra de DJ
+              🎁 Reserva esta semana y te regalamos 10% de descuento
             </p>
           </div>
         </motion.div>
@@ -129,7 +129,7 @@ export default function FinalCTA() {
             <div className="w-8 h-8 rounded-full bg-oe-gold/10 flex items-center justify-center">
               <span className="text-oe-gold font-bold text-xs">✓</span>
             </div>
-            <span>Garantía pista llena</span>
+            <span>Garantía de satisfacción</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-oe-gold/10 flex items-center justify-center">

@@ -1,14 +1,13 @@
-import { REVIEWS } from "@/data/reviews-data";
 // app/opiniones/page.tsx
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import Breadcrumbs from "@\/components/seo/Breadcrumbs";
-import ServiceJsonLD from "@\/components/seo/ServiceJsonLD";
-import FAQ from "@\/components/seo/FAQ";
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import FAQ from "@/components/seo/FAQ";
+import { REVIEWS } from "@/data/reviews-data";
 
 export const metadata: Metadata = {
   title: "Opiniones Reales DJ Bodas Barcelona | 5/5 en 42 Reseñas | Òrbita Events",
-description: "Opiniones reales de bodas, fiestas y eventos. Sonido impecable, iluminación cuidada y lleno de momentos inolvidables. Descubre experiencias auténticas.",
+  description: "Opiniones reales de bodas, fiestas y eventos. Sonido impecable, iluminación cuidada y lleno de momentos inolvidables. Descubre experiencias auténticas.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://orbitaevents.com"),
   alternates: { canonical: "/opiniones" },
   openGraph: {
@@ -65,25 +64,26 @@ export default function OpinionesPage() {
         }}
       />
 
-<FAQ
-  items={[
-    {
-      q: "¿Qué opinan los clientes de Òrbita Events?",
-      a: "Valoración media de 5/5 en 42 reseñas. Nuestros clientes destacan el sonido impecable, el montaje ágil y la capacidad del DJ para mantener la pista encendida.",
-    },
-    {
-      q: "¿Son reseñas reales?",
-      a: "Sí, todas verificadas de bodas y eventos en Barcelona y Girona. Enlazamos directamente a Google y WeddingWire.",
-    },
-    {
-      q: "¿Cómo puedo dejar una reseña?",
-      a: "Puedes hacerlo desde Google o enviándola por correo. Cada opinión cuenta y nos ayuda a seguir mejorando.",
-    },
-  ]}
-/>
-
+      {/* RESEÑAS PRIMERO */}
       <OpinionesClient />
+
+      {/* FAQ AL FINAL */}
+      <FAQ
+        items={[
+          {
+            q: "¿Qué opinan los clientes de Òrbita Events?",
+            a: "Valoración media de 5/5 en 42 reseñas. Nuestros clientes destacan el sonido, el montaje y la capacidad del DJ para mantener la pista y divertir a los invitados.",
+          },
+          {
+            q: "¿Son reseñas reales?",
+            a: "Sí, todas verificadas de bodas y eventos en Barcelona y Girona. Enlazamos directamente a Google.",
+          },
+          {
+            q: "¿Cómo puedo dejar una reseña?",
+            a: "Puedes hacerlo desde Google o enviándola por correo. Cada opinión cuenta y nos ayuda a seguir mejorando.",
+          },
+        ]}
+      />
     </>
   );
 }
-

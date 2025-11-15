@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Configurador de Eventos | Calcula tu Presupuesto Online | Òrbita Events',
   description:
     'Configura tu evento paso a paso y recibe presupuesto al instante. Elige tipo de evento, opciones de sonido, luces, DJ y extras. Compara packs y personaliza tu experiencia.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.com'),
   alternates: { canonical: '/configurador' },
   openGraph: {
     title: 'Configurador de Eventos | Tu Presupuesto en 3 Minutos',

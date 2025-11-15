@@ -30,7 +30,7 @@ export default function HeroBrutal() {
           muted
           loop
           autoPlay
-          poster="/img/hero-poster.webp"
+          poster="/img/orbita-glyph.svg"
         >
           <source src="/video/hero.mp4" type="video/mp4" />
         </video>
@@ -70,7 +70,7 @@ export default function HeroBrutal() {
               El Evento Que
             </span>
             <span className="block bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200 bg-clip-text text-transparent drop-shadow-2xl animate-pulse" style={{animationDuration: '3s'}}>
-              Tu Gente NO Olvidará
+              Tus Invitados NO Olvidarán
             </span>
           </h1>
         </div>

@@ -104,28 +104,61 @@ export const trackEvent = ({
 };
 
 /**
+ * IMPORTS ESENCIALES: packs-config es TU FUENTE DE VERDAD
+ */
+import { getPackById, PackId } from '@/data/packs-config'; // ← AJUSTA RUTA SI ES NECESARIO
+
+/**
+ * OBTENER VALOR REAL DEL PACK (fuente única de verdad)
+ */
+const getRealPackValue = (packId: PackId): number => {
+  const pack = getPackById(packId);
+  return pack?.priceValue || 0;
+};
+
+/**
  * TRACKEAR LEAD GENERADO (conversión principal)
- * Usar cuando alguien envía el formulario de contacto
+ * AHORA USA PRECIO REAL DEL PACK SI SE SELECCIONÓ
  */
 export const trackLead = (data: {
   eventType: string;
   estimatedValue?: number;
   source?: string;
+  packId?: PackId; // ← NUEVO: opcional, pero ORO PURO
 }): void => {
-  const { eventType, estimatedValue, source } = data;
+  const { eventType, estimatedValue, source, packId } = data;
+
+  // PRIORIDAD: packId real > estimatedValue > fallback seguro
+  let finalValue = estimatedValue;
+
+  if (packId) {
+    finalValue = getRealPackValue(packId);
+  } else if (!finalValue) {
+    // Fallback basado en packs más vendidos (NO hardcodeado en analytics)
+    const fallback: Record<string, number> = {
+      boda: 950,     // Boda Premium
+      empresa: 1500, // Corporativo Premium
+      fiesta: 520,   // Fiesta Plus
+      discomovil: 590,
+      alquiler: 180,
+      default: 500,
+    };
+    finalValue = fallback[eventType.toLowerCase()] || fallback.default;
+  }
 
   trackEvent({
     eventName: 'generate_lead',
     eventCategory: 'Contact',
     eventLabel: eventType,
-    ...(estimatedValue !== undefined ? { value: estimatedValue } : {}), // ← cambio mínimo
+    value: finalValue,
     additionalParams: {
       lead_source: source || 'contact_form',
       event_type: eventType,
+      ...(packId && { pack_id: packId, pack_value: finalValue }),
     },
   });
 
-  console.log('🎯 LEAD GENERADO:', data);
+  console.log('🎯 LEAD GENERADO:', { ...data, finalValue });
 };
 
 /**
@@ -160,22 +193,29 @@ export const trackPhoneClick = (source: string = 'generic'): void => {
 
 /**
  * TRACKEAR SELECCIÓN DE PACK
+ * OBLIGATORIO: packId real → precio 100% actualizado
  */
 export const trackPackSelection = (data: {
-  packName: string;
-  packType: 'boda' | 'empresa' | 'fiesta';
-  price: number;
+  packId: PackId;
+  packType: 'boda' | 'empresa' | 'fiesta' | 'discomovil' | 'alquiler';
 }): void => {
-  const { packName, packType, price } = data;
+  const pack = getPackById(data.packId);
+  if (!pack) {
+    console.warn(`[Analytics] Pack no encontrado: ${data.packId}`);
+    return;
+  }
+
+  const price = pack.priceValue;
 
   trackEvent({
     eventName: 'select_pack',
     eventCategory: 'Pack Selection',
-    eventLabel: packName,
+    eventLabel: pack.name,
     value: price,
     additionalParams: {
-      pack_type: packType,
-      pack_name: packName,
+      pack_id: data.packId,
+      pack_type: data.packType,
+      pack_name: pack.name,
       price: price,
     },
   });
@@ -218,8 +258,9 @@ export const trackCalculatorUse = (data: {
   calculatedPrice: number;
   duration: number;
   guests: number;
+  packId?: PackId;
 }): void => {
-  const { eventType, calculatedPrice, duration, guests } = data;
+  const { eventType, calculatedPrice, duration, guests, packId } = data;
 
   trackEvent({
     eventName: 'calculate_price',
@@ -231,6 +272,7 @@ export const trackCalculatorUse = (data: {
       calculated_price: calculatedPrice,
       duration_hours: duration,
       guest_count: guests,
+      ...(packId && { pack_id: packId }),
     },
   });
 };
@@ -266,23 +308,6 @@ export const trackPageView = (pagePath: string, pageTitle: string): void => {
   if (window.fbq) {
     window.fbq('track', 'PageView');
   }
-};
-
-/**
- * HELPER: Obtener el valor estimado según tipo de evento
- */
-export const getEstimatedValue = (eventType: string): number => {
-  const values: Record<string, number> = {
-    boda: 1490,
-    empresa: 1990,
-    fiesta: 790,
-    discomovil: 890,
-    corporativo: 1990,
-    cumpleaños: 790,
-    otro: 500,
-  };
-
-  return values[eventType.toLowerCase()] || 500;
 };
 
 /**

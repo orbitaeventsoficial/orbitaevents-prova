@@ -170,7 +170,7 @@ export default function FAQClient() {
       <div className="mt-16 text-center bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-3xl p-8">
         <p className="text-2xl font-bold mb-2">¿Tu duda no está aquí?</p>
         <p className="text-white/70 mb-6 max-w-xl mx-auto">
-          Hablemos. Respuesta en menos de 1 hora (horario laboral).
+          Hablemos. Respuesta en menos de 2 hora (horario laboral).
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a

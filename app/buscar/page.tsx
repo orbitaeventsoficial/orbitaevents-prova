@@ -19,6 +19,7 @@ export default function BuscarPage({
     { href: '/servicios', label: 'Todos los servicios' },
     { href: '/portfolio', label: 'Portfolio' },
     { href: '/contacto', label: 'Contacto' },
+    { href: '/servicios/Fiestas', label: 'Fiestas tematicas' },
   ];
 
   const suggestions = allSuggestions.filter(

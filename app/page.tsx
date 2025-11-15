@@ -1,4 +1,5 @@
 // app/page.tsx
+import HeroPortalLogo from '@/components/ui/HeroPortalLogo'; // ← TU COMPONENTE
 import ProofSection from './components/marketing/ProofSection';
 import TransformationSection from './components/marketing/TransformationSection';
 import GuaranteeSection from './components/marketing/GuaranteeSection';
@@ -10,11 +11,12 @@ import UrgencyBanner from './components/marketing/UrgencyBanner';
 import VideoTestimonials from './components/marketing/VideoTestimonials';
 import FAQ from './components/seo/FAQ';
 import FinalCTA from './components/marketing/FinalCTA';
+import LogoWall from './components/marketing/LogoWall';
 
 export const metadata: Metadata = {
-  title: 'Òrbita Events | El Evento Que Tu Gente NO Olvidará | Barcelona, Lleida, Girona',
+  title: 'Òrbita Events | El Evento Que Tus Invitados NO Olvidarán | Barcelona, Lleida, Girona',
   description:
-    'No es "estuvo bien". Es "FUE ÉPICO". DJ profesional + luces sincronizadas + efectos especiales para bodas, empresas y fiestas en toda Catalunya. +150 eventos. 4.9⭐ (90 reseñas). Pista llena garantizada o reembolso 50%.',
+    'No es "estuvo bien". Es "FUE ÉPICO". DJ profesional + efectos especiales + tematización para bodas, empresas y fiestas en toda Catalunya. +150 eventos. 4.9⭐ (90 reseñas). Pista llena garantizada o reembolso 50%.',
   keywords: [
     'eventos catalunya',
     'dj bodas barcelona',
@@ -27,11 +29,12 @@ export const metadata: Metadata = {
     'dj profesional catalunya',
     'sonido profesional eventos',
     'efectos especiales bodas',
+    'tematización de eventos',
   ],
   openGraph: {
-    title: 'Òrbita Events | El Evento Que Tu Gente NO Olvidará',
+    title: 'Òrbita Events | El Evento Que Tus Invitados NO Olvidarán',
     description:
-      'DJ + Luces + Efectos Especiales. +150 eventos en Barcelona, Lleida, Girona, Tarragona. 4.9/5⭐ Pista llena garantizada.',
+      'DJ + Luces + Efectos Especiales + tematizaciones. +150 eventos en Barcelona, Lleida, Girona, Tarragona. 4.9/5⭐ Recuerdos memorables garantizados.',
     type: 'website',
     url: '/',
     images: [
@@ -39,14 +42,14 @@ export const metadata: Metadata = {
         url: '/og-home.jpg',
         width: 1200,
         height: 630,
-        alt: 'Òrbita Events - Eventos profesionales en Catalunya',
+        alt: 'Òrbita Events - Eventos en Catalunya',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Òrbita Events | El Evento Épico',
-    description: 'DJ + Luces + Efectos. +150 eventos en Catalunya. 4.9/5⭐',
+    description: 'DJ + Efectos + Tematizaciones. +150 eventos en Catalunya. 4.9/5⭐',
     images: ['/og-home.jpg'],
   },
   alternates: {
@@ -61,28 +64,27 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* HERO BRUTAL - Los primeros 3 segundos que deciden todo */}
+      {/* ← AQUÍ: SPLASH AL INICIO DE LA WEB */}
+      <HeroPortalLogo
+        svgUrl="/img/brand/orbita-glyph.anim.svg"
+        durationMs={2800}
+        sizePx={380}
+        liftVh={8}
+        zIndexClass="z-[9999]"
+        respectOnce={true}
+        onceStorage="localStorage"
+        onceKey="OE_SPLASH_WEEK"
+        onceTTL={7 * 24 * 60 * 60 * 1000}
+      />
+
       <HeroBrutal />
-
-      {/* PRUEBA SOCIAL APLASTANTE - Números + Logos + Ratings */}
       <ProofSection />
-
-      {/* TRANSFORMACIÓN ANTES/DESPUÉS - "Evento normalito vs Evento Òrbita" */}
       <TransformationSection />
-
-      {/* PACKS EMOCIONALES - Vendemos experiencias, no técnica */}
       <EmotionalPacks />
-
-      {/* URGENCIA BRUTAL - Banner de disponibilidad en tiempo real */}
       <UrgencyBanner />
-
-      {/* VIDEO TESTIMONIOS - Prueba social que CIERRA */}
       <VideoTestimonials />
-
-      {/* GARANTÍA KAMIKAZE - "Pista llena o reembolso 50%" */}
       <GuaranteeSection />
-
-      {/* FAQ - SEO + Objeciones respondidas */}
+      <LogoWall />
       <FAQ
         items={[
           {
@@ -93,7 +95,6 @@ export default function HomePage() {
             q: '¿Cuánto cuesta contratar Òrbita para mi boda/fiesta/evento?',
             a: 'Trabajamos con packs claros y configurador según necesidades. Los precios se calculan automáticamente según horas, equipo y tipo de evento. Puedes ver todas las opciones en el configurador o pedir propuesta por WhatsApp en menos de 24h.',
           },
-
           {
             q: '¿Trabajáis fuera de Barcelona? ¿En Lleida, Girona, Tarragona?',
             a: 'Sí, cubrimos toda Catalunya. Desplazamiento incluido en todos los packs sin recargos ocultos. Hemos hecho eventos en Barcelona, Lleida, Girona, Tarragona, Manresa, Vic, Figueres... Si está en Catalunya, llegamos.',
@@ -120,8 +121,6 @@ export default function HomePage() {
           },
         ]}
       />
-
-      {/* CTA FINAL BRUTAL - Último empujón para conversión */}
       <FinalCTA />
     </>
   );

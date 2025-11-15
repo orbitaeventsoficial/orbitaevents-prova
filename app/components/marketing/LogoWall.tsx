@@ -1,33 +1,42 @@
+// app/components/ui/LogoWall.tsx
+'use client';
+
 import Image from "next/image";
 
 export default function LogoWall() {
   const logos = [
-    { src: "/logos/cliente1.webp", alt: "Moto Offroad Academy", w: 160, h: 80 },
-    { src: "/logos/cliente2.webp", alt: "Masia El Massaguer", w: 160, h: 80 },
-    { src: "/logos/cliente3.webp", alt: "AECC", w: 160, h: 80 },
-    { src: "/logos/cliente4.webp", alt: "Clap", w: 160, h: 80 },
-    { src: "/logos/cliente5.webp", alt: "Ajuntament de Granollers", w: 160, h: 80 },
-    { src: "/logos/cliente6.webp", alt: "Ajuntament de Terrassa", w: 160, h: 80 },
-    { src: "/logos/cliente7.webp", alt: "MG Medicina Estètica", w: 160, h: 80 },
-    { src: "/logos/cliente8.webp", alt: "Zona Motor L'Ametlla Park", w: 160, h: 80 },
+    { src: "/img/logos/cliente1.webp", alt: "Moto Offroad Academy" },
+    { src: "/img/logos/cliente2.webp", alt: "Masia El Massaguer" },
+    { src: "/img/logos/cliente3.webp", alt: "AECC" },
+    { src: "/img/logos/cliente4.webp", alt: "Clap" },
+    { src: "/img/logos/cliente5.webp", alt: "Ajuntament de Granollers" },
+    { src: "/img/logos/cliente6.webp", alt: "Ajuntament de Terrassa" },
+    { src: "/img/logos/cliente7.webp", alt: "MG Medicina Estètica" },
+    { src: "/img/logos/cliente8.webp", alt: "Zona Motor L'Ametlla Park" },
   ];
 
   return (
-    <section className="bg-white/5 py-12">
+    <section className="bg-gradient-to-b from-bg-surface to-bg-main py-16">
       <div className="mx-auto max-w-6xl px-4">
-        <p className="text-center text-sm uppercase tracking-widest text-white/60">
-          Marcas que confían
+        <p className="text-center text-lg font-medium text-oe-gold mb-10 tracking-wide">
+          MARCAS QUE CONFÍAN EN ÒRBITA
         </p>
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-8 place-items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 place-items-center">
           {logos.map((l) => (
-            <Image
+            <div
               key={l.alt}
-              src={l.src}
-              alt={l.alt}
-              width={l.w}
-              height={l.h}
-              className="object-contain opacity-80 hover:opacity-100 transition"
-            />
+              className="relative w-44 h-24 flex items-center justify-center"
+            >
+              <Image
+                src={l.src}
+                alt={l.alt}
+                fill
+                className="object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 drop-shadow-md"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
           ))}
         </div>
       </div>

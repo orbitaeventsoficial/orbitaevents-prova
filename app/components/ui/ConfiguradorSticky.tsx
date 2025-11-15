@@ -32,7 +32,7 @@ export default function ConfiguradorSticky() {
 
   return (
     <motion.div
-      className="fixed bottom-6 right-6 z-50"
+      className="fixed bottom-6 left-6 z-50"  // ← IZQUIERDA (como pediste, jefe)
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 }}
@@ -63,8 +63,8 @@ export default function ConfiguradorSticky() {
           <Sparkles className="w-5 h-5 text-yellow-300 fill-yellow-300" />
         </motion.div>
 
-        {/* Tooltip hover - desktop */}
-        <div className="hidden lg:block absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+        {/* Tooltip hover - desktop (ahora a la DERECHA del botón) */}
+        <div className="hidden lg:block absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           <div className="bg-bg-surface border border-oe-gold/50 text-white px-4 py-2 rounded-lg shadow-xl whitespace-nowrap">
             <p className="font-bold text-oe-gold">Presupuesto en 3 min ⚡</p>
             <p className="text-xs text-white/70">Sin compromiso</p>

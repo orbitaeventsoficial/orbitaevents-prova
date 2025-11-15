@@ -9,7 +9,7 @@ export const FAQ_DATA = [
   },
   {
     q: "¿Con cuánta antelación tengo que reservar?",
-    a: "Bodas: MÍNIMO 3 meses (recomendado 6 meses en temporada mayo-sept). Fiestas privadas: 1 mes mínimo. Las fechas se bloquean con la señal del 50%. Consejo: no pierdas tu fecha ideal, reserva YA aunque falten meses.",
+    a: "Bodas: MÍNIMO 1 mes (recomendado 3 meses en temporada mayo-sept). Fiestas privadas: 15 dias mínimo. Las fechas se bloquean con la señal del 50%. Consejo: no pierdas tu fecha ideal, reserva YA aunque falten meses.",
     category: "reservas",
   },
   {
@@ -39,7 +39,7 @@ export const FAQ_DATA = [
   },
   {
     q: "¿Las luces para pista de baile están incluidas?",
-    a: "SÍ, siempre incluido: 4 luces B-150 LED 150W con gobos, prismas y beam 6°. Programación personalizada para tu evento. Opcionales: luces ambiente adicionales, uplights para decoración, proyecciones. Las básicas SIEMPRE van incluidas.",
+    a: "SÍ, siempre incluido al,enos el multibos LED, packs mayores incluye 4 cabezas mobiles LED 150W con gobos, prismas y beam 6°. Programación personalizada para tu evento. Opcionales: luces ambiente adicionales, uplights para decoración, proyecciones. Las básicas SIEMPRE van incluidas.",
     category: "iluminacion",
   },
   {
@@ -49,7 +49,7 @@ export const FAQ_DATA = [
   },
   {
     q: "Si cancelo, ¿pierdo el dinero?",
-    a: "Solo se pierde la señal de reserva, ya que la fecha queda bloqueada para tu evento. Si la cancelación ocurre con pocos días de antelación o el mismo día, no se realiza devolución, ya que todo el equipo y la logística están preparados. En cualquier caso, si hay causa justificada, intentamos ofrecer una nueva fecha o buscar una solución razonable.",
+    a: "En principio no. Si la cancelación ocurre con pocos días de antelación o el mismo día, no se realiza devolución, ya que todo el equipo y la logística están preparados. En cualquier caso, si hay causa justificada, intentamos ofrecer una nueva fecha o buscar una solución razonable.",
     category: "reservas",
   },
   {
@@ -59,7 +59,7 @@ export const FAQ_DATA = [
   },
   {
     q: "¿Qué garantía tengo de que todo saldrá bien?",
-    a: "Contrato detallado por escrito. Seguro RC de 600.000€. Equipo backup disponible en menos de 2h (área Barcelona). Más de 150 eventos sin incidencias graves. Si hay problema técnico, lo solucionamos en el momento. Tu tranquilidad es nuestra prioridad.",
+    a: "Contrato detallado por escrito. Seguro RC. Equipo backup disponible en menos de 2h (área Barcelona). Más de 150 eventos sin incidencias graves. Si hay problema técnico, lo solucionamos en el momento. Tu tranquilidad es nuestra prioridad.",
     category: "general",
   },
 ];

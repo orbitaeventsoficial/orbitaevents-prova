@@ -16,13 +16,18 @@ import {
   getMinPriceByService,
   type ServiceSlug,
   type PackDefinition,
+  type PackId,
 } from '@/data/packs-config';
 
 // Analytics
 let track: (event: string, data?: any) => void = () => {};
+let analytics: typeof import('@/lib/analytics') | null = null;
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
   import('@vercel/analytics').then((mod) => {
     track = mod.track;
+  });
+  import('@/lib/analytics').then((mod) => {
+    analytics = mod;
   });
 }
 
@@ -49,19 +54,19 @@ const SERVICES: ServiceInfo[] = [
   {
     id: 'fiestas',
     title: 'Fiestas Privadas',
-    description: 'Cumpleaños, despedidas y temáticas con DJ, sonido y luz en condiciones.',
+    description: 'Cumpleaños, despedidas y temáticas con DJ, sonido y FX.',
     href: '/servicios/fiestas',
   },
   {
     id: 'discomobil',
     title: 'Discomóvil',
-    description: 'Formato “disco” para fiestas de pueblo, salas y eventos con pista seria.',
+    description: 'Formato “disco” para fiestas de pueblo, salas y eventos.',
     href: '/servicios/discomobil',
   },
   {
     id: 'empresas',
     title: 'Eventos de Empresa',
-    description: 'Presentaciones, corporativos y galas que necesitan que todo funcione a la primera.',
+    description: 'Presentaciones, corporativos y galas que necesitan que todo vaya bien.',
     href: '/servicios/empresas',
   },
   {
@@ -73,20 +78,19 @@ const SERVICES: ServiceInfo[] = [
 ];
 
 function cleanPrice(price: string) {
-  // Si en packs-config pones "desde 720€", lo respetamos tal cual
   return price;
 }
 
 function ServiceSection({
   service,
   packs,
-  minPrice,
 }: {
   service: ServiceInfo;
   packs: PackDefinition[];
-  minPrice: number;
 }) {
   if (!packs.length) return null;
+
+  const minPrice = packs.length > 1 ? getMinPriceByService(service.id) : packs[0].priceValue;
 
   return (
     <section className="py-12 sm:py-16 border-t border-border">
@@ -198,7 +202,15 @@ function ServiceSection({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 w-full rounded-xl px-4 py-3 text-xs font-semibold text-oe-gold hover:text-oe-gold-light"
-                  onClick={() => track('Packs_WA_Pack', { pack: pack.id })}
+                  onClick={() => {
+                    track('Packs_WA_Pack', { pack: pack.id });
+                    if (analytics) {
+                      analytics.trackPackSelection({
+                        packId: pack.id as PackId,
+                        packType: pack.service,
+                      });
+                    }
+                  }}
                 >
                   <MessageCircle className="w-4 h-4" />
                   Consultar este pack por WhatsApp
@@ -278,15 +290,7 @@ export default function PacksClient() {
       {/* SECCIONES POR SERVICIO */}
       {SERVICES.map((service) => {
         const packs = getPacksByService(service.id);
-        const minPrice = getMinPriceByService(service.id);
-        return (
-          <ServiceSection
-            key={service.id}
-            service={service}
-            packs={packs}
-            minPrice={minPrice}
-          />
-        );
+        return <ServiceSection key={service.id} service={service} packs={packs} />;
       })}
 
       {/* Capa tranquilizadora final */}
@@ -318,4 +322,3 @@ export default function PacksClient() {
     </div>
   );
 }
-

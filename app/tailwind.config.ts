@@ -1,13 +1,14 @@
+// tailwind.config.ts
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  darkMode: ['class'], // ← añadido
+  darkMode: ['class'],
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './content/**/*.{md,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}', // ← añadido
-    './src/**/*.{js,ts,jsx,tsx,mdx}',   // ← añadido
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -270,6 +271,14 @@ const config: Config = {
           '25%': { transform: 'rotate(1deg)' },
           '75%': { transform: 'rotate(-1deg)' },
         },
+
+        // === MANOLO APORTACIÓN: GLOW TENUE WHATSAPP ===
+        'ping-slow': {
+          '75%, 100%': {
+            transform: 'scale(2)',
+            opacity: '0',
+          },
+        },
       },
       
       animation: {
@@ -329,6 +338,9 @@ const config: Config = {
         'flip-horizontal': 'flip-horizontal 1s ease-in-out',
         'flip-vertical': 'flip-vertical 1s ease-in-out',
         tilt: 'tilt 3s ease-in-out infinite',
+
+        // === MANOLO APORTACIÓN: GLOW TENUE WHATSAPP ===
+        'ping-slow': 'ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
       
       transitionDuration: {
@@ -383,7 +395,7 @@ const config: Config = {
       },
     },
   },
-    plugins: [],
+  plugins: [],
 };
 
 export default config;

@@ -16,7 +16,7 @@ type Review = {
 
 const REVIEWS: Review[] = [
   {
-    author: "Lorena & Carlos",
+    author: "Esther & Dabid",
     role: "Boda",
     event: "Boda mediodía – Cànoves",
     rating: 5,
@@ -38,7 +38,7 @@ const REVIEWS: Review[] = [
     event: "Boda – Barcelona",
     rating: 5,
     date: "2025-04",
-    text: "La fiesta fue mágica. El DJ leyó la sala perfectamente. Las luces B-150 crearon un ambiente de ensueño.",
+    text: "La fiesta fue mágica. El DJ estuvo genial, crearon un ambiente de ensueño.",
   },
 ];
 

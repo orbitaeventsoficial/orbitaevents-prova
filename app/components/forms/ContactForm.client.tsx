@@ -109,7 +109,7 @@ export default function ContactForm() {
           Te respondemos en menos de 2h con tu presupuesto personalizado.
         </p>
         <p className="text-oe-gold font-bold mt-4">
-          ⚡ 10% OFF aplicado en tu presupuesto
+          ⚡ 10% Dto. aplicado en tu presupuesto
         </p>
       </motion.div>
     );

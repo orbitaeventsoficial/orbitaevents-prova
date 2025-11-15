@@ -1,97 +1,91 @@
 // app/packs/page.tsx
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import Breadcrumbs from "@\/components/seo/Breadcrumbs";
-import ServiceJsonLD from "@\/components/seo/ServiceJsonLD";
-import FAQ from "@\/components/seo/FAQ";
-
-export const metadata: Metadata = {
-  title: "Packs y Tarifas | EV ETX + B-150 LED + Pioneer DJ desde 350€ | Òrbita Events",
-  description:
-    "Packs cerrados para bodas, fiestas y eventos. EV ETX-15P 2000W, cabezas móviles B-150 LED, Pioneer DJ. Montaje incluido y extras opcionales.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://orbitaevents.com"),
-  alternates: { canonical: "/packs" },
-  openGraph: {
-    title: "Packs y Tarifas | Òrbita Events",
-    description:
-      "Tarifas claras con EV ETX-15P, B-150 LED y Pioneer DJ. Elige tu pack y amplía según tu evento.",
-    url: "/packs",
-    images: [
-      {
-        url: "/api/og?title=Packs%20y%20Tarifas",
-        alt: "Packs con EV ETX-15P y B-150 LED",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Packs y Tarifas | Òrbita Events",
-    description:
-      "EV ETX-15P + B-150 LED desde 350 €. Montaje profesional y extras opcionales.",
-    images: ["/api/og?title=Packs%20y%20Tarifas"],
-  },
-  robots: { index: true, follow: true },
-};
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import ServiceJsonLD from "@/components/seo/ServiceJsonLD";
+import FAQ from "@/components/seo/FAQ";
+import { getAllPacks, getMinPriceByService } from "@/data/packs-config";
+import LowCostBanner from "./LowCostBanner";
 
 const PacksClient = dynamic(() => import("./client"), {
   loading: () => (
-    <section
-      className="mx-auto max-w-5xl px-4 py-20 text-center text-white/70"
-      aria-busy="true"
-    >
+    <section className="mx-auto max-w-5xl px-4 py-20 text-center text-white/70" aria-busy="true">
       Cargando packs y tarifas…
     </section>
   ),
 });
 
+// PRECIOS 100% DINÁMICOS
+const allPacks = getAllPacks().filter(p => ['fiestas', 'bodas', 'discomovil', 'empresas'].includes(p.service));
+const minPrice = Math.min(...allPacks.map(p => p.priceValue));
+const maxPrice = Math.max(...allPacks.map(p => p.priceValue));
+
+export const metadata: Metadata = {
+  title: `Packs y Tarifas desde ${minPrice}€ hasta ${maxPrice}€ | Òrbita Events`,
+  description: `Packs desde ${minPrice}€ hasta ${maxPrice}€ para bodas, fiestas, discomóvil y empresas. DJ + sonido EV + luces LED. Todo incluido.`,
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://orbitaevents.com"),
+  alternates: { canonical: "/packs" },
+  openGraph: {
+    title: `Packs y Tarifas desde ${minPrice}€ hasta ${maxPrice}€ | Òrbita Events`,
+    description: `Packs desde ${minPrice}€ hasta ${maxPrice}€. Bodas, fiestas, empresas. DJ profesional + efectos. Barcelona, Lleida, Girona, Tarragona.`,
+    url: "/packs",
+    images: [{ url: "/api/og?title=Packs%20y%20Tarifas", alt: "Packs con Amplificadores EV y Cabezas Móviles LED" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Packs y Tarifas desde ${minPrice}€ hasta ${maxPrice}€ | Òrbita Events`,
+    description: `Packs desde ${minPrice}€ hasta ${maxPrice}€. Bodas, fiestas, empresas. DJ profesional + efectos.`,
+    images: ["/api/og?title=Packs%20y%20Tarifas"],
+  },
+  robots: { index: true, follow: true },
+};
+
 export default function PacksPage() {
   return (
-    <>
-      <Breadcrumbs
-        items={[
-          { name: "Inicio", url: "/" },
-          { name: "Packs", url: "/packs" },
-        ]}
-      />
+    <div className="min-h-screen flex flex-col">
+      <Breadcrumbs items={[{ name: "Inicio", url: "/" }, { name: "Packs", url: "/packs" }]} />
 
       <ServiceJsonLD
         name="Packs y Tarifas Eventos"
         slugPath="/packs"
-        description="Packs con EV ETX-15P 2000W, cabezas móviles B-150 LED y Pioneer DJ. Desde 350 € con montaje. Extras opcionales."
+        description={`Packs de eventos con DJ, sonido y luces. Desde ${minPrice}€ hasta ${maxPrice}€. Todo incluido: montaje, desplazamiento, backup.`}
         serviceType={["Packs bodas", "Packs fiestas", "Packs eventos"]}
         areaServed={["Barcelona", "Girona", "Tarragona", "Lleida"]}
-        priceFrom="350"
+        priceFrom={minPrice.toString()}
         priceCurrency="EUR"
         availability="https://schema.org/InStock"
-        aggregateRating={{
-          ratingValue: 4.9,
-          reviewCount: 35,
-        }}
+        aggregateRating={{ ratingValue: 4.9, reviewCount: 35 }}
       />
 
-      <FAQ
+      {/* PacksClient CON ESPACIO COMPLETO */}
+      <main className="flex-1">
+        <PacksClient />
+      </main>
+
+      {/* FAQ AL FINAL */}
+      <FAQ 
         items={[
           {
-            q: "¿Qué incluye el pack Esencial?",
-            a: "Desde 350 €: 2 altavoces EV ETX-15P (2000 W), multibox LED, DJ hasta 3 h con Pioneer DDJ-REV7 y montaje incluido. Ideal hasta 60 personas.",
+            q: "¿Cuánto cuesta un pack para boda?",
+            a: `Desde ${getMinPriceByService('bodas')}€ (solo baile) hasta ${maxPrice}€ (día completo). Ver packs arriba.`,
           },
           {
-            q: "¿Qué diferencia hay entre Pro y Premium?",
-            a: "Pro: pensado para eventos de hasta 150 personas, añade subgrave EV ETX-18SP y 4 cabezas móviles B-150 LED, con DJ hasta 6 h. Premium: full setup con EV ETX + B-150, técnico dedicado y DJ durante todo el evento, ideal para bodas y fiestas grandes.",
+            q: "¿Hay pack low cost?",
+            a: `Sí. Pack Cumple FLASH: ${minPrice}€ (2h DJ + 2 altavoces + luces). Solo cumpleaños pequeños.`,
           },
           {
-            q: "¿Puedo añadir extras?",
-            a: "Sí. Hora extra de DJ +100 €/h, máquina de burbujas +70 €, humo bajo +70 €, 4 cabezas móviles extra +150 €, tematización decorativa desde +300 €.",
+            q: "¿Qué incluye cada pack?",
+            a: "DJ, sonido EV, luces LED, montaje, desmontaje, desplazamiento. Detalles arriba.",
           },
           {
-            q: "¿Hay desplazamiento fuera de Barcelona?",
-            a: "Sí, trabajamos en toda Catalunya. Desplazamiento incluido en packs a partir de 600 €. Para otros casos, suplemento desde +50 € según la zona.",
+            q: "¿Cubrís toda Catalunya?",
+            a: "Sí. Barcelona, Lleida, Girona, Tarragona. Desplazamiento incluido.",
           },
-        ]}
+        ]} 
       />
 
-      <PacksClient />
-    </>
+      <LowCostBanner />
+    </div>
   );
 }

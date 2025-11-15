@@ -11,4 +11,4 @@ Base vercel-friendly, sin hacks, con App Router y Tailwind. Ganador Awwwards + I
 corepack enable
 corepack prepare pnpm@9 --activate
 pnpm install
-pnpm run dev
+pnpm run dev# orbitaevents-web

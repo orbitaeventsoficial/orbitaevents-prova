@@ -6,6 +6,24 @@ import { CheckCircle2, ArrowRight, Sparkles, Heart, Building2, Zap } from 'lucid
 import { trackPackSelection } from '@/lib/analytics';
 import { getAllPacks, type PackDefinition } from '@/data/packs-config';
 
+// === TIPO PACK (ESENCIAL) ===
+interface Pack {
+  id: string;
+  name: string;
+  tagline: string;
+  emotion: string;
+  price: number;
+  originalPrice?: number;
+  discount?: number;
+  features: string[];
+  highlight: boolean;
+  ctaLabel: string;
+  ctaHref: string;
+  gradient: string;
+  glowColor: string;
+  icon: 'heart' | 'building' | 'sparkles';
+}
+
 // Mapeo directo de packs-config → componente
 const mapPack = (pack: PackDefinition): Pack => ({
   id: pack.id,
@@ -27,8 +45,6 @@ const mapPack = (pack: PackDefinition): Pack => ({
              'rgba(34, 197, 94, 0.3)',
   icon: pack.service === 'bodas' ? 'heart' : pack.service === 'empresas' ? 'building' : 'sparkles',
 });
-
-type Pack = ReturnType<typeof mapPack>;
 
 export default function EmotionalPacks() {
   const [packs, setPacks] = useState<Pack[]>([]);

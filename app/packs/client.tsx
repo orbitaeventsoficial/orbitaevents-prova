@@ -58,7 +58,7 @@ const SERVICES: ServiceInfo[] = [
     href: '/servicios/fiestas',
   },
   {
-    id: 'discomobil',
+    id: 'discomovil',
     title: 'Discomóvil',
     description: 'Formato “disco” para fiestas de pueblo, salas y eventos.',
     href: '/servicios/discomobil',

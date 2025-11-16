@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "packageManager": "pnpm@9.12.0",
   "engines": {
-    "node": "20.x"
+    "node": "18.x",
+    "pnpm": "9.x"
   },
   "scripts": {
     "dev": "next dev",
@@ -13,13 +14,14 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "clean": "rimraf .next && rimraf node_modules/.cache",
-    "lighthouse": "lighthouse https://orbitaevents.com --view --preset=desktop --chrome-flags='--headless'",
+    "lighthouse": "lighthouse https://orbitaevents.com --view --preset=desktop --chrome-flags='--headless' --chrome-path=$(node -p \"require('chrome-aws-lambda').executablePath\")",
     "analyze": "ANALYZE=true next build",
     "migrate:images": "node migrate-images.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.0.12",
+    "chrome-aws-lambda": "10.1.0",
     "clsx": "2.1.1",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.24",
@@ -28,6 +30,7 @@
     "next-pwa": "^5.6.0",
     "next-recaptcha-v3": "^1.5.3",
     "nodemailer": "^7.0.10",
+    "puppeteer-core": "10.1.0",
     "react": "18.3.1",
     "react-confetti": "^6.1.0",
     "react-dom": "18.3.1",

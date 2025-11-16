@@ -1,3 +1,4 @@
+// app/lib/analytics.ts
 /**
  * MANOLO'S ANALYTICS TRACKER
  * Sistema centralizado de tracking para Google Analytics 4 y Meta Pixel
@@ -128,22 +129,15 @@ export const trackLead = (data: {
 }): void => {
   const { eventType, estimatedValue, source, packId } = data;
 
-  // PRIORIDAD: packId real > estimatedValue > fallback seguro
-  let finalValue = estimatedValue;
+  // PRIORIDAD: packId real > estimatedValue > fallback desde DB
+  let finalValue = estimatedValue ?? 0;
 
   if (packId) {
     finalValue = getRealPackValue(packId);
-  } else if (!finalValue) {
-    // Fallback basado en packs más vendidos (NO hardcodeado en analytics)
-    const fallback: Record<string, number> = {
-      boda: 950,     // Boda Premium
-      empresa: 1500, // Corporativo Premium
-      fiesta: 520,   // Fiesta Plus
-      discomovil: 590,
-      alquiler: 180,
-      default: 500,
-    };
-    finalValue = fallback[eventType.toLowerCase()] || fallback.default;
+  } else if (finalValue === 0) {
+    // Fallback: intenta buscar pack por eventType (ej: boda → pack boda)
+    const pack = getPackById(eventType as PackId);
+    finalValue = pack?.priceValue || 500; // 500€ fallback seguro si no existe
   }
 
   trackEvent({
@@ -298,16 +292,11 @@ export const trackCTAClick = (ctaLabel: string, ctaLocation: string): void => {
 export const trackPageView = (pagePath: string, pageTitle: string): void => {
   if (!isClientSide() || !isProduction()) return;
 
-  if (window.gtag) {
-    window.gtag('event', 'page_view', {
-      page_path: pagePath,
-      page_title: pageTitle,
-    });
-  }
-
-  if (window.fbq) {
-    window.fbq('track', 'PageView');
-  }
+  window.gtag?.('event', 'page_view', {
+    page_path: pagePath,
+    page_title: pageTitle,
+  });
+  window.fbq?.('track', 'PageView');
 };
 
 /**

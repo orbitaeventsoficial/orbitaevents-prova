@@ -19,6 +19,7 @@ import {
   Building2,
   CheckCircle2,
 } from 'lucide-react';
+import { getPacksByService } from '@/data/packs-config';  // ← ESENCIAL: DATA-DRIVEN
 
 // Analytics
 let track: (event: string, data?: any) => void = () => {};
@@ -32,90 +33,8 @@ const WA_LINK = `https://wa.me/34699121023?text=${encodeURIComponent(
   'Hola, quiero alquilar equipo audiovisual profesional'
 )}`;
 
-const rentalPackages = [
-  {
-    id: 'pack-voz',
-    name: '🎤 Pack Voz',
-    price: '150',
-    category: 'sonido',
-    includes: [
-      '1 EV ETX-15P 2000W (altavoz activo)',
-      '1 micrófono de diadema Shure',
-      'Pie de micrófono + cable XLR 10 m',
-      'Entrega y recogida incluidas',
-    ],
-    popular: true,
-    bestFor: 'Charlas, presentaciones, ceremonias',
-    rating: 4.9,
-    specs: 'Cobertura: 150-200 personas | Setup: 15 min',
-  },
-  {
-    id: 'pack-sonido',
-    name: '🔊 Pack Sonido Pro',
-    price: '280',
-    category: 'sonido',
-    includes: [
-      '2 EV ETX-15P 2000W (sonido estéreo)',
-      'Mesa mezcladora digital de 8 canales',
-      'Cables XLR + trípodes',
-      'Técnico opcional (+150€)',
-    ],
-    popular: false,
-    bestFor: 'Fiestas pequeñas (50-80 personas), eventos medianos',
-    rating: 4.8,
-    specs: 'Cobertura: 80-120 personas | Setup: 30 min',
-  },
-  {
-    id: 'pack-luces',
-    name: '💡 Pack Luces LED',
-    price: '220',
-    category: 'iluminacion',
-    includes: [
-      '4 B-150 LED 150W Narrow Beam 6°',
-      'Control DMX con programación básica',
-      'Trípodes + cables + case de transporte',
-      'Efectos: gobos, prismas, color mixing',
-    ],
-    popular: false,
-    bestFor: 'Ambiente, pista de baile, iluminación arquitectónica',
-    rating: 5.0,
-    specs: 'Cobertura: sala 100 m² | Setup: 45 min',
-  },
-  {
-    id: 'pack-pioneer',
-    name: '🎚️ Pack DJ Pioneer',
-    price: '380',
-    category: 'dj',
-    includes: [
-      'Pioneer DDJ-REV7 (controladora de 2 canales)',
-      'Cables XLR/RCA completos',
-      'Soporte DJ + auriculares',
-      'Técnico opcional (+150€)',
-    ],
-    popular: true,
-    bestFor: 'DJ profesional, bodas, eventos corporativos',
-    rating: 5.0,
-    specs: 'Equipamiento profesional de club | Setup: 20 min',
-  },
-  {
-    id: 'pack-completo',
-    name: '🔥 Pack Completo',
-    price: '750',
-    category: 'all',
-    includes: [
-      '2 EV ETX-15P 2000W + subwoofer',
-      '4 B-150 LED 150W + control DMX',
-      'Pioneer DDJ-REV7 (controladora de 2 canales)',
-      'Técnico dedicado todo el día incluido',
-      'Montaje completo + pruebas',
-      'Soporte 24 h durante el evento',
-    ],
-    popular: false,
-    bestFor: 'Bodas, fiestas grandes (100-150 personas), eventos importantes',
-    rating: 5.0,
-    specs: 'Solución completa profesional | Setup: 90 min',
-  },
-];
+// 🔥 PACKS DESDE packs-config.ts – NO HARDCODE
+const rentalPackages = getPacksByService('alquiler');
 
 const whyRentFromUs = [
   {

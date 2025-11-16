@@ -1,5 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// next.config.ts
+import { withBotId } from 'botid/next/config';
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
@@ -15,6 +18,7 @@ const nextConfig = {
 
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+    reactCompiler: process.env.NODE_ENV === 'production', // ← ESENCIAL: Next.js 16+
   },
 
   async headers() {
@@ -30,9 +34,9 @@ const nextConfig = {
     ];
   },
 
-  // Next 16: quitan 'experimental.turbo'; usa optimizePackageImports directamente en 'experimental'
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
+    instrumentationHook: true, // ← ESENCIAL: Activa instrumentation-client.ts
   },
 
   env: {
@@ -40,4 +44,5 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// ENVUELVE CON BOTID (anti-bots en reservas)
+export default withBotId(nextConfig);

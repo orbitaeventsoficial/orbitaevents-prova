@@ -18,14 +18,14 @@ export default function LowCostBanner() {
       <div className="rounded-2xl bg-gradient-to-r from-oe-gold to-oe-gold-light p-1 shadow-2xl">
         <div className="rounded-xl bg-black p-4 text-white">
           <p className="text-xs uppercase tracking-wider text-oe-gold">OFERTA FLASH</p>
-          <p className="text-lg font-black">Pack Cumple FLASH</p>
+          <p className="text-lg font-black">⚡ Oferta Flash</p>
           <p className="text-xs text-gray-300">2h DJ + 2 altavoces + luces</p>
           <div className="mt-1 flex items-center gap-2">
-            <span className="text-sm line-through text-gray-500">350€</span>
+            <span className="text-sm line-through text-gray-500">450€</span>
             <span className="text-xl font-black text-oe-gold">250€</span>
           </div>
           <a
-            href="https://wa.me/34699121023?text=Hola,%20quiero%20el%20Pack%20Cumple%20Bolo%20de%20200€"
+            href="https://wa.me/34699121023?text=Hola,%20quiero%20la%20Oferta%20Flash%20de%20250€"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 block rounded-xl bg-oe-gold px-4 py-2 text-center text-xs font-bold text-black hover:bg-oe-gold-light"

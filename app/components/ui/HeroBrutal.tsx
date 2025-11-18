@@ -84,7 +84,7 @@ export default function HeroBrutal() {
             "FUE ÉPICO"
           </span>
           <br />
-          DJ + Luces + Efectos Especiales para bodas, empresas y fiestas tematicas que dejan huella.
+          DJ + Luces + Efectos Especiales para bodas, empresas y fiestas temáticas que dejan huella.
         </p>
 
         {/* Proof social */}
@@ -121,7 +121,7 @@ export default function HeroBrutal() {
           
           {/* CTA Principal: WhatsApp */}
           <a
-            href="https://wa.me/34699121023?text=Hola!%20Quiero%20info%20sobre%20eventos%20Órbita"
+            href="https://wa.me/34699121023?text=Hola!%20Quiero%20saber%20si%20tenéis%20mi%20fecha%20disponible%20para%20un%20evento"
             className="group relative inline-flex items-center gap-3 px-10 py-6 rounded-2xl text-black text-xl font-black bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 hover:from-yellow-300 hover:via-yellow-400 hover:to-yellow-300 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/50"
             target="_blank"
             rel="noopener noreferrer"

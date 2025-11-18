@@ -76,10 +76,10 @@ export default function HeroPortalLogo({
   glowStrength = 0.65,
   onFinish,
   svgUrl = "/img/orbita-glyph.anim.svg",
-  totalMs = 2800,
-  fadeMs = 800,
-  introHoldMs = 400,
-  introFadeMs = 600,
+  totalMs = 4200,
+  fadeMs = 1200,
+  introHoldMs = 800,
+  introFadeMs = 900,
   speedMultiplier = 1,
 }: HeroPortalLogoProps) {
   // ========================================
@@ -106,18 +106,18 @@ export default function HeroPortalLogo({
   const TELON_FADE = Math.round(introFadeMs * SPEED);
   const SEQ_TELON_END = TELON_HOLD + TELON_FADE;
   
-  // Delays entre elementos
+  // Delays entre elementos - Más pausados para elegancia
   const BUBBLES_DELAY = Math.round(0 * SPEED); // Aparecen con el telón
-  const PLANET_DELAY = Math.round(120 * SPEED);
-  const RING_DELAY = Math.round(180 * SPEED);
-  const SAT_DELAY = Math.round(200 * SPEED);
-  const WORDMARK_DELAY = Math.round(180 * SPEED);
+  const PLANET_DELAY = Math.round(280 * SPEED);
+  const RING_DELAY = Math.round(350 * SPEED);
+  const SAT_DELAY = Math.round(320 * SPEED);
+  const WORDMARK_DELAY = Math.round(380 * SPEED);
   
-  // Duraciones de animación
-  const DUR_PLANET = Math.round(500 * SPEED);
-  const DUR_RING = Math.round(600 * SPEED);
-  const DUR_SAT = Math.round(500 * SPEED);
-  const DUR_WORDMARK = Math.round(600 * SPEED);
+  // Duraciones de animación - Más lentas para señorío
+  const DUR_PLANET = Math.round(800 * SPEED);
+  const DUR_RING = Math.round(900 * SPEED);
+  const DUR_SAT = Math.round(750 * SPEED);
+  const DUR_WORDMARK = Math.round(900 * SPEED);
   
   // Timestamps absolutos
   const PLANET_START = SEQ_TELON_END + PLANET_DELAY;

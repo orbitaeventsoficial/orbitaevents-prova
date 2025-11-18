@@ -184,13 +184,13 @@ const PACKS: PackDefinition[] = [
   {
     id: 'lowcost-cumple-bolo',
     service: 'fiestas',
-    slug: 'cumple-bolo',
-    name: '🎉 Pack Cumple Bolo',
-    tagline: '2h DJ + 2 altavoces + controladora + luces. Solo 200€.',
+    slug: 'oferta-flash',
+    name: '⚡ Oferta Flash',
+    tagline: '2h DJ + 2 altavoces + controladora + luces. Solo 250€.',
     emotion: 'Llegas, montas, pones temazo y la fiesta explota. Ideal para bolos rápidos.',
     price: '250€',
     priceValue: 250,
-    priceOriginal: '350€',
+    priceOriginal: '450€',
     duration: '2 horas de sesión',
     features: [
       '🎵 DJ profesional 2 horas',
@@ -205,7 +205,7 @@ const PACKS: PackDefinition[] = [
     bestFor: 'Cumpleaños pequeños, afterworks, bolos rápidos, eventos informales',
     highlight: true,
     popular: true,
-    badge: '⚡ LOW COST',
+    badge: '⚡ OFERTA FLASH',
     cta: 'Reservar Pack Flash 250€',
     lowCost: true,
   },
@@ -684,4 +684,4 @@ export const MIN_PRICE_GLOBAL = Math.min(
   ...PACKS
     .filter(p => PRINCIPAL_SERVICES.includes(p.service))
     .map(p => p.priceValue)
-); // → 200€ (lowcost-cumple-bolo)
+); // → 250€ (oferta-flash)

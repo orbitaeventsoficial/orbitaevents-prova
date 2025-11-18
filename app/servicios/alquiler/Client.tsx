@@ -1,2 +1,2 @@
 'use client';
-export default function Client() { return <div>ALQUILER OK</div>; }
+export default function Client() { return <div>ALQUILER LIVE</div>; }

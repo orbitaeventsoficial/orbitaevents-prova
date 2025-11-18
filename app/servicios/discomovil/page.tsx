@@ -1,4 +1,4 @@
-// app/servicios/discomobil/page.tsx
+// app/servicios/discomovil/page.tsx
 
 import type { Metadata } from 'next';
 import Breadcrumbs from '@\/components/seo/Breadcrumbs';
@@ -7,18 +7,18 @@ import FAQ from '@\/components/seo/FAQ';
 import Client from './client';
 import { getMinPriceByService, getPacksByService } from '@/data/packs-config';
 
-const DISCO_MIN_PRICE = getMinPriceByService('discomobil');
-const DISCO_PACKS = getPacksByService('discomobil');
+const DISCO_MIN_PRICE = getMinPriceByService('discomovil');
+const DISCO_PACKS = getPacksByService('discomovil');
 
 export const metadata: Metadata = {
   title: 'Discomóvil Barcelona | DJ + EV + Luces LED | La Fiesta que NO Olvidarán | Òrbita Events',
   description: `Discomóvil con DJ profesional, sonido EV profesional y luces LED para que la pista tenga sentido toda la noche. Leemos la pista, no ponemos playlists en aleatorio. Packs desde ${DISCO_MIN_PRICE}€. Barcelona, Lleida, Girona, Tarragona.`,
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://orbitaevents.cat'),
-  alternates: { canonical: '/servicios/discomobil' },
+  alternates: { canonical: '/servicios/discomovil' },
   openGraph: {
     title: 'Discomóvil | La Fiesta Que Tus Amigos NO Olvidarán',
     description: `DJ que lee la pista, equipamiento profesional EV y luces LED pensadas para la pista. Packs desde ${DISCO_MIN_PRICE}€ para fiestas, bodas y eventos privados.`,
-    url: '/servicios/discomobil',
+    url: '/servicios/discomovil',
     images: [
       {
         url: '/api/og?title=Discomovil',
@@ -47,20 +47,20 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function DiscomobilPage() {
+export default function discomovilPage() {
   return (
     <>
       <Breadcrumbs
         items={[
           { name: 'Inicio', url: '/' },
           { name: 'Servicios', url: '/servicios' },
-          { name: 'Discomóvil', url: '/servicios/discomobil' },
+          { name: 'Discomóvil', url: '/servicios/discomovil' },
         ]}
       />
 
       <ServiceJsonLD
         name="Discomóvil Profesional Barcelona"
-        slugPath="/servicios/discomobil"
+        slugPath="/servicios/discomovil"
         description={`Discomóvil con DJ profesional que lee la pista en tiempo real. Sonido EV profesional según pack, iluminación LED para pista y efectos en momentos clave. Pensado para fiestas, bodas y eventos privados en Catalunya. Packs desde ${DISCO_MIN_PRICE}€.`}
         serviceType={[
           'Discomóvil',
@@ -83,7 +83,7 @@ export default function DiscomobilPage() {
           price: String(pack.priceValue),
           priceCurrency: 'EUR',
           availability: 'https://schema.org/InStock',
-          url: `/servicios/discomobil#${pack.slug}`,
+          url: `/servicios/discomovil#${pack.slug}`,
           description: pack.tagline,
         }))}
       />

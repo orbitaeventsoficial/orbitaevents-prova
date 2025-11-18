@@ -1,4 +1,3 @@
-// app/servicios/fiestas/client.tsx
 'use client';
 
 import { useState, useEffect } from 'react';

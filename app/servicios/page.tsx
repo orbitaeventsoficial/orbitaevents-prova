@@ -48,7 +48,7 @@ const servicios = [
   {
     name: 'Discomóvil',
     icon: Music,
-    href: '/servicios/discomobil',
+    href: '/servicios/discomovil',
     tagline: 'La fiesta que tus amigos NO olvidarán',
     desc: 'No ponemos playlists. Leemos la pista en tiempo real. Resultado: pista LLENA desde las 23h hasta que se van.',
     features: ['Pista llena garantizada', 'Equipamiento profesional', 'Efectos WOW', 'Desde 690€'],

@@ -1,11 +1,11 @@
 // app/page.tsx
-import HeroPortalLogo from '@/components/ui/HeroPortalLogo'; // ← TU COMPONENTE
+import HeroPortalLogo from '@/components/ui/HeroPortalLogo';
 import ProofSection from './components/marketing/ProofSection';
 import TransformationSection from './components/marketing/TransformationSection';
 import GuaranteeSection from './components/marketing/GuaranteeSection';
 import type { Metadata } from 'next';
 
-import HeroBrutal from './components/ui/HeroBrutal';
+import          HeroBrutal from './components/ui/HeroBrutal';
 import EmotionalPacks from './components/marketing/EmotionalPacks';
 import UrgencyBanner from './components/marketing/UrgencyBanner';
 import VideoTestimonials from './components/marketing/VideoTestimonials';
@@ -64,18 +64,10 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* ← AQUÍ: SPLASH AL INICIO DE LA WEB */}
       <HeroPortalLogo
-        svgUrl="/img/brand/orbita-glyph.anim.svg"
-        durationMs={2800}
-        sizePx={380}
-        liftVh={8}
-        zIndexClass="z-[9999]"
-        respectOnce={true}
-        onceStorage="localStorage"
-        onceKey="OE_SPLASH_WEEK"
-        onceTTL={7 * 24 * 60 * 60 * 1000}
-      />
+        svgUrl="/img/orbita-glyph.anim.svg"
+        totalMs={2800}
+      />  {/* ← CIERRE DE TAG */}
 
       <HeroBrutal />
       <ProofSection />

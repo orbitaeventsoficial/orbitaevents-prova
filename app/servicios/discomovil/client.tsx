@@ -1,4 +1,4 @@
-// app/servicios/discomobil/ClientShell.tsx
+// app/servicios/discomovil/ClientShell.tsx
 'use client';
 
 import { useEffect } from 'react';
@@ -35,7 +35,7 @@ const buildWhatsAppUrl = (message: string) =>
   `${WA_BASE}?text=${encodeURIComponent(message)}`;
 
 // 🔥 PACKS CENTRALIZADOS
-const discoPackages = getPacksByService('discomobil');
+const discoPackages = getPacksByService('discomovil');
 
 const partyTestimonials = [
   {

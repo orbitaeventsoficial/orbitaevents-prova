@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/servicios',
-    '/servicios/discomobil',
+    '/servicios/discomovil',
     '/servicios/empresas',
     '/servicios/fiestas',
     '/servicios/bodas',

@@ -123,7 +123,7 @@ export default function OfferModal() {
           Reserva hoy y llévate <span className="gradient-text">10% de descuento</span>
         </h2>
         <p className="mt-3 text-white/70">
-          Válido para nuevas reservas confirmadas en las próximas 24 horas. Producción técnica, discomobil, Dj Tematización, FX.
+          Válido para nuevas reservas confirmadas en las próximas 24 horas. Producción técnica, discomovil, Dj Tematización, FX.
         </p>
 
         <div className="mt-6 flex flex-col sm:flex-row gap-3">

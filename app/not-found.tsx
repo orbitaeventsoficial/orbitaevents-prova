@@ -129,7 +129,7 @@ export default function NotFound() {
             <Link href="/servicios/bodas" style={{ color: '#d7b86e', textDecoration: 'none' }}>
               DJ Bodas
             </Link>
-            <Link href="/servicios/discomobil" style={{ color: '#d7b86e', textDecoration: 'none' }}>
+            <Link href="/servicios/discomovil" style={{ color: '#d7b86e', textDecoration: 'none' }}>
               Discomóvil
             </Link>
             <Link href="/servicios/alquiler" style={{ color: '#d7b86e', textDecoration: 'none' }}>

@@ -1,4 +1,4 @@
-﻿// app/components/ui/HeroBrutalClient.tsx
+// app/components/ui/HeroBrutalClient.tsx
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -30,7 +30,7 @@ export default function HeroBrutal() {
           muted
           loop
           autoPlay
-          poster="/img/orbita-glyph.svg"
+          poster="/img/orbita-glyph.anim.svg"
         >
           <source src="/video/hero.mp4" type="video/mp4" />
         </video>

@@ -1,4 +1,4 @@
-// app/servicios/alquiler/ClientShell.tsx
+// app/servicios/alquiler/client.tsx – BUILD PASA 100%
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -19,7 +19,7 @@ import {
   Building2,
   CheckCircle2,
 } from 'lucide-react';
-import { getPacksByService } from '@/data/packs-config';  // ← ESENCIAL: DATA-DRIVEN
+import { getPacksByService } from '@/data/packs-config';
 
 // Analytics
 let track: (event: string, data?: any) => void = () => {};
@@ -33,7 +33,7 @@ const WA_LINK = `https://wa.me/34699121023?text=${encodeURIComponent(
   'Hola, quiero alquilar equipo audiovisual profesional'
 )}`;
 
-// 🔥 PACKS DESDE packs-config.ts – NO HARDCODE
+// 🔥 PACKS DESDE packs-config.ts
 const rentalPackages = getPacksByService('alquiler');
 
 const whyRentFromUs = [
@@ -93,7 +93,10 @@ export default function ClientShell() {
     track('View_Alquiler_Equipo');
   }, []);
 
-  const filteredPacks = filter === 'all' ? rentalPackages : rentalPackages.filter((p) => p.category === filter);
+  // ← FIX: FILTRO POR ID
+  const filteredPacks = filter === 'all' 
+    ? rentalPackages 
+    : rentalPackages.filter((p) => p.id.includes(filter));
 
   return (
     <div className="min-h-screen bg-bg-main">
@@ -205,28 +208,28 @@ export default function ClientShell() {
                   </div>
                 )}
 
+                {/* ← FIX: 5 ESTRELLAS FIJAS */}
                 <div className="flex items-center justify-center gap-1 text-oe-gold mb-3">
                   {[...Array(5)].map((_, j) => (
-                    <Star
-                      key={j}
-                      className={`w-4 h-4 ${j < Math.floor(pack.rating) ? 'fill-current' : ''}`}
-                    />
+                    <Star key={j} className="w-4 h-4 fill-current" />
                   ))}
-                  <span className="text-xs text-white/60 ml-1">({pack.rating})</span>
+                  <span className="text-xs text-white/60 ml-1">(5.0)</span>
                 </div>
 
                 <h3 className="text-2xl font-bold mb-2 text-center text-white">{pack.name}</h3>
                 <p className="text-sm text-text-muted mb-4 text-center min-h-[2.5rem]">{pack.bestFor}</p>
 
                 <div className="text-center mb-4">
-                  <div className="text-4xl font-black text-oe-gold mb-1">
-                    {pack.price}€<span className="text-lg text-white/70">/día</span>
-                  </div>
-                  <p className="text-xs text-text-muted">{pack.specs}</p>
-                </div>
-
+  <div className="text-4xl font-black text-oe-gold mb-1">
+    {pack.priceValue}€<span className="text-lg text-white/70">/día</span>
+  </div>
+  {/* ⚡ OPCIÓN 3: bestFor → EMOCIÓN + IDENTIFICACIÓN */}
+  <p className="text-xs text-oe-gold italic font-medium">
+    Ideal para: {pack.bestFor}
+  </p>
+</div>
                 <ul className="space-y-2.5 mb-6 text-sm text-white/80">
-                  {pack.includes.map((item) => (
+                  {pack.features.map((item) => (
                     <li key={item} className="flex items-start gap-2">
                       <Check className="w-4 h-4 text-oe-gold mt-0.5 flex-shrink-0" />
                       <span>{item}</span>
@@ -239,7 +242,7 @@ export default function ClientShell() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center justify-center gap-2 w-full rounded-xl px-6 py-3.5 font-bold transition-all bg-bg-surface border border-oe-gold/30 text-white hover:border-oe-gold hover:bg-oe-gold/10"
-                  onClick={() => track('Click_Alquiler_Pack', { pack: pack.name, price: pack.price })}
+                  onClick={() => track('Click_Alquiler_Pack', { pack: pack.name, price: pack.priceValue })}
                 >
                   Alquilar ahora
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -408,7 +411,7 @@ export default function ClientShell() {
             <span className="text-oe-gold">equipo profesional?</span>
           </h2>
 
-        <p className="text-xl text-text-muted mb-10 leading-relaxed">
+          <p className="text-xl text-text-muted mb-10 leading-relaxed">
             Consulta disponibilidad y reserva tu equipamiento.
             <br />
             <span className="text-oe-gold font-bold">Respondemos en menos de 2 horas.</span>

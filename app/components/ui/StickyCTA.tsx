@@ -1,110 +1,216 @@
-// app/components/ui/StickyCTA.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// Analytics (Vercel)
-let track: (event: string, data?: any) => void = () => {};
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
-  import('@vercel/analytics').then((mod) => {
-    track = mod.track;
-  });
+// ========================================
+// TYPES
+// ========================================
+
+interface StickyCTAProps {
+  phone?: string;
+  message?: string;
+  position?: 'left' | 'right';
+  offsetBottom?: number;
+  offsetSide?: number;
+  showAfterScroll?: number;
 }
 
-const WA_LINK = `https://wa.me/34699121023?text=${encodeURIComponent(
-  '¡Hola! Quiero presupuesto para mi evento'
-)}`;
+// ========================================
+// CONSTANTS
+// ========================================
 
-export default function StickyCTA() {
-  const [isVisible, setIsVisible] = useState(false);
+const DEFAULT_PHONE = '+34699121023';
+const DEFAULT_MESSAGE = 'Hola, me interesa contratar Òrbita Events para mi evento';
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+// ========================================
+// ANALYTICS
+// ========================================
 
-  const handleClick = () => {
-    track('Click_Sticky_WhatsApp', {
-      timestamp: new Date().toISOString(),
+let trackEvent: (event: string, data?: any) => void = () => {};
+
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
+  import('@vercel/analytics')
+    .then((mod) => {
+      trackEvent = mod.track;
+    })
+    .catch(() => {
+      // Silently fail
     });
-  };
+}
 
-  if (!isVisible) return null;
+// ========================================
+// COMPONENT
+// ========================================
 
+export default function StickyCTA({
+  phone = DEFAULT_PHONE,
+  message = DEFAULT_MESSAGE,
+  position = 'right',
+  offsetBottom = 24,
+  offsetSide = 24,
+  showAfterScroll = 300,
+}: StickyCTAProps) {
+  // ========================================
+  // STATE
+  // ========================================
+  
+  const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+  
+  // ========================================
+  // COMPUTED
+  // ========================================
+  
+  const whatsappUrl = `https://wa.me/${phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+  
+  const positionClasses = position === 'left'
+    ? `left-${offsetSide / 4} sm:left-${offsetSide / 4}`
+    : `right-${offsetSide / 4} sm:right-${offsetSide / 4}`;
+  
+  // ========================================
+  // SCROLL HANDLER (throttled)
+  // ========================================
+  
+  const handleScroll = useCallback(() => {
+    lastScrollY.current = window.scrollY;
+    
+    if (!ticking.current) {
+      window.requestAnimationFrame(() => {
+        setIsVisible(lastScrollY.current > showAfterScroll);
+        ticking.current = false;
+      });
+      
+      ticking.current = true;
+    }
+  }, [showAfterScroll]);
+  
+  // ========================================
+  // EFFECTS
+  // ========================================
+  
+  useEffect(() => {
+    // Check initial scroll
+    handleScroll();
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+  
+  // ========================================
+  // HANDLERS
+  // ========================================
+  
+  const handleClick = useCallback(() => {
+    trackEvent('Click_Sticky_WhatsApp', {
+      timestamp: new Date().toISOString(),
+      scrollPosition: window.scrollY,
+      position,
+    });
+  }, [position]);
+  
+  // ========================================
+  // RENDER
+  // ========================================
+  
   return (
-    <>
-      {/* Estilos CSS personalizados para el glow SUTIL */}
-      <style jsx>{`
-        @keyframes glow-pulse-subtle {
-          0%, 100% {
-            opacity: 0.15;
-            transform: scale(1.05);
-          }
-          50% {
-            opacity: 0.25;
-            transform: scale(1.1);
-          }
-        }
-
-        .whatsapp-glow-subtle {
-          animation: glow-pulse-subtle 3s ease-in-out infinite;
-        }
-      `}</style>
-
-      <motion.div
-        className="fixed bottom-6 right-6 z-50"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-      >
-        <motion.a
-          href={WA_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={handleClick}
-          className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full shadow-2xl transition-all duration-300"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label="Contactar por WhatsApp"
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          className={`fixed bottom-${offsetBottom / 4} ${positionClasses} z-40`}
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 20 }}
+          transition={{
+            duration: 0.4,
+            ease: [0.22, 0.9, 0.32, 1],
+          }}
         >
-          {/* GLOW SUTIL */}
-          <span className="absolute inset-0 -z-10 rounded-full bg-[#25D366] blur-md whatsapp-glow-subtle" />
-
-          {/* LOGO OFICIAL DE WHATSAPP (teléfono en bocadillo) */}
-          <svg
-            className="w-7 h-7 relative z-10"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleClick}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group relative flex items-center justify-center
+                     w-14 h-14 sm:w-16 sm:h-16
+                     bg-[#25D366] hover:bg-[#20BA5A]
+                     rounded-full shadow-[0_8px_30px_rgba(37,211,102,0.4)]
+                     hover:shadow-[0_12px_40px_rgba(37,211,102,0.6)]
+                     transition-all duration-300 ease-out
+                     focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/50
+                     active:scale-95"
+            aria-label="Contactar por WhatsApp"
           >
-            <path
-              d="M16 0C7.164 0 0 7.164 0 16c0 2.812.732 5.455 2.008 7.74L.098 31.902l8.354-2.191A15.91 15.91 0 0016 32c8.836 0 16-7.164 16-16S24.836 0 16 0z"
-              fill="#25D366"
-              fillOpacity="0"
-            />
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M16.002 3C8.827 3 3 8.827 3 16.002a13.003 13.003 0 001.737 6.496l-1.13 4.127 4.228-1.11A13.002 13.002 0 0016.002 29C23.177 29 29 23.173 29 16.002 29 8.827 23.173 3 16.002 3zm7.657 18.445c-.32.902-1.583 1.652-2.603 1.872-.697.148-1.606.267-4.663-.999-3.909-1.618-6.426-5.59-6.62-5.849-.188-.259-1.552-2.065-1.552-3.938 0-1.873.982-2.793 1.33-3.173.348-.38.76-.475 1.014-.475.253 0 .507.002.728.013.234.012.547-.089.856.653.319.766 1.09 2.658 1.185 2.85.095.192.159.415.032.674-.126.259-.19.422-.38.647-.19.226-.4.504-.571.676-.19.192-.388.4-.167.783.221.38 983 1.448 2.11 2.346 1.36 1.152 2.503 1.51 2.856 1.68.353.17.56.143.767-.084.207-.226.884-1.032 1.12-1.387.237-.355.473-.297.794-.178.32.119 2.04.962 2.392 1.138.353.176.589.264.675.41.087.147.087.844-.232 1.745z"
-              fill="white"
-            />
-          </svg>
-
-          {/* Badge notificación */}
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg">
-            1
-          </span>
-        </motion.a>
-
-        {/* Tooltip hover - desktop */}
-        <div className="hidden lg:block absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          <div className="bg-white border border-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow-xl whitespace-nowrap">
-            <p className="font-bold text-[#25D366]">Respuesta en 2h 📱</p>
-            <p className="text-xs text-gray-600">Lun-Dom 10:00-22:00</p>
-          </div>
-        </div>
-      </motion.div>
-    </>
+            {/* WhatsApp Icon with pulse animation */}
+            <motion.svg
+              className="w-8 h-8 sm:w-9 sm:h-9 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              animate={{
+                scale: isHovered ? [1, 1.1, 1] : 1,
+              }}
+              transition={{
+                duration: 0.6,
+                repeat: isHovered ? Infinity : 0,
+                repeatDelay: 0.3,
+              }}
+              aria-hidden="true"
+            >
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </motion.svg>
+            
+            {/* Ping animation (subtle pulse) */}
+            <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" aria-hidden="true" />
+            
+            {/* Tooltip - desktop */}
+            <AnimatePresence>
+              {isHovered && (
+                <motion.div
+                  className={`hidden lg:block absolute ${
+                    position === 'left' ? 'left-full ml-3' : 'right-full mr-3'
+                  } top-1/2 -translate-y-1/2 pointer-events-none`}
+                  initial={{ opacity: 0, x: position === 'left' ? -10 : 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: position === 'left' ? -10 : 10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div
+                    className="bg-[#111214] border-2 border-[#25D366]/50 text-white px-4 py-3 rounded-xl shadow-2xl whitespace-nowrap"
+                    role="tooltip"
+                  >
+                    <p className="font-bold text-[#25D366] text-sm">
+                      ¿Tienes dudas?
+                    </p>
+                    <p className="text-xs text-white/60 mt-1">
+                      Escríbenos por WhatsApp
+                    </p>
+                  </div>
+                  
+                  {/* Tooltip arrow */}
+                  <div
+                    className={`absolute ${
+                      position === 'left' ? 'right-full' : 'left-full'
+                    } top-1/2 -translate-y-1/2 
+                               w-0 h-0 border-8 border-transparent ${
+                      position === 'left' ? 'border-l-[#25D366]/50' : 'border-r-[#25D366]/50'
+                    }`}
+                    aria-hidden="true"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </a>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

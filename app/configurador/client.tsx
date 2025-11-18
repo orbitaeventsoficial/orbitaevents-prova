@@ -25,7 +25,7 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
   });
 }
 
-type EventType = 'bodas' | 'discomobil' | 'fiestas' | 'alquiler' | 'empresas';
+type EventType = 'bodas' | 'discomovil' | 'fiestas' | 'alquiler' | 'empresas';
 
 interface ConfigState {
   eventType: EventType | null;
@@ -140,7 +140,7 @@ ${pricing.discount > 0 ? `🎁 Descuento ${pricing.discountReason}: -${pricing.d
     const services = [
       { slug: 'bodas', name: 'Bodas', icon: '💒' },
       { slug: 'fiestas', name: 'Fiestas Privadas', icon: '🎉' },
-      { slug: 'discomobil', name: 'Discomóvil', icon: '🎵' },
+      { slug: 'discomovil', name: 'Discomóvil', icon: '🎵' },
       { slug: 'empresas', name: 'Eventos Corporativos', icon: '💼' },
     ];
 
@@ -192,7 +192,7 @@ ${pricing.discount > 0 ? `🎁 Descuento ${pricing.discountReason}: -${pricing.d
     const serviceName = {
       bodas: 'Bodas',
       fiestas: 'Fiestas Privadas',
-      discomobil: 'Discomóvil',
+      discomovil: 'Discomóvil',
       empresas: 'Eventos Corporativos',
       alquiler: 'Alquiler',
     }[config.eventType || 'bodas'];

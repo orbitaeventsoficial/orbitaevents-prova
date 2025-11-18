@@ -163,14 +163,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <OfferModal />
 
           {/* Cookie Consent GDPR compliant */}
-          <CookieConsent />
+<CookieConsent />
 
-          <Footer />
+{/* ← Footer SIN PROPS (el problema era que le pasabas onClick desde Server) */}
+<Footer />
 
-          {/* 🔥 CTAs flotantes estratégicos OPTIMIZADOS */}
-          <StickyCTA />
-          <ConfiguradorSticky />
-        </Suspense>
+{/* 🔥 CTAs flotantes estratégicos OPTIMIZADOS */}
+<StickyCTA />
+<ConfiguradorSticky />
+</Suspense>
 
         {/* Analytics & Tracking (solo en producción) */}
         {process.env.NODE_ENV === 'production' && (

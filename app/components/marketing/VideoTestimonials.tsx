@@ -23,7 +23,7 @@ const testimonials = [
     date: 'Agosto 2024',
     rating: 5,
     quote:
-      'Contraté la discomobil y mis amigos AÚN me preguntan dónde encontré al DJ. Los efectos especiales y la puesta en escena fueron espectaculares. Repetiría 100%.',
+      'Contraté la discomovil y mis amigos AÚN me preguntan dónde encontré al DJ. Los efectos especiales y la puesta en escena fueron espectaculares. Repetiría 100%.',
     image: '🎂',
     color: 'from-amber-500/20 to-orange-500/20',
   },

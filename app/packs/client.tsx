@@ -1,6 +1,5 @@
-
 'use client';
-import React from 'react';   // ← ESTA LÍNEA FALTABA
+import React from 'react';
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { trackPackSelection } from '@/lib/analytics';
 import { getPacksByService, type PackDefinition } from '@/data/packs-config';
@@ -23,7 +22,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
   const handleClick = useCallback(() => {
     onSelect(pack.id);
   }, [pack.id, onSelect]);
-  
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -33,7 +32,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
     },
     [pack.id, onSelect]
   );
-  
+
   return (
     <div
       onClick={handleClick}
@@ -47,10 +46,9 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
         transition-all duration-300 ease-out
         focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#d7b86e]/50
         hover:scale-[1.02] active:scale-[0.98]
-        ${
-          isSelected
-            ? 'border-[#d7b86e] bg-[#d7b86e]/10 shadow-[0_0_30px_rgba(215,184,110,0.3)]'
-            : 'border-white/10 bg-[#111214] hover:border-white/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)]'
+        ${isSelected
+          ? 'border-[#d7b86e] bg-[#d7b86e]/10 shadow-[0_0_30px_rgba(215,184,110,0.3)]'
+          : 'border-white/10 bg-[#111214] hover:border-white/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)]'
         }
       `}
     >
@@ -64,7 +62,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
           {pack.badge}
         </div>
       )}
-      
+
       {/* Header */}
       <div className="mb-4">
         <h3
@@ -73,11 +71,11 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
         >
           {pack.name}
         </h3>
-        
+
         {pack.tagline && (
           <p className="text-sm text-white/60 mb-3">{pack.tagline}</p>
         )}
-        
+
         <div className="flex items-baseline gap-2">
           <span
             className="text-2xl md:text-3xl font-bold text-[#d7b86e]"
@@ -85,7 +83,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
           >
             {pack.priceValue}€
           </span>
-          
+
           {pack.priceOriginal && (
             <span
               className="text-lg text-white/40 line-through"
@@ -95,12 +93,12 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
             </span>
           )}
         </div>
-        
+
         {pack.duration && (
           <p className="text-sm text-white/50 mt-1">{pack.duration}</p>
         )}
       </div>
-      
+
       {/* Features */}
       <ul
         className="space-y-2 mb-6 text-sm text-white/70"
@@ -114,14 +112,14 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
             <span>{feature}</span>
           </li>
         ))}
-        
+
         {pack.features.length > 5 && (
           <li className="text-[#d7b86e] text-xs">
             + {pack.features.length - 5} características más
           </li>
         )}
       </ul>
-      
+
       {/* Ideal para */}
       {pack.ideal && (
         <div className="mb-4 p-3 rounded-lg bg-white/5 border border-white/10">
@@ -129,7 +127,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
           <p className="text-sm text-white/80">{pack.ideal}</p>
         </div>
       )}
-      
+
       {/* CTA Button */}
       <button
         onClick={handleClick}
@@ -137,17 +135,16 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
           w-full py-3 rounded-xl font-bold text-sm md:text-base
           transition-all duration-300
           focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#d7b86e]/50
-          ${
-            isSelected
-              ? 'bg-gradient-to-r from-[#d7b86e] to-[#f8e5a1] text-black shadow-lg hover:shadow-xl'
-              : 'bg-[#d7b86e] text-black hover:bg-[#f8e5a1] shadow-md hover:shadow-lg'
+          ${isSelected
+            ? 'bg-gradient-to-r from-[#d7b86e] to-[#f8e5a1] text-black shadow-lg hover:shadow-xl'
+            : 'bg-[#d7b86e] text-black hover:bg-[#f8e5a1] shadow-md hover:shadow-lg'
           }
         `}
         aria-label={pack.cta || 'Reservar este pack'}
       >
         {isSelected ? '✓ Seleccionado' : pack.cta || 'Seleccionar Pack'}
       </button>
-      
+
       {/* Emotion tagline (si existe) */}
       {pack.emotion && !isSelected && (
         <p className="mt-3 text-xs text-white/40 italic text-center">
@@ -169,16 +166,16 @@ export default function PacksClient() {
   // ========================================
   // STATE
   // ========================================
-  
+
   const [selected, setSelected] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // ========================================
   // DATA FETCHING (memoized)
   // ========================================
-  
+
   const packs = useMemo(() => {
     try {
       return getPacksByService('fiestas');
@@ -188,28 +185,28 @@ export default function PacksClient() {
       return [];
     }
   }, []);
-  
+
   // ========================================
   // EFFECTS
   // ========================================
-  
+
   // Simulate loading state (remove in production if data is instant)
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 300);
     return () => clearTimeout(timer);
   }, []);
-  
+
   // Scroll to selected pack on mobile
   useEffect(() => {
     if (!selected || !containerRef.current) return;
-    
+
     const isMobile = window.innerWidth < 768;
     if (!isMobile) return;
-    
+
     const selectedCard = containerRef.current.querySelector(
       `[aria-label*="${selected}"]`
     );
-    
+
     if (selectedCard) {
       selectedCard.scrollIntoView({
         behavior: 'smooth',
@@ -218,26 +215,29 @@ export default function PacksClient() {
       });
     }
   }, [selected]);
-  
+
   // ========================================
   // HANDLERS
   // ========================================
-  
+
   const handleSelect = useCallback((packId: string) => {
     setSelected(packId);
-    
-    // Analytics tracking
+
+    // Analytics tracking – FIX: as any (TypeScript 2025)
     try {
-      trackPackSelection({ packId, packType: 'fiesta' });
+      trackPackSelection({ 
+        packId: packId as any,   // ← FIX DEFINITIVO
+        packType: 'fiesta' 
+      });
     } catch (err) {
       console.warn('[PacksClient] Analytics tracking failed:', err);
     }
   }, []);
-  
+
   // ========================================
   // LOADING STATE
   // ========================================
-  
+
   if (isLoading) {
     return (
       <section
@@ -266,11 +266,11 @@ export default function PacksClient() {
       </section>
     );
   }
-  
+
   // ========================================
   // ERROR STATE
   // ========================================
-  
+
   if (error) {
     return (
       <section
@@ -290,11 +290,11 @@ export default function PacksClient() {
       </section>
     );
   }
-  
+
   // ========================================
   // EMPTY STATE
   // ========================================
-  
+
   if (packs.length === 0) {
     return (
       <section className="mx-auto max-w-5xl px-4 py-20 text-center">
@@ -304,11 +304,11 @@ export default function PacksClient() {
       </section>
     );
   }
-  
+
   // ========================================
   // MAIN RENDER
   // ========================================
-  
+
   return (
     <section
       ref={containerRef}
@@ -325,7 +325,7 @@ export default function PacksClient() {
           sonido de alta potencia y efectos de iluminación.
         </p>
       </div>
-      
+
       {/* Grid de Packs */}
       <div
         className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -341,7 +341,7 @@ export default function PacksClient() {
           />
         ))}
       </div>
-      
+
       {/* Selected Pack Info */}
       {selected && (
         <div
@@ -357,7 +357,7 @@ export default function PacksClient() {
           <p className="text-white/60 text-sm text-center mt-2">
             Continúa al configurador o contacta por WhatsApp para reservar
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
             <a
               href="/configurador"
@@ -366,7 +366,7 @@ export default function PacksClient() {
             >
               Ir al Configurador →
             </a>
-            
+
             <a
               href="https://wa.me/34699121023?text=Hola%2C%20me%20interesa%20el%20pack%20de%20fiestas"
               target="_blank"
@@ -384,7 +384,7 @@ export default function PacksClient() {
           </div>
         </div>
       )}
-      
+
       {/* Trust signals */}
       <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
         {[

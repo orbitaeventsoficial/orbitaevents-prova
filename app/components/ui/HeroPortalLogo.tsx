@@ -432,7 +432,7 @@ export default function HeroPortalLogo({
         
         for (const el of satEls) {
           try {
-            const htmlEl = el as HTMLElement;
+            const htmlEl = el as any;
             setTimeout(() => {
               htmlEl.style.animation = "__hp_float 4s ease-in-out infinite";
             }, DUR_SAT);

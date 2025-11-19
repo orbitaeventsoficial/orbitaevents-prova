@@ -41,9 +41,9 @@ export default function HeroBrutal() {
 
       {/* === PARTÍCULAS FLOTANTES === */}
       <div className="absolute inset-0 -z-5 overflow-hidden pointer-events-none opacity-30">
-        <div className="absolute w-32 h-32 rounded-full bg-yellow-500/30 blur-3xl top-[20%] left-[15%] animate-pulse" style={{animationDuration: '4s'}} />
-        <div className="absolute w-40 h-40 rounded-full bg-yellow-400/20 blur-3xl top-[60%] right-[20%] animate-pulse" style={{animationDuration: '6s', animationDelay: '2s'}} />
-        <div className="absolute w-36 h-36 rounded-full bg-yellow-300/25 blur-3xl bottom-[30%] left-[50%] animate-pulse" style={{animationDuration: '5s', animationDelay: '1s'}} />
+        <div className="absolute w-32 h-32 rounded-full bg-oe-gold/30 blur-3xl top-[20%] left-[15%] animate-pulse" style={{animationDuration: '4s'}} />
+        <div className="absolute w-40 h-40 rounded-full bg-oe-gold/20 blur-3xl top-[60%] right-[20%] animate-pulse" style={{animationDuration: '6s', animationDelay: '2s'}} />
+        <div className="absolute w-36 h-36 rounded-full bg-oe-gold/25 blur-3xl bottom-[30%] left-[50%] animate-pulse" style={{animationDuration: '5s', animationDelay: '1s'}} />
       </div>
 
       {/* === CONTENIDO === */}
@@ -69,18 +69,18 @@ export default function HeroBrutal() {
             <span className="block text-white drop-shadow-2xl">
               El Evento Que
             </span>
-            <span className="block bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200 bg-clip-text text-transparent drop-shadow-2xl animate-pulse" style={{animationDuration: '3s'}}>
+            <span className="block bg-gradient-to-r from-oe-gold via-oe-gold to-oe-gold bg-clip-text text-transparent drop-shadow-2xl animate-pulse" style={{animationDuration: '3s'}}>
               Tus Invitados NO Olvidarán
             </span>
           </h1>
         </div>
 
         {/* Subheadline */}
-        <p className="text-center text-2xl sm:text-3xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-10">
+        <p className="text-center text-2xl sm:text-3xl text-oe-gold max-w-4xl mx-auto leading-relaxed mb-10">
           La diferencia entre{' '}
-          <span className="line-through text-gray-500">"estuvo bien"</span>
+          <span className="line-through text-oe-gold">"estuvo bien"</span>
           {' '}y{' '}
-          <span className="font-black text-yellow-400 text-3xl">
+          <span className="font-black text-oe-gold text-3xl">
             "FUE ÉPICO"
           </span>
           <br />
@@ -93,26 +93,26 @@ export default function HeroBrutal() {
           <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                <Star key={i} className="w-6 h-6 fill-oe-gold text-oe-gold" />
               ))}
             </div>
             <span className="font-bold text-white text-xl">4.9</span>
-            <span className="text-gray-300">(243 reseñas)</span>
+            <span className="text-oe-gold">(243 reseñas)</span>
           </div>
 
-          <span className="text-gray-600 text-3xl">•</span>
+          <span className="text-oe-gold text-3xl">•</span>
 
           {/* Eventos */}
           <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
-            <Sparkles className="w-6 h-6 text-yellow-400" />
+            <Sparkles className="w-6 h-6 text-oe-gold" />
             <span className="text-white font-bold text-xl">+300 eventos</span>
           </div>
 
-          <span className="text-gray-600 text-3xl hidden sm:block">•</span>
+          <span className="text-oe-gold text-3xl hidden sm:block">•</span>
 
           {/* Ubicaciones */}
           <div className="bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
-            <span className="text-gray-300 font-medium">📍 Barcelona · Lleida · Girona · Tarragona</span>
+            <span className="text-oe-gold font-medium">📍 Barcelona · Lleida · Girona · Tarragona</span>
           </div>
         </div>
 
@@ -122,7 +122,7 @@ export default function HeroBrutal() {
           {/* CTA Principal: WhatsApp */}
           <a
             href="https://wa.me/34699121023?text=Hola!%20Quiero%20saber%20si%20tenéis%20mi%20fecha%20disponible%20para%20un%20evento"
-            className="group relative inline-flex items-center gap-3 px-10 py-6 rounded-2xl text-black text-xl font-black bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 hover:from-yellow-300 hover:via-yellow-400 hover:to-yellow-300 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/50"
+            className="group relative inline-flex items-center gap-3 px-10 py-6 rounded-2xl text-black text-xl font-black bg-gradient-to-r from-oe-gold via-oe-gold to-oe-gold hover:from-oe-gold hover:via-oe-gold hover:to-oe-gold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-oe-gold/50"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick('hero')}
@@ -135,9 +135,9 @@ export default function HeroBrutal() {
           {/* CTA Secundario */}
           <a
             href="#disponibilidad"
-            className="group inline-flex items-center gap-3 px-10 py-6 rounded-2xl border-2 border-white/30 bg-white/10 backdrop-blur-md text-white text-xl font-bold hover:border-yellow-400 hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
+            className="group inline-flex items-center gap-3 px-10 py-6 rounded-2xl border-2 border-white/30 bg-white/10 backdrop-blur-md text-white text-xl font-bold hover:border-oe-gold hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
           >
-            <Calendar className="w-6 h-6 text-yellow-400" />
+            <Calendar className="w-6 h-6 text-oe-gold" />
             <span>Ver fechas libres</span>
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           </a>
@@ -164,10 +164,11 @@ export default function HeroBrutal() {
         {/* Scroll indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-8 h-12 rounded-full border-2 border-white/40 flex items-start justify-center p-2">
-            <div className="w-2 h-4 rounded-full bg-yellow-400 animate-pulse" />
+            <div className="w-2 h-4 rounded-full bg-oe-gold animate-pulse" />
           </div>
         </div>
       </div>
     </section>
   );
 }
+

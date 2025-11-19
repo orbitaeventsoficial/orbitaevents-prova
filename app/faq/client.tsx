@@ -41,7 +41,7 @@ export default function FAQClient() {
       </div>
 
       {/* 🔥 CTA URGENCIA SUPERIOR - Captura micro-momentos */}
-      <div className="max-w-3xl mx-auto mb-12 p-6 bg-gradient-to-r from-[#d7b86e]/10 to-transparent border border-[#d7b86e]/30 rounded-2xl">
+      <div className="max-w-3xl mx-auto mb-12 p-6 bg-gradient-to-r from-[var(--oe-gold)]/10 to-transparent border border-[var(--oe-gold)]/30 rounded-2xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <p className="text-white font-semibold mb-1">¿Tu boda es en menos de 3 meses?</p>
@@ -77,7 +77,7 @@ export default function FAQClient() {
             placeholder="Buscar duda (ej: precio, limitador, lluvia...)"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:border-[#d7b86e] transition text-white placeholder:text-white/40"
+            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:border-[var(--oe-gold)] transition text-white placeholder:text-white/40"
           />
         </div>
         <div className="flex flex-wrap justify-center gap-2">
@@ -94,7 +94,7 @@ export default function FAQClient() {
               onClick={() => setCategory(cat.id as CategoryType)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                 category === cat.id
-                  ? "bg-[#d7b86e] text-black"
+                  ? "bg-[var(--oe-gold)] text-black"
                   : "bg-white/5 border border-white/20 hover:bg-white/10 text-white"
               }`}
             >
@@ -123,13 +123,13 @@ export default function FAQClient() {
           filteredFAQs.map((faq, i) => (
             <div
               key={i}
-              className="oe-card rounded-2xl border border-white/10 transition-all duration-300 hover:border-[#d7b86e]/30"
+              className="oe-card rounded-2xl border border-white/10 transition-all duration-300 hover:border-[var(--oe-gold)]/30"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="w-full px-6 py-4 flex items-center justify-between text-left group"
               >
-                <h2 className="text-lg font-semibold pr-4 group-hover:text-[#d7b86e] transition">
+                <h2 className="text-lg font-semibold pr-4 group-hover:text-[var(--oe-gold)] transition">
                   {faq.q}
                 </h2>
                 <ChevronDown
@@ -147,7 +147,7 @@ export default function FAQClient() {
                       href={WA_LINK.replace("[pregunta]", encodeURIComponent(faq.q))}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[#d7b86e] hover:text-white transition text-sm font-medium"
+                      className="inline-flex items-center gap-2 text-[var(--oe-gold)] hover:text-white transition text-sm font-medium"
                     >
                       <MessageCircle className="w-4 h-4" />
                       Preguntar por WhatsApp
@@ -196,4 +196,5 @@ export default function FAQClient() {
     </section>
   );
 }
+
 

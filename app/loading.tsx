@@ -50,9 +50,10 @@ export default function Loading() {
       >
         <div className="mb-4 text-6xl animate-[spin_3s_linear_infinite]">🪐</div>
         <p className="text-white/80 tracking-wide text-xl font-display">
-          Lanzando <span className="text-[#d7b86e] gradient-text">Òrbita</span>… ¡WOW en 3s!
+          Lanzando <span className="text-[var(--oe-gold)] gradient-text">Òrbita</span>… ¡WOW en 3s!
         </p>
       </motion.div>
     </div>
   );
 }
+

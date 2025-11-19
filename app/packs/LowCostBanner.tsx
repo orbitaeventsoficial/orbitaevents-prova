@@ -19,9 +19,9 @@ export default function LowCostBanner() {
         <div className="rounded-xl bg-black p-4 text-white">
           <p className="text-xs uppercase tracking-wider text-oe-gold">OFERTA FLASH</p>
           <p className="text-lg font-black">⚡ Oferta Flash</p>
-          <p className="text-xs text-gray-300">2h DJ + 2 altavoces + luces</p>
+          <p className="text-xs text-oe-gold">2h DJ + 2 altavoces + luces</p>
           <div className="mt-1 flex items-center gap-2">
-            <span className="text-sm line-through text-gray-500">450€</span>
+            <span className="text-sm line-through text-oe-gold">450€</span>
             <span className="text-xl font-black text-oe-gold">250€</span>
           </div>
           <a
@@ -32,9 +32,10 @@ export default function LowCostBanner() {
           >
             RESERVAR AHORA
           </a>
-          <p className="mt-2 text-[9px] text-gray-400">Solo cumpleaños pequeños · Hasta 50 pers.</p>
+          <p className="mt-2 text-[9px] text-oe-gold">Solo cumpleaños pequeños · Hasta 50 pers.</p>
         </div>
       </div>
     </div>
   );
 }
+

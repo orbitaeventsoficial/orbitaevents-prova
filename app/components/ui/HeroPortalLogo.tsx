@@ -544,7 +544,7 @@ export default function HeroPortalLogo({
         aria-hidden
         className="fixed inset-0 z-[1500] bg-black flex items-center justify-center"
       >
-        <div className="w-8 h-8 border-4 border-[#d7b86e] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[var(--oe-gold)] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -821,3 +821,4 @@ function ChampagneBubbles({
     />
   );
 }
+

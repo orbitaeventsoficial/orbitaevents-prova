@@ -1,233 +1,478 @@
-// app/servicios/bodas/client.tsx
 'use client';
 
-import { Heart, Music, Sparkles, Check, Star, MessageCircle, Shield, Users } from 'lucide-react';
-import { useEffect } from 'react';
-import { getPacksByService } from '@/data/packs-config';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Heart, Check, Star, MessageCircle, Sparkles, 
+  Users, Clock, Zap, TrendingUp, ChevronRight 
+} from 'lucide-react';
+import { getPacksByService, EXTRAS, type PackDefinition, type ExtraDefinition } from '@/data/packs-config';
 
-// Analytics
-let track: (event: string, data?: any) => void = () => {};
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
-  import('@vercel/analytics').then((mod) => {
-    track = mod.track;
-  });
+// Obtener packs de bodas
+const WEDDING_PACKS = getPacksByService('bodas');
+
+// Extras específicos para bodas
+const WEDDING_EXTRAS = EXTRAS.filter(e => 
+  ['confeti', 'co2', 'humo-bajo', 'pantalla', 'photocall', 'dj-extra'].includes(e.id)
+);
+
+interface ConfigState {
+  selectedPack: PackDefinition | null;
+  selectedExtras: Set<string>;
+  numGuests: number;
 }
 
-// 🔗 BASE WHATSAPP (SIN TEXTOS METIDOS A LO BRUTO)
-const WA_BASE = 'https://wa.me/34699121023';
+export default function BodasClientV2() {
+  const [config, setConfig] = useState<ConfigState>({
+    selectedPack: null,
+    selectedExtras: new Set(),
+    numGuests: 100,
+  });
 
-const buildWhatsAppUrl = (message: string) =>
-  `${WA_BASE}?text=${encodeURIComponent(message)}`;
+  const [showSummary, setShowSummary] = useState(false);
 
-// 🔥 PACKS DESDE CONFIGURACIÓN CENTRALIZADA
-const weddingPackages = getPacksByService('bodas');
+  // Calcular total
+  const packPrice = config.selectedPack?.priceValue || 0;
+  const extrasPrice = Array.from(config.selectedExtras).reduce((sum, id) => {
+    const extra = WEDDING_EXTRAS.find(e => e.id === id);
+    return sum + (extra?.price || 0);
+  }, 0);
+  const totalPrice = packPrice + extrasPrice;
 
-const cleanName = (name: string) => name.replace(/[^\wÀ-ÿ ]/g, '').trim();
+  // Descuento por 3+ extras (15%)
+  const hasComboDiscount = config.selectedExtras.size >= 3;
+  const discount = hasComboDiscount ? Math.round(extrasPrice * 0.15) : 0;
+  const finalPrice = totalPrice - discount;
 
-export default function BodasClient() {
+  // Mostrar summary cuando hay algo seleccionado
   useEffect(() => {
-    track('View_Bodas');
-  }, []);
+    setShowSummary(config.selectedPack !== null);
+  }, [config.selectedPack]);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+  // Recomendación según invitados
+  const getRecommendedPack = (): PackDefinition | null => {
+    if (config.numGuests <= 80) return WEDDING_PACKS[0]; // Esencial
+    if (config.numGuests <= 150) return WEDDING_PACKS[1]; // Premium
+    return WEDDING_PACKS[2]; // VIP
+  };
+
+  const recommendedPack = getRecommendedPack();
+
+  // Seleccionar pack
+  const selectPack = (pack: PackDefinition) => {
+    setConfig(prev => ({ ...prev, selectedPack: pack }));
+    
+    // Analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'bodas_pack_select', {
+        pack_id: pack.id,
+        pack_name: pack.name,
+        price: pack.priceValue,
+      });
     }
-    const t = setTimeout(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-    }, 120);
-    return () => clearTimeout(t);
-  }, []);
+  };
+
+  // Toggle extra
+  const toggleExtra = (extraId: string) => {
+    setConfig(prev => {
+      const newExtras = new Set(prev.selectedExtras);
+      if (newExtras.has(extraId)) {
+        newExtras.delete(extraId);
+      } else {
+        newExtras.add(extraId);
+      }
+      return { ...prev, selectedExtras: newExtras };
+    });
+
+    // Analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      const extra = WEDDING_EXTRAS.find(e => e.id === extraId);
+      (window as any).gtag('event', 'bodas_extra_toggle', {
+        extra_id: extraId,
+        extra_name: extra?.name,
+        action: config.selectedExtras.has(extraId) ? 'remove' : 'add',
+      });
+    }
+  };
+
+  // Generar mensaje WhatsApp
+  const generateWhatsAppMessage = () => {
+    if (!config.selectedPack) return;
+
+    const selectedExtrasText = Array.from(config.selectedExtras)
+      .map(id => {
+        const extra = WEDDING_EXTRAS.find(e => e.id === id);
+        return extra ? `• ${extra.name} (+${extra.price}€)` : '';
+      })
+      .filter(Boolean)
+      .join('\n');
+
+    let message = `🎊 ¡Hola! Quiero presupuesto para mi boda\n\n`;
+    message += `📦 Pack: ${config.selectedPack.name} (${config.selectedPack.priceValue}€)\n`;
+    message += `👥 Invitados: ${config.numGuests} personas\n\n`;
+    
+    if (selectedExtrasText) {
+      message += `✨ Extras:\n${selectedExtrasText}\n\n`;
+    }
+
+    if (hasComboDiscount) {
+      message += `🎁 Descuento Combo 3 Extras: -${discount}€\n\n`;
+    }
+
+    message += `💰 Total: ${finalPrice}€\n\n`;
+    message += `¿Tenéis disponibilidad?`;
+
+    const encoded = encodeURIComponent(message);
+    const url = `https://wa.me/34660671119?text=${encoded}`;
+
+    // Analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'bodas_whatsapp_click', {
+        pack_id: config.selectedPack.id,
+        num_extras: config.selectedExtras.size,
+        total_price: finalPrice,
+        has_discount: hasComboDiscount,
+      });
+    }
+
+    window.open(url, '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-bg-main">
-      {/* HERO */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-bg-main z-10" />
-          <img
-            src="/img/portfolio/bodas-cover.webp"
-            alt="DJ Bodas Barcelona Òrbita Events"
-            className="w-full h-full object-cover animate-slow-zoom"
+      {/* Header */}
+      <section className="py-16 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-oe-gold/10 border border-oe-gold/30 mb-6">
+          <Heart className="w-4 h-4 text-oe-gold" fill="currentColor" />
+          <span className="text-sm font-bold text-oe-gold">87 bodas en 2024</span>
+        </div>
+
+        <h1 className="text-5xl md:text-6xl font-display font-black text-text-primary mb-4">
+          Configurador de Boda
+        </h1>
+        <p className="text-xl text-text-muted max-w-2xl mx-auto">
+          Selecciona tu pack y personaliza con extras. Presupuesto al instante.
+        </p>
+      </section>
+
+      {/* Configurador de invitados */}
+      <section className="max-w-5xl mx-auto px-4 mb-16">
+        <div className="p-8 rounded-3xl bg-gradient-to-br from-bg-surface to-bg-card border border-oe-gold/30">
+          <div className="flex items-center gap-3 mb-6">
+            <Users className="w-6 h-6 text-oe-gold" />
+            <h3 className="text-2xl font-bold text-text-primary">¿Cuántos invitados esperáis?</h3>
+          </div>
+
+          <div className="text-center mb-8">
+            <div className="text-7xl font-bold bg-gradient-to-r from-oe-gold to-oe-gold bg-clip-text text-transparent">
+              {config.numGuests}
+            </div>
+            <div className="text-text-muted mt-2">personas</div>
+          </div>
+
+          <input
+            type="range"
+            min="30"
+            max="300"
+            step="10"
+            value={config.numGuests}
+            onChange={(e) => setConfig(prev => ({ ...prev, numGuests: parseInt(e.target.value) }))}
+            className="w-full h-3 rounded-full appearance-none cursor-pointer slider-custom"
           />
-        </div>
-
-        <div className="relative z-20 mx-auto max-w-6xl px-4 py-20 text-center">
-          <div className="inline-block px-4 py-2 rounded-full bg-oe-gold/10 border border-oe-gold/30 text-oe-gold text-sm font-bold mb-6">
-            <Heart className="w-4 h-4 inline mr-2" />
-            DJ + SONIDO + LUCES + EFECTOS
+          <div className="flex justify-between text-sm text-text-muted mt-4">
+            <span>30 personas</span>
+            <span>300 personas</span>
           </div>
 
-          <h1 className="text-5xl sm:text-7xl font-display font-black text-white mb-6 leading-[1.05]">
-            El Día Que
-            <br />
-            <span className="gradient-text breathe">Todos Recordarán</span>
-          </h1>
-
-          <p className="text-xl sm:text-2xl text-text-muted max-w-3xl mx-auto mb-10 leading-relaxed">
-            DJ profesional, sonido EV 4.000W, iluminación y efectos coordinados.
-            <br />
-            Desde solo el baile hasta ceremonia + banquete + fiesta.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href={buildWhatsAppUrl('Hola! Quiero info para mi boda')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="oe-btn-gold text-lg px-8 py-5 inline-flex items-center justify-center gap-3"
-              onClick={() => track('CTA_WhatsApp_Bodas_Hero')}
+          {/* Recomendación */}
+          {recommendedPack && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6 p-4 bg-oe-gold/20 rounded-xl border border-oe-gold/50"
             >
-              <MessageCircle className="w-5 h-5" />
-              Consultar Disponibilidad
-            </a>
-            <a
-              href="#packs"
-              className="oe-btn-outline text-lg px-8 py-5 inline-flex items-center justify-center gap-3"
-            >
-              Ver Packs y Precios
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* PROOF */}
-      <section className="py-12 bg-bg-surface border-y border-border">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { icon: Heart, label: '87 bodas', sublabel: 'En 2024' },
-              { icon: Star, label: '4.9/5', sublabel: 'Valoración' },
-              { icon: Shield, label: '100%', sublabel: 'Sin fallos' },
-              { icon: Music, label: '+4h media', sublabel: 'Pista llena' },
-            ].map((stat, i) => (
-              <div key={i}>
-                <stat.icon className="w-8 h-8 text-oe-gold mx-auto mb-2" />
-                <div className="text-3xl font-black text-white mb-1">{stat.label}</div>
-                <div className="text-sm text-text-muted">{stat.sublabel}</div>
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="w-5 h-5 text-oe-gold" />
+                <span className="font-bold text-oe-gold">Recomendado para vosotros:</span>
               </div>
-            ))}
-          </div>
+              <div className="text-lg text-text-primary">
+                <strong>{recommendedPack.name}</strong> - {recommendedPack.priceValue}€
+              </div>
+              <p className="text-sm text-text-muted mt-1">{recommendedPack.tagline}</p>
+            </motion.div>
+          )}
         </div>
       </section>
 
-      {/* PACKS */}
-      <section id="packs" className="py-20 sm:py-32 bg-gradient-to-b from-bg-main to-bg-surface">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-h2 text-white mb-4">
-              Packs <span className="text-oe-gold">Para Tu Boda</span>
+      {/* Selector de packs */}
+      <section className="max-w-7xl mx-auto px-4 mb-16">
+        <h2 className="text-3xl font-bold text-text-primary text-center mb-12">
+          Elige Vuestro Pack
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {WEDDING_PACKS.map(pack => {
+            const isSelected = config.selectedPack?.id === pack.id;
+            const isRecommended = recommendedPack?.id === pack.id;
+
+            return (
+              <motion.div
+                key={pack.id}
+                layout
+                className={`
+                  relative p-6 rounded-2xl border-2 cursor-pointer transition-all
+                  ${isSelected
+                    ? 'border-oe-gold bg-oe-gold/10 shadow-lg shadow-oe-gold scale-105'
+                    : isRecommended
+                    ? 'border-oe-gold bg-oe-gold/5'
+                    : 'border bg-bg-surface hover:border-white/20 hover:bg-bg-card'
+                  }
+                `}
+                onClick={() => selectPack(pack)}
+              >
+                {/* Badge Recomendado */}
+                {isRecommended && !isSelected && (
+                  <div className="absolute -top-3 right-4">
+                    <div className="px-3 py-1 bg-oe-gold rounded-full text-xs font-bold flex items-center gap-1">
+                      <TrendingUp className="w-3 h-3" />
+                      RECOMENDADO
+                    </div>
+                  </div>
+                )}
+
+                {/* Badge Popular */}
+                {pack.popular && (
+                  <div className="absolute -top-3 left-4">
+                    <div className="px-3 py-1 bg-gradient-to-r from-oe-gold to-oe-gold rounded-full text-xs font-bold flex items-center gap-1">
+                      <Star className="w-3 h-3" fill="currentColor" />
+                      MÁS ELEGIDO
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-4 mt-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-text-primary">{pack.name}</h3>
+                    <p className="text-sm text-text-muted">{pack.tagline}</p>
+                  </div>
+
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-bold text-oe-gold">
+                      {pack.priceValue}€
+                    </span>
+                  </div>
+
+                  <div className="text-sm text-text-muted">
+                    👥 {pack.ideal}
+                  </div>
+
+                  <ul className="space-y-2 pt-4 border-t border">
+                    {pack.features.slice(0, 5).map((feature, idx) => (
+                      <li key={idx} className="text-sm text-text-muted flex items-start gap-2">
+                        <Check className="w-4 h-4 text-oe-gold flex-shrink-0 mt-0.5" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className={`
+                    w-full py-3 rounded-xl font-bold text-center transition-all
+                    ${isSelected
+                      ? 'bg-oe-gold text-text-primary'
+                      : 'bg-bg-card text-text-primary hover:bg-white/20'
+                    }
+                  `}>
+                    {isSelected ? '✓ Seleccionado' : 'Seleccionar'}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Extras */}
+      {config.selectedPack && (
+        <motion.section
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-7xl mx-auto px-4 mb-16"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-text-primary mb-4">
+              Personaliza con Extras
             </h2>
-            <p className="text-xl text-text-muted max-w-2xl mx-auto">
-              Desde solo el baile hasta producción completa del día. Precios claros.
+            <p className="text-text-muted">
+              Contrata 3+ extras y ahorra <span className="text-oe-gold font-bold">15%</span> automáticamente
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {weddingPackages.map((pack) => (
-              <div
-                key={pack.id}
-                id={pack.slug}
-                className={`relative p-8 rounded-3xl transition-all ${
-                  pack.highlight
-                    ? 'bg-gradient-to-br from-oe-gold/10 to-oe-gold/5 border-2 border-oe-gold ring-4 ring-oe-gold/20 scale-105'
-                    : pack.popular
-                    ? 'bg-bg-surface border-2 border-oe-gold/50'
-                    : 'bg-bg-surface border border-border hover:border-oe-gold/50'
-                }`}
-              >
-                {pack.badge && (
-                  <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-oe-gold text-black text-xs font-bold">
-                    {pack.badge}
-                  </div>
-                )}
+          <div className="grid md:grid-cols-3 gap-6">
+            {WEDDING_EXTRAS.map(extra => {
+              const isSelected = config.selectedExtras.has(extra.id);
 
-                <div className="mb-6">
-                  <h3 className="text-3xl font-bold text-white mb-2">{pack.name}</h3>
-                  <p className="text-text-muted mb-4">{pack.tagline}</p>
-                  {pack.emotion && (
-                    <p className="text-sm text-text-muted/80 italic leading-relaxed">
-                      "{pack.emotion}"
-                    </p>
-                  )}
-                </div>
-
-                <div className="mb-6">
-                  <div className="text-5xl font-black text-oe-gold mb-1">{pack.price}</div>
-                  {pack.duration && (
-                    <div className="text-text-muted text-sm">{pack.duration}</div>
-                  )}
-                </div>
-
-                <ul className="space-y-3 mb-8">
-                  {pack.features.map((feature, i) => (
-                    <li key={i} className="flex items-start text-text-muted">
-                      <Check className="w-5 h-5 text-oe-gold mr-3 mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {pack.ideal && (
-                  <div className="mb-6 p-3 rounded-lg bg-bg-main/50">
-                    <div className="text-xs text-oe-gold font-bold mb-1">IDEAL PARA:</div>
-                    <div className="text-sm text-white">{pack.ideal}</div>
-                  </div>
-                )}
-
-                <a
-                  href={buildWhatsAppUrl(
-                    `Hola! Quiero info sobre el ${cleanName(pack.name)} (${pack.price})`
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-full py-4 rounded-xl font-bold transition-all inline-block text-center ${
-                    pack.highlight
-                      ? 'bg-oe-gold text-black hover:bg-oe-gold-light shadow-gold'
-                      : 'bg-bg-main text-white border border-border hover:border-oe-gold hover:bg-bg-elevated'
-                  }`}
-                  onClick={() =>
-                    track('CTA_WhatsApp_Pack_Bodas', { pack: pack.id, price: pack.priceValue })
-                  }
+              return (
+                <motion.div
+                  key={extra.id}
+                  layout
+                  className={`
+                    relative p-6 rounded-2xl border-2 cursor-pointer transition-all
+                    ${isSelected
+                      ? 'border-oe-gold bg-oe-gold/10 shadow-lg shadow-oe-gold/20'
+                      : 'border bg-bg-surface hover:border-white/20 hover:bg-bg-card'
+                    }
+                  `}
+                  onClick={() => toggleExtra(extra.id)}
                 >
-                  {pack.cta || 'Reservar Pack'}
-                </a>
-              </div>
-            ))}
+                  {/* Checkbox */}
+                  <div className="absolute top-4 right-4">
+                    <div className={`
+                      w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
+                      ${isSelected
+                        ? 'border-oe-gold bg-oe-gold'
+                        : 'border-oe-gold bg-transparent'
+                      }
+                    `}>
+                      {isSelected && (
+                        <Check className="w-4 h-4 text-text-primary" strokeWidth={3} />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Badge Popular */}
+                  {extra.popular && (
+                    <div className="absolute -top-3 left-4">
+                      <div className="px-2 py-1 bg-oe-gold rounded-full text-xs font-bold">
+                        POPULAR
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Badge Premium */}
+                  {extra.premium && (
+                    <div className="absolute -top-3 left-4">
+                      <div className="px-2 py-1 bg-gradient-to-r from-oe-gold to-oe-gold rounded-full text-xs font-bold">
+                        PREMIUM
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="space-y-3 mt-4">
+                    <div className="text-4xl mb-2">{extra.icon}</div>
+                    <h4 className="text-lg font-bold text-text-primary pr-8">{extra.name}</h4>
+                    <p className="text-sm text-text-muted">{extra.description}</p>
+                    
+                    <div className="flex items-center justify-between pt-3 border-t border">
+                      <span className="text-2xl font-bold text-oe-gold">
+                        +{extra.price}€
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
 
-          <div className="text-center mt-12">
-            <a
-              href="/configurador"
-              className="text-oe-gold hover:underline font-bold inline-flex items-center gap-2"
+          {/* Descuento combo */}
+          {hasComboDiscount && (
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="mt-8 p-6 bg-gradient-to-r from-green-900/30 to-oe-gold/30 rounded-2xl border-2 border-green-500/50 text-center"
             >
-              <Sparkles className="w-5 h-5" />
-              ¿Necesitas algo específico? Usa el configurador →
-            </a>
-          </div>
-        </div>
-      </section>
+              <Zap className="w-12 h-12 text-green-400 mx-auto mb-3" fill="currentColor" />
+              <h3 className="text-2xl font-bold text-text-primary mb-2">
+                ¡Descuento Combo Activado!
+              </h3>
+              <p className="text-green-400 text-lg">
+                Ahorras <strong>{discount}€</strong> (15% en extras)
+              </p>
+            </motion.div>
+          )}
+        </motion.section>
+      )}
 
-      {/* CTA FINAL */}
-      <section className="py-20 sm:py-32 bg-gradient-to-b from-bg-surface to-bg-main">
-        <div className="mx-auto max-w-4xl px-4 text-center">
-          <Heart className="w-16 h-16 text-oe-gold mx-auto mb-6" />
-          <h2 className="text-4xl sm:text-5xl font-display font-black text-white mb-6">
-            Tu Boda Merece Lo Mejor
-          </h2>
-          <p className="text-xl text-text-muted mb-10">
-            Hablemos de tu día. Sin compromiso, sin prisa.
-          </p>
-          <a
-            href={buildWhatsAppUrl('Hola! Queremos hablar de la música de nuestra boda')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="oe-btn-gold text-xl px-10 py-6 inline-flex items-center justify-center gap-3"
-            onClick={() => track('CTA_WhatsApp_Bodas_Final')}
+      {/* Sticky Summary */}
+      <AnimatePresence>
+        {showSummary && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-oe-gold to-oe-gold-light shadow-2xl"
           >
-            <MessageCircle className="w-6 h-6" />
-            Hablar por WhatsApp
-          </a>
+            <div className="max-w-7xl mx-auto px-6 py-4">
+              <div className="flex items-center justify-between">
+                {/* Info */}
+                <div className="flex items-center gap-6">
+                  <div>
+                    <div className="text-sm opacity-90">{config.selectedPack?.name}</div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm opacity-80">
+                        {config.selectedExtras.size} extra{config.selectedExtras.size !== 1 ? 's' : ''}
+                      </span>
+                      {hasComboDiscount && (
+                        <>
+                          <span className="text-sm opacity-50">•</span>
+                          <span className="text-sm bg-white/20 px-2 py-1 rounded">
+                            -15% en extras
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className="h-12 w-px bg-white/30" />
+                  <div>
+                    {discount > 0 && (
+                      <div className="text-sm line-through opacity-60">{totalPrice}€</div>
+                    )}
+                    <div className="text-3xl font-bold">{finalPrice}€</div>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <button
+                  onClick={generateWhatsAppMessage}
+                  className="
+                    px-8 py-4 bg-white text-oe-gold rounded-full
+                    font-bold flex items-center gap-2
+                    hover:bg-oe-gold transition-all
+                    shadow-lg hover:shadow-xl hover:scale-105
+                  "
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Pedir Presupuesto
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Info adicional */}
+      <section className="max-w-4xl mx-auto px-4 py-16">
+        <div className="p-8 bg-bg-surface rounded-2xl border border">
+          <h3 className="text-2xl font-bold text-text-primary mb-4">💍 Información Importante</h3>
+          <div className="grid md:grid-cols-2 gap-6 text-text-muted">
+            <div>
+              <strong className="text-text-primary">✅ Todos los packs incluyen:</strong>
+              <ul className="mt-2 space-y-1 ml-4 text-sm">
+                <li>• DJ profesional especializado en bodas</li>
+                <li>• Sonido EV profesional 4000W</li>
+                <li>• Montaje completo y desmontaje</li>
+                <li>• Prueba de sonido previa</li>
+              </ul>
+            </div>
+            <div>
+              <strong className="text-text-primary">💰 Facilidades de pago:</strong>
+              <ul className="mt-2 space-y-1 ml-4 text-sm">
+                <li>• Señal: 30% al reservar</li>
+                <li>• Resto: día del evento</li>
+                <li>• Sin comisiones por transferencia</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
     </div>

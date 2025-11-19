@@ -48,7 +48,7 @@ function Stars({ n }: { n: number }) {
   return (
     <span className="flex gap-0.5">
       {[...Array(5)].map((_, i) => (
-        <Star key={i} className={`w-4 h-4 ${i < n ? 'text-[#d7b86e] fill-[#d7b86e]' : 'text-white/30'}`} />
+        <Star key={i} className={`w-4 h-4 ${i < n ? 'text-[var(--oe-gold)] fill-[var(--oe-gold)]' : 'text-white/30'}`} />
       ))}
     </span>
   );
@@ -84,7 +84,7 @@ export default function OpinionesClient() {
               key={f.id}
               onClick={() => setFilter(f.id as FilterType)}
               className={`flex items-center gap-1 px-4 py-2 rounded-xl border transition-all ${
-                filter === f.id ? "bg-[#d7b86e] text-black border-[#d7b86e]" : "bg-white/5 border-white/20 hover:bg-white/10"
+                filter === f.id ? "bg-[var(--oe-gold)] text-black border-[var(--oe-gold)]" : "bg-white/5 border-white/20 hover:bg-white/10"
               }`}
             >
               <Filter className="w-4 h-4" />
@@ -107,7 +107,7 @@ export default function OpinionesClient() {
         {filteredReviews.map((r, i) => (
           <li
             key={i}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 oe-card transition-all duration-300 hover:border-[#d7b86e]/30 hover:shadow-[0_0_0_1px_rgba(215,184,110,.25)]"
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 oe-card transition-all duration-300 hover:border-[var(--oe-gold)]/30 hover:shadow-[0_0_0_1px_rgba(215,184,110,.25)]"
             itemScope
             itemType="https://schema.org/Review"
           >
@@ -162,3 +162,4 @@ export default function OpinionesClient() {
     </main>
   );
 }
+

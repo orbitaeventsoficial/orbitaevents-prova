@@ -1,0 +1,169 @@
+/* ==========================================================================
+   CUSTOM SLIDER STYLES - Órbita Events (BRANDED)
+   Slider dorado profesional usando los colores exactos de la marca
+   ========================================================================== */
+
+/* Base slider - ocultar estilos por defecto */
+.slider-custom {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 12px;
+  border-radius: 12px;
+  background: linear-gradient(
+    to right,
+    rgba(215, 184, 110, 0.2) 0%,
+    rgba(215, 184, 110, 0.1) 100%
+  );
+  outline: none;
+  opacity: 0.9;
+  transition: opacity 0.2s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.slider-custom:hover {
+  opacity: 1;
+  box-shadow: 0 0 15px rgba(215, 184, 110, 0.3);
+}
+
+/* Focus effect */
+.slider-custom:focus {
+  box-shadow: 0 0 20px rgba(215, 184, 110, 0.5);
+}
+
+/* Track fill effect - usando gradiente de Órbita */
+.slider-custom::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 12px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    #d7b86e 0%,
+    #f8e5a1 50%,
+    #d7b86e 100%
+  );
+}
+
+.slider-custom::-moz-range-track {
+  width: 100%;
+  height: 12px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    #d7b86e 0%,
+    #f8e5a1 50%,
+    #d7b86e 100%
+  );
+}
+
+/* Thumb (círculo que se mueve) - WebKit (Chrome, Safari, Edge) */
+.slider-custom::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f8e5a1, #d7b86e, #b9994b);
+  cursor: grab;
+  box-shadow: 
+    0 0 0 4px rgba(10, 10, 11, 0.8),
+    0 4px 12px rgba(215, 184, 110, 0.4),
+    0 0 20px rgba(215, 184, 110, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Thumb - Firefox */
+.slider-custom::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #f8e5a1, #d7b86e, #b9994b);
+  cursor: grab;
+  box-shadow: 
+    0 0 0 4px rgba(10, 10, 11, 0.8),
+    0 4px 12px rgba(215, 184, 110, 0.4),
+    0 0 20px rgba(215, 184, 110, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Thumb hover effect */
+.slider-custom::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 
+    0 0 0 5px rgba(10, 10, 11, 0.9),
+    0 6px 20px rgba(215, 184, 110, 0.6),
+    0 0 30px rgba(215, 184, 110, 0.5);
+}
+
+.slider-custom::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 
+    0 0 0 5px rgba(10, 10, 11, 0.9),
+    0 6px 20px rgba(215, 184, 110, 0.6),
+    0 0 30px rgba(215, 184, 110, 0.5);
+}
+
+/* Thumb active (cuando se está arrastrando) */
+.slider-custom:active::-webkit-slider-thumb {
+  cursor: grabbing;
+  transform: scale(1.25);
+  box-shadow: 
+    0 0 0 6px rgba(10, 10, 11, 1),
+    0 8px 25px rgba(215, 184, 110, 0.7),
+    0 0 40px rgba(215, 184, 110, 0.6);
+}
+
+.slider-custom:active::-moz-range-thumb {
+  cursor: grabbing;
+  transform: scale(1.25);
+  box-shadow: 
+    0 0 0 6px rgba(10, 10, 11, 1),
+    0 8px 25px rgba(215, 184, 110, 0.7),
+    0 0 40px rgba(215, 184, 110, 0.6);
+}
+
+/* Animación suave al soltar */
+.slider-custom::-webkit-slider-thumb {
+  transition: 
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slider-custom::-moz-range-thumb {
+  transition: 
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive - móviles */
+@media (max-width: 768px) {
+  .slider-custom {
+    height: 10px;
+  }
+
+  .slider-custom::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  .slider-custom::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Accesibilidad - focus visible para teclado */
+.slider-custom:focus-visible {
+  outline: 2px solid #d7b86e;
+  outline-offset: 4px;
+}
+
+/* Compatibilidad con prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .slider-custom::-webkit-slider-thumb,
+  .slider-custom::-moz-range-thumb {
+    transition: none;
+  }
+}

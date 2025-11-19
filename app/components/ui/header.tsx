@@ -73,7 +73,7 @@ const DropdownMenu = memo(function DropdownMenu({ items, isOpen, onClose }: Drop
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="absolute left-0 mt-2 w-64 bg-[#111214] border-2 border-[#d7b86e]/30 rounded-xl 
+          className="absolute left-0 mt-2 w-64 bg-[var(--bg-surface)] border-2 border-[var(--oe-gold)]/30 rounded-xl 
                      shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-xl overflow-hidden z-50"
           initial={{ opacity: 0, y: -10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -85,7 +85,7 @@ const DropdownMenu = memo(function DropdownMenu({ items, isOpen, onClose }: Drop
               <li key={item.name} role="none">
                 <Link
                   href={item.href}
-                  className="flex items-center gap-3 px-4 py-3 text-white/80 hover:text-[#d7b86e] 
+                  className="flex items-center gap-3 px-4 py-3 text-white/80 hover:text-[var(--oe-gold)] 
                            hover:bg-white/5 transition-all duration-200 group"
                   onClick={() => {
                     onClose();
@@ -217,7 +217,7 @@ export default function Header({ className = '' }: { className?: string }) {
     <header
       className={`
         sticky top-0 z-50 
-        backdrop-blur-xl bg-[#0a0a0b]/90 
+        backdrop-blur-xl bg-[var(--bg-main)]/90 
         border-b transition-all duration-300
         ${scrolled ? 'border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.6)]' : 'border-white/10'}
         ${className}
@@ -233,7 +233,7 @@ export default function Header({ className = '' }: { className?: string }) {
           <Link
             href="/"
             onClick={handleLogoClick}
-            className="flex items-center transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#d7b86e]/50 rounded-lg"
+            className="flex items-center transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--oe-gold)]/50 rounded-lg"
             aria-label="Òrbita Events - Ir a inicio"
           >
             <Image
@@ -260,9 +260,9 @@ export default function Header({ className = '' }: { className?: string }) {
                   onMouseLeave={handleDropdownLeave}
                 >
                   <button
-                    className="flex items-center gap-1 px-3 py-2 rounded-lg text-white/80 hover:text-[#d7b86e] 
+                    className="flex items-center gap-1 px-3 py-2 rounded-lg text-white/80 hover:text-[var(--oe-gold)] 
                              hover:bg-white/5 font-medium transition-all duration-200
-                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7b86e]/50"
+                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--oe-gold)]/50"
                     aria-expanded={dropdownOpen}
                     aria-haspopup="true"
                   >
@@ -288,11 +288,11 @@ export default function Header({ className = '' }: { className?: string }) {
                   onClick={() => trackEvent('Header_Nav_Click', { item: item.name })}
                   className={`
                     px-3 py-2 rounded-lg font-medium transition-all duration-200
-                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7b86e]/50
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--oe-gold)]/50
                     ${
                       item.highlight
-                        ? 'text-[#d7b86e] hover:text-[#f8e5a1] hover:bg-[#d7b86e]/10 flex items-center gap-2'
-                        : 'text-white/80 hover:text-[#d7b86e] hover:bg-white/5'
+                        ? 'text-[var(--oe-gold)] hover:text-[var(--oe-gold-light)] hover:bg-[var(--oe-gold)]/10 flex items-center gap-2'
+                        : 'text-white/80 hover:text-[var(--oe-gold)] hover:bg-white/5'
                     }
                   `}
                 >
@@ -326,7 +326,7 @@ export default function Header({ className = '' }: { className?: string }) {
           <button
             onClick={toggleMobile}
             className="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors
-                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7b86e]/50"
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--oe-gold)]/50"
             aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
@@ -348,7 +348,7 @@ export default function Header({ className = '' }: { className?: string }) {
         {mobileOpen && (
           <motion.nav
             id="mobile-menu"
-            className="lg:hidden bg-[#0a0a0b]/98 backdrop-blur-xl border-t border-white/10"
+            className="lg:hidden bg-[var(--bg-main)]/98 backdrop-blur-xl border-t border-white/10"
             role="navigation"
             aria-label="Navegación móvil"
             initial={{ opacity: 0, height: 0 }}
@@ -362,7 +362,7 @@ export default function Header({ className = '' }: { className?: string }) {
                   <details key={item.name} className="group">
                     <summary className="flex items-center justify-between px-4 py-3 rounded-lg text-white/80 
                                       text-lg font-medium cursor-pointer hover:bg-white/5 transition-colors
-                                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7b86e]/50">
+                                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--oe-gold)]/50">
                       {item.name}
                       <ChevronDown className="w-5 h-5 group-open:rotate-180 transition-transform" aria-hidden="true" />
                     </summary>
@@ -373,7 +373,7 @@ export default function Header({ className = '' }: { className?: string }) {
                             href={sub.href}
                             onClick={closeMobile}
                             className="flex items-center gap-3 px-6 py-2 rounded-lg text-white/70 
-                                     hover:text-[#d7b86e] hover:bg-white/5 transition-colors"
+                                     hover:text-[var(--oe-gold)] hover:bg-white/5 transition-colors"
                           >
                             {sub.icon && <span className="text-lg" aria-hidden="true">{sub.icon}</span>}
                             {sub.name}
@@ -389,10 +389,10 @@ export default function Header({ className = '' }: { className?: string }) {
                     onClick={closeMobile}
                     className={`
                       flex items-center gap-2 px-4 py-3 rounded-lg text-lg font-medium transition-colors
-                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7b86e]/50
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--oe-gold)]/50
                       ${
                         item.highlight
-                          ? 'text-[#d7b86e] bg-[#d7b86e]/10 hover:bg-[#d7b86e]/20'
+                          ? 'text-[var(--oe-gold)] bg-[var(--oe-gold)]/10 hover:bg-[var(--oe-gold)]/20'
                           : 'text-white/80 hover:bg-white/5'
                       }
                     `}
@@ -426,3 +426,4 @@ export default function Header({ className = '' }: { className?: string }) {
     </header>
   );
 }
+

@@ -44,18 +44,18 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
       className={`
         group relative p-6 rounded-2xl border-2 cursor-pointer 
         transition-all duration-300 ease-out
-        focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#d7b86e]/50
+        focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--oe-gold)]/50
         hover:scale-[1.02] active:scale-[0.98]
         ${isSelected
-          ? 'border-[#d7b86e] bg-[#d7b86e]/10 shadow-[0_0_30px_rgba(215,184,110,0.3)]'
-          : 'border-white/10 bg-[#111214] hover:border-white/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)]'
+          ? 'border-[var(--oe-gold)] bg-[var(--oe-gold)]/10 shadow-[0_0_30px_rgba(215,184,110,0.3)]'
+          : 'border-white/10 bg-[var(--bg-surface)] hover:border-white/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)]'
         }
       `}
     >
       {/* Badge si existe */}
       {pack.badge && (
         <div
-          className="absolute -top-3 -right-3 px-3 py-1 rounded-full bg-gradient-to-r from-[#d7b86e] to-[#f8e5a1] 
+          className="absolute -top-3 -right-3 px-3 py-1 rounded-full bg-gradient-to-r from-[var(--oe-gold)] to-[var(--oe-gold-light)] 
                      text-black text-xs font-bold shadow-lg"
           aria-label={pack.badge}
         >
@@ -66,7 +66,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
       {/* Header */}
       <div className="mb-4">
         <h3
-          className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-[#d7b86e] transition-colors"
+          className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-[var(--oe-gold)] transition-colors"
           id={`pack-${pack.id}-title`}
         >
           {pack.name}
@@ -78,7 +78,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
 
         <div className="flex items-baseline gap-2">
           <span
-            className="text-2xl md:text-3xl font-bold text-[#d7b86e]"
+            className="text-2xl md:text-3xl font-bold text-[var(--oe-gold)]"
             aria-label={`Precio: ${pack.priceValue} euros`}
           >
             {pack.priceValue}€
@@ -106,7 +106,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
       >
         {pack.features.slice(0, 5).map((feature, i) => (
           <li key={i} className="flex items-start gap-2">
-            <span className="text-[#d7b86e] mt-0.5 flex-shrink-0" aria-hidden="true">
+            <span className="text-[var(--oe-gold)] mt-0.5 flex-shrink-0" aria-hidden="true">
               ✓
             </span>
             <span>{feature}</span>
@@ -114,7 +114,7 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
         ))}
 
         {pack.features.length > 5 && (
-          <li className="text-[#d7b86e] text-xs">
+          <li className="text-[var(--oe-gold)] text-xs">
             + {pack.features.length - 5} características más
           </li>
         )}
@@ -134,10 +134,10 @@ function PackCard({ pack, isSelected, onSelect }: PackCardProps) {
         className={`
           w-full py-3 rounded-xl font-bold text-sm md:text-base
           transition-all duration-300
-          focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#d7b86e]/50
+          focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--oe-gold)]/50
           ${isSelected
-            ? 'bg-gradient-to-r from-[#d7b86e] to-[#f8e5a1] text-black shadow-lg hover:shadow-xl'
-            : 'bg-[#d7b86e] text-black hover:bg-[#f8e5a1] shadow-md hover:shadow-lg'
+            ? 'bg-gradient-to-r from-[var(--oe-gold)] to-[var(--oe-gold-light)] text-black shadow-lg hover:shadow-xl'
+            : 'bg-[var(--oe-gold)] text-black hover:bg-[var(--oe-gold-light)] shadow-md hover:shadow-lg'
           }
         `}
         aria-label={pack.cta || 'Reservar este pack'}
@@ -249,7 +249,7 @@ export default function PacksClient() {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="p-6 rounded-2xl border-2 border-white/10 bg-[#111214] animate-pulse"
+              className="p-6 rounded-2xl border-2 border-white/10 bg-[var(--bg-surface)] animate-pulse"
               aria-hidden="true"
             >
               <div className="h-8 bg-white/10 rounded mb-4 w-3/4" />
@@ -345,13 +345,13 @@ export default function PacksClient() {
       {/* Selected Pack Info */}
       {selected && (
         <div
-          className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-[#d7b86e]/10 to-transparent border-2 border-[#d7b86e]/30"
+          className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-[var(--oe-gold)]/10 to-transparent border-2 border-[var(--oe-gold)]/30"
           role="status"
           aria-live="polite"
           aria-atomic="true"
         >
           <p className="text-white text-center">
-            <strong className="text-[#d7b86e]">Pack seleccionado:</strong>{' '}
+            <strong className="text-[var(--oe-gold)]">Pack seleccionado:</strong>{' '}
             {packs.find((p) => p.id === selected)?.name}
           </p>
           <p className="text-white/60 text-sm text-center mt-2">
@@ -361,7 +361,7 @@ export default function PacksClient() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
             <a
               href="/configurador"
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#d7b86e] to-[#f8e5a1] text-black font-bold text-center
+              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[var(--oe-gold)] to-[var(--oe-gold-light)] text-black font-bold text-center
                        hover:scale-105 transition-transform shadow-lg hover:shadow-xl"
             >
               Ir al Configurador →
@@ -371,8 +371,8 @@ export default function PacksClient() {
               href="https://wa.me/34699121023?text=Hola%2C%20me%20interesa%20el%20pack%20de%20fiestas"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 rounded-xl border-2 border-[#d7b86e] text-[#d7b86e] font-bold text-center
-                       hover:bg-[#d7b86e] hover:text-black transition-all"
+              className="px-8 py-4 rounded-xl border-2 border-[var(--oe-gold)] text-[var(--oe-gold)] font-bold text-center
+                       hover:bg-[var(--oe-gold)] hover:text-black transition-all"
             >
               <span className="inline-flex items-center gap-2">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -395,7 +395,7 @@ export default function PacksClient() {
         ].map((item, i) => (
           <div
             key={i}
-            className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#d7b86e]/50 transition-colors"
+            className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[var(--oe-gold)]/50 transition-colors"
           >
             <div className="text-3xl mb-2" aria-hidden="true">
               {item.icon}

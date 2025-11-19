@@ -226,7 +226,7 @@ ${pricing.discount > 0 ? `🎁 Descuento ${pricing.discountReason}: -${pricing.d
                 </div>
               )}
               {pack.highlight && (
-                <div className="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-oe-gold to-yellow-500 text-black text-xs font-bold mb-4">
+                <div className="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-oe-gold to-oe-gold text-black text-xs font-bold mb-4">
                   ⭐ PREMIUM
                 </div>
               )}
@@ -382,7 +382,7 @@ ${pricing.discount > 0 ? `🎁 Descuento ${pricing.discountReason}: -${pricing.d
                   </span>
                 )}
                 {extra.premium && (
-                  <span className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs px-2 py-0.5 rounded-full">
+                  <span className="absolute -top-2 -right-2 bg-oe-gold text-white text-xs px-2 py-0.5 rounded-full">
                     Premium
                   </span>
                 )}
@@ -583,3 +583,4 @@ ${pricing.discount > 0 ? `🎁 Descuento ${pricing.discountReason}: -${pricing.d
     </div>
   );
 }
+

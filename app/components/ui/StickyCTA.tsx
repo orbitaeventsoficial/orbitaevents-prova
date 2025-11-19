@@ -184,7 +184,7 @@ export default function StickyCTA({
                   transition={{ duration: 0.2 }}
                 >
                   <div
-                    className="bg-[#111214] border-2 border-[#25D366]/50 text-white px-4 py-3 rounded-xl shadow-2xl whitespace-nowrap"
+                    className="bg-[var(--bg-surface)] border-2 border-[#25D366]/50 text-white px-4 py-3 rounded-xl shadow-2xl whitespace-nowrap"
                     role="tooltip"
                   >
                     <p className="font-bold text-[#25D366] text-sm">
@@ -214,3 +214,4 @@ export default function StickyCTA({
     </AnimatePresence>
   );
 }
+

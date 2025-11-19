@@ -151,7 +151,7 @@ export default function ContactForm() {
           className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none transition ${
             errors.name
               ? "border-red-500 focus:border-red-500"
-              : "border-white/20 focus:border-[#d7b86e]"
+              : "border-white/20 focus:border-[var(--oe-gold)]"
           }`}
           placeholder="Tu nombre"
           autoComplete="name"
@@ -183,7 +183,7 @@ export default function ContactForm() {
           className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none transition ${
             errors.contact
               ? "border-red-500 focus:border-red-500"
-              : "border-white/20 focus:border-[#d7b86e]"
+              : "border-white/20 focus:border-[var(--oe-gold)]"
           }`}
           placeholder="tu@email.com o +34 600 000 000"
           autoComplete="tel email"
@@ -214,7 +214,7 @@ export default function ContactForm() {
           className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none transition ${
             errors.event
               ? "border-red-500 focus:border-red-500"
-              : "border-white/20 focus:border-[#d7b86e]"
+              : "border-white/20 focus:border-[var(--oe-gold)]"
           }`}
           aria-invalid={!!errors.event}
         >
@@ -248,7 +248,7 @@ export default function ContactForm() {
           id="message"
           {...register("message")}
           rows={3}
-          className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl focus:border-[#d7b86e] focus:outline-none transition resize-none"
+          className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl focus:border-[var(--oe-gold)] focus:outline-none transition resize-none"
           placeholder="Fecha del evento, ubicación, detalles especiales..."
         />
       </div>
@@ -286,3 +286,4 @@ export default function ContactForm() {
     </form>
   );
 }
+

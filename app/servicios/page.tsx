@@ -41,8 +41,8 @@ const servicios = [
     tagline: 'El día más importante merece el mejor ambiente',
     desc: 'Ceremonia emotiva, cóctel elegante y fiesta épica. Todo sincronizado para que tus invitados bailen hasta que cierres la barra.',
     features: ['DJ que lee la sala', 'Luces sincronizadas', 'Efectos especiales', 'Coordinación total'],
-    color: 'from-pink-500/20 to-rose-500/20',
-    borderColor: 'border-pink-500/30',
+    color: 'from-oe-gold/20 to-oe-gold/20',
+    borderColor: 'border-oe-gold/30',
     popular: true,
   },
   {
@@ -52,8 +52,8 @@ const servicios = [
     tagline: 'La fiesta que tus amigos NO olvidarán',
     desc: 'No ponemos playlists. Leemos la pista en tiempo real. Resultado: pista LLENA desde las 23h hasta que se van.',
     features: ['Pista llena garantizada', 'Equipamiento profesional', 'Efectos WOW', 'Desde 690€'],
-    color: 'from-purple-500/20 to-violet-500/20',
-    borderColor: 'border-purple-500/30',
+    color: 'from-oe-gold/20 to-oe-gold/20',
+    borderColor: 'border-oe-gold/30',
     popular: true,
   },
   {
@@ -63,8 +63,8 @@ const servicios = [
     tagline: 'Cumpleaños, despedidas y temáticas únicas',
     desc: 'Desde cumpleaños épicos hasta despedidas memorables. Tematización completa disponible (Halloween, años 80, Harry Potter...).',
     features: ['Tematización personalizada', 'DJ + efectos', 'Playlist curada', 'Desde 490€'],
-    color: 'from-amber-500/20 to-orange-500/20',
-    borderColor: 'border-amber-500/30',
+    color: 'from-oe-gold/20 to-oe-gold/20',
+    borderColor: 'border-oe-gold/30',
     popular: false,
   },
   {
@@ -74,8 +74,8 @@ const servicios = [
     tagline: 'El evento que te hace quedar como un crack',
     desc: 'Team building inmersivo, cenas de empresa épicas, presentaciones impactantes. Facturación + seguros + cero estrés.',
     features: ['Factura inmediata', 'Equipamiento profesional', 'Coordinador 24h', 'Desde 1.200€'],
-    color: 'from-blue-500/20 to-cyan-500/20',
-    borderColor: 'border-blue-500/30',
+    color: 'from-oe-gold/20 to-oe-gold/20',
+    borderColor: 'border-oe-gold/30',
     popular: false,
   },
   {
@@ -85,8 +85,8 @@ const servicios = [
     tagline: 'Montaje, operación y gestión sin sustos',
     desc: 'Diseño técnico, montaje profesional, operación en directo. Para productoras y organizadores que necesitan cero problemas.',
     features: ['Equipo técnico completo', 'Operación in situ', 'Plan B garantizado', 'Consultar'],
-    color: 'from-emerald-500/20 to-green-500/20',
-    borderColor: 'border-emerald-500/30',
+    color: 'from-oe-gold/20 to-green-500/20',
+    borderColor: 'border-oe-gold/30',
     popular: false,
   },
   {
@@ -96,8 +96,8 @@ const servicios = [
     tagline: 'Equipamiento profesional con o sin técnico',
     desc: 'EV ETX-15P, B-150 LED, Pioneer DJ. Alquila el equipo que usamos en nuestros eventos. Entrega incluida.',
     features: ['EV + Pioneer + B-150', 'Con/sin técnico', 'Backup garantizado', 'Desde 150€/día'],
-    color: 'from-slate-500/20 to-gray-500/20',
-    borderColor: 'border-slate-500/30',
+    color: 'from-oe-gold/20 to-oe-gold/20',
+    borderColor: 'border-oe-gold/30',
     popular: false,
   },
 ] as const;
@@ -164,7 +164,7 @@ export default function ServiciosPage() {
                 >
                   {servicio.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="bg-gradient-to-r from-oe-gold to-[#b9994b] text-black px-4 py-1.5 rounded-full text-xs font-bold">
+                      <span className="bg-gradient-to-r from-oe-gold to-[var(--oe-gold-dark)] text-black px-4 py-1.5 rounded-full text-xs font-bold">
                         ⭐ MÁS POPULAR
                       </span>
                     </div>
@@ -232,3 +232,4 @@ export default function ServiciosPage() {
     </div>
   );
 }
+

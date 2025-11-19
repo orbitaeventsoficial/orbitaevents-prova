@@ -34,7 +34,7 @@ export default function NotFound() {
           <div style={{ 
             width: '6rem', 
             height: '0.25rem', 
-            backgroundColor: '#d7b86e',
+            backgroundColor: 'var(--oe-gold)',
             margin: '0 auto',
             borderRadius: '9999px'
           }} />
@@ -76,7 +76,7 @@ export default function NotFound() {
               alignItems: 'center',
               gap: '0.5rem',
               padding: '1rem 2rem',
-              backgroundColor: '#d7b86e',
+              backgroundColor: 'var(--oe-gold)',
               color: '#000',
               fontWeight: 700,
               borderRadius: '0.75rem',
@@ -126,22 +126,22 @@ export default function NotFound() {
             gap: '1rem',
             fontSize: '0.875rem'
           }}>
-            <Link href="/servicios/bodas" style={{ color: '#d7b86e', textDecoration: 'none' }}>
+            <Link href="/servicios/bodas" style={{ color: 'var(--oe-gold)', textDecoration: 'none' }}>
               DJ Bodas
             </Link>
-            <Link href="/servicios/discomovil" style={{ color: '#d7b86e', textDecoration: 'none' }}>
+            <Link href="/servicios/discomovil" style={{ color: 'var(--oe-gold)', textDecoration: 'none' }}>
               Discomóvil
             </Link>
-            <Link href="/servicios/alquiler" style={{ color: '#d7b86e', textDecoration: 'none' }}>
+            <Link href="/servicios/alquiler" style={{ color: 'var(--oe-gold)', textDecoration: 'none' }}>
               Alquiler
             </Link>
-            <Link href="/servicios/empresas" style={{ color: '#d7b86e', textDecoration: 'none' }}>
+            <Link href="/servicios/empresas" style={{ color: 'var(--oe-gold)', textDecoration: 'none' }}>
               Empresas
             </Link>
-            <Link href="/faq" style={{ color: '#d7b86e', textDecoration: 'none' }}>
+            <Link href="/faq" style={{ color: 'var(--oe-gold)', textDecoration: 'none' }}>
               FAQ
             </Link>
-            <Link href="/contacto" style={{ color: '#d7b86e', textDecoration: 'none' }}>
+            <Link href="/contacto" style={{ color: 'var(--oe-gold)', textDecoration: 'none' }}>
               Contacto
             </Link>
           </div>
@@ -150,3 +150,4 @@ export default function NotFound() {
     </div>
   );
 }
+

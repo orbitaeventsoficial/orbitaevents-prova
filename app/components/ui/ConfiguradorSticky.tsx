@@ -140,13 +140,13 @@ export default function ConfiguradorSticky() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             className="group relative flex items-center gap-3 
-                     bg-gradient-to-r from-[#d7b86e] via-[#e5c982] to-[#d7b86e]
-                     hover:from-[#e5c982] hover:via-[#f8e5a1] hover:to-[#e5c982]
+                     bg-gradient-to-r from-[var(--oe-gold)] via-[#e5c982] to-[var(--oe-gold)]
+                     hover:from-[#e5c982] hover:via-[var(--oe-gold-light)] hover:to-[#e5c982]
                      text-black pl-4 pr-5 py-3 rounded-full 
                      shadow-[0_8px_30px_rgba(215,184,110,0.4)]
                      hover:shadow-[0_12px_40px_rgba(215,184,110,0.6)]
                      transition-all duration-300 ease-out
-                     focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#d7b86e]/50
+                     focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--oe-gold)]/50
                      active:scale-95"
             aria-label="Ir al configurador de presupuestos"
           >
@@ -183,7 +183,7 @@ export default function ConfiguradorSticky() {
               }}
             >
               <Sparkles
-                className="w-5 h-5 text-yellow-300 fill-yellow-300 drop-shadow-lg"
+                className="w-5 h-5 text-oe-gold fill-oe-gold drop-shadow-lg"
                 aria-hidden="true"
               />
             </motion.div>
@@ -199,10 +199,10 @@ export default function ConfiguradorSticky() {
                   transition={{ duration: 0.2 }}
                 >
                   <div
-                    className="bg-[#111214] border-2 border-[#d7b86e]/50 text-white px-4 py-3 rounded-xl shadow-2xl whitespace-nowrap"
+                    className="bg-[var(--bg-surface)] border-2 border-[var(--oe-gold)]/50 text-white px-4 py-3 rounded-xl shadow-2xl whitespace-nowrap"
                     role="tooltip"
                   >
-                    <p className="font-bold text-[#d7b86e] text-sm">
+                    <p className="font-bold text-[var(--oe-gold)] text-sm">
                       Presupuesto en 3 min ⚡
                     </p>
                     <p className="text-xs text-white/60 mt-1">
@@ -213,7 +213,7 @@ export default function ConfiguradorSticky() {
                   {/* Tooltip arrow */}
                   <div
                     className="absolute right-full top-1/2 -translate-y-1/2 
-                               w-0 h-0 border-8 border-transparent border-r-[#d7b86e]/50"
+                               w-0 h-0 border-8 border-transparent border-r-[var(--oe-gold)]/50"
                     aria-hidden="true"
                   />
                 </motion.div>
@@ -235,3 +235,4 @@ export default function ConfiguradorSticky() {
     </AnimatePresence>
   );
 }
+

@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     (
       <div
         style={{
-          background: "linear-gradient(135deg, #0a0a0b, #111214)",
+          background: "linear-gradient(135deg, var(--bg-main), var(--bg-surface))",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
           background: "radial-gradient(circle at 50% 50%, rgba(215,184,110,.2), transparent 70%)",
           filter: "blur(100px)"
         }} />
-        <h1 style={{ fontSize: 80, fontWeight: 900, background: "linear-gradient(to right, white, #d7b86e, white)", backgroundClip: "text", color: "transparent" }}>
+        <h1 style={{ fontSize: 80, fontWeight: 900, background: "linear-gradient(to right, white, var(--oe-gold), white)", backgroundClip: "text", color: "transparent" }}>
           {title}
         </h1>
         <p style={{ fontSize: 32, opacity: 0.8 }}>DJ Bodas Premium Barcelona</p>
@@ -36,3 +36,4 @@ export async function GET(request: Request) {
     { width: 1200, height: 630 }
   );
 }
+

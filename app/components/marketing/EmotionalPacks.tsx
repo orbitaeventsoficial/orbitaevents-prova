@@ -37,9 +37,9 @@ const mapPack = (pack: PackDefinition): Pack => ({
   highlight: pack.highlight || false,
   ctaLabel: pack.cta || 'Quiero este pack',
   ctaHref: `/packs#${pack.id}`,
-  gradient: pack.service === 'bodas' ? 'from-pink-500/20 via-red-500/20 to-orange-500/20' :
-           pack.service === 'empresas' ? 'from-blue-500/20 via-indigo-500/20 to-purple-500/20' :
-           'from-green-500/20 via-emerald-500/20 to-teal-500/20',
+  gradient: pack.service === 'bodas' ? 'from-oe-gold/20 via-red-500/20 to-oe-gold/20' :
+           pack.service === 'empresas' ? 'from-oe-gold/20 via-oe-gold/20 to-oe-gold/20' :
+           'from-green-500/20 via-oe-gold/20 to-oe-gold/20',
   glowColor: pack.service === 'bodas' ? 'rgba(236, 72, 153, 0.3)' :
              pack.service === 'empresas' ? 'rgba(99, 102, 241, 0.3)' :
              'rgba(34, 197, 94, 0.3)',
@@ -75,7 +75,7 @@ export default function EmotionalPacks() {
       {/* ... fondo aurora igual ... */}
       <div className="absolute inset-0 bg-gradient-to-b from-bg-main via-bg-surface to-bg-main" />
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-oe-gold/10 rounded-full blur-3xl animate-aurora" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-aurora" style={{ animationDelay: '5s' }} />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-oe-gold/10 rounded-full blur-3xl animate-aurora" style={{ animationDelay: '5s' }} />
 
       <div className="mx-auto max-w-7xl px-4 relative z-10">
         <div className="text-center mb-20">
@@ -206,3 +206,4 @@ const iconMap = {
   building: Building2,
   sparkles: Sparkles,
 };
+

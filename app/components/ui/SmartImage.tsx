@@ -255,7 +255,7 @@ function FallbackImage({ aspectRatio, alt }: FallbackImageProps) {
   return (
     <div
       className={`flex flex-col items-center justify-center gap-3 
-        bg-gradient-to-br from-[#1a1a1c] to-[#111214] 
+        bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-surface)] 
         ${useFill ? 'absolute inset-0' : 'min-h-[200px] py-12'}`}
       role="img"
       aria-label={`Error al cargar: ${alt}`}
@@ -329,3 +329,4 @@ if (typeof window !== 'undefined' && !document.getElementById('smart-image-style
   `;
   document.head.appendChild(style);
 }
+

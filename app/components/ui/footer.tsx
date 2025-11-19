@@ -157,7 +157,7 @@ export default function Footer() {
       />
       
       <footer
-        className="bg-[#111214]/80 backdrop-blur-xl border-t border-white/10 relative overflow-hidden"
+        className="bg-[var(--bg-surface)]/80 backdrop-blur-xl border-t border-white/10 relative overflow-hidden"
         role="contentinfo"
       >
         {/* Background gradient effect */}
@@ -186,7 +186,7 @@ export default function Footer() {
                   <span className="text-3xl group-hover:scale-110 transition-transform" aria-hidden="true">
                     {signal.icon}
                   </span>
-                  <span className="text-2xl md:text-3xl font-bold text-[#d7b86e]">
+                  <span className="text-2xl md:text-3xl font-bold text-[var(--oe-gold)]">
                     {signal.metric}
                   </span>
                   <span className="text-sm text-white/60">{signal.label}</span>
@@ -230,8 +230,8 @@ export default function Footer() {
                   {CONTACT_INFO.coverage.map((city) => (
                     <span
                       key={city}
-                      className="px-3 py-1 rounded-full bg-[#d7b86e]/10 border border-[#d7b86e]/30 
-                               text-[#d7b86e] text-xs font-medium"
+                      className="px-3 py-1 rounded-full bg-[var(--oe-gold)]/10 border border-[var(--oe-gold)]/30 
+                               text-[var(--oe-gold)] text-xs font-medium"
                     >
                       {city}
                     </span>
@@ -251,7 +251,7 @@ export default function Footer() {
                         onClick={() => handleSocialClick(social.name)}
                         className={`p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 ${social.color} 
                                   transition-all duration-200 hover:scale-110 active:scale-95
-                                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7b86e]/50`}
+                                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--oe-gold)]/50`}
                         aria-label={`Visitar ${social.name}`}
                       >
                         <Icon className="w-5 h-5" aria-hidden="true" />
@@ -267,7 +267,7 @@ export default function Footer() {
               
               <div>
                 <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                  <span className="text-[#d7b86e]">•</span>
+                  <span className="text-[var(--oe-gold)]">•</span>
                   Servicios
                 </h3>
                 <ul className="space-y-2.5">
@@ -276,10 +276,10 @@ export default function Footer() {
                       <Link
                         href={link.href}
                         onClick={() => handleLinkClick('servicios', link.name)}
-                        className="text-white/70 hover:text-[#d7b86e] text-sm transition-colors inline-flex items-center gap-2 group"
+                        className="text-white/70 hover:text-[var(--oe-gold)] text-sm transition-colors inline-flex items-center gap-2 group"
                       >
                         <span
-                          className="w-1 h-1 rounded-full bg-white/30 group-hover:bg-[#d7b86e] transition-colors"
+                          className="w-1 h-1 rounded-full bg-white/30 group-hover:bg-[var(--oe-gold)] transition-colors"
                           aria-hidden="true"
                         />
                         {link.name}
@@ -295,7 +295,7 @@ export default function Footer() {
               
               <div>
                 <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                  <span className="text-[#d7b86e]">•</span>
+                  <span className="text-[var(--oe-gold)]">•</span>
                   Recursos
                 </h3>
                 <ul className="space-y-2.5">
@@ -304,10 +304,10 @@ export default function Footer() {
                       <Link
                         href={link.href}
                         onClick={() => handleLinkClick('recursos', link.name)}
-                        className="text-white/70 hover:text-[#d7b86e] text-sm transition-colors inline-flex items-center gap-2 group"
+                        className="text-white/70 hover:text-[var(--oe-gold)] text-sm transition-colors inline-flex items-center gap-2 group"
                       >
                         <span
-                          className="w-1 h-1 rounded-full bg-white/30 group-hover:bg-[#d7b86e] transition-colors"
+                          className="w-1 h-1 rounded-full bg-white/30 group-hover:bg-[var(--oe-gold)] transition-colors"
                           aria-hidden="true"
                         />
                         {link.name}
@@ -323,7 +323,7 @@ export default function Footer() {
               
               <div>
                 <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                  <span className="text-[#d7b86e]">•</span>
+                  <span className="text-[var(--oe-gold)]">•</span>
                   Contacto
                 </h3>
                 
@@ -332,9 +332,9 @@ export default function Footer() {
                     <a
                       href={`tel:${CONTACT_INFO.phone}`}
                       onClick={() => handleLinkClick('contact', 'phone')}
-                      className="flex items-center gap-3 text-white/70 hover:text-[#d7b86e] text-sm transition-colors group"
+                      className="flex items-center gap-3 text-white/70 hover:text-[var(--oe-gold)] text-sm transition-colors group"
                     >
-                      <Phone className="w-4 h-4 text-[#d7b86e] group-hover:scale-110 transition-transform" />
+                      <Phone className="w-4 h-4 text-[var(--oe-gold)] group-hover:scale-110 transition-transform" />
                       <span>{CONTACT_INFO.phone}</span>
                     </a>
                   </li>
@@ -343,15 +343,15 @@ export default function Footer() {
                     <a
                       href={`mailto:${CONTACT_INFO.email}`}
                       onClick={() => handleLinkClick('contact', 'email')}
-                      className="flex items-center gap-3 text-white/70 hover:text-[#d7b86e] text-sm transition-colors group"
+                      className="flex items-center gap-3 text-white/70 hover:text-[var(--oe-gold)] text-sm transition-colors group"
                     >
-                      <Mail className="w-4 h-4 text-[#d7b86e] group-hover:scale-110 transition-transform" />
+                      <Mail className="w-4 h-4 text-[var(--oe-gold)] group-hover:scale-110 transition-transform" />
                       <span className="break-all">{CONTACT_INFO.email}</span>
                     </a>
                   </li>
                   
                   <li className="flex items-center gap-3 text-white/70 text-sm">
-                    <MapPin className="w-4 h-4 text-[#d7b86e] flex-shrink-0" />
+                    <MapPin className="w-4 h-4 text-[var(--oe-gold)] flex-shrink-0" />
                     <span>{CONTACT_INFO.location}</span>
                   </li>
                 </ul>
@@ -362,10 +362,10 @@ export default function Footer() {
                     href="/configurador"
                     onClick={() => handleLinkClick('cta', 'configurador')}
                     className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl 
-                             bg-gradient-to-r from-[#d7b86e] to-[#e5c982] hover:from-[#e5c982] hover:to-[#f8e5a1]
+                             bg-gradient-to-r from-[var(--oe-gold)] to-[#e5c982] hover:from-[#e5c982] hover:to-[var(--oe-gold-light)]
                              text-black font-bold text-sm transition-all duration-200 
                              shadow-lg hover:shadow-xl hover:scale-105 active:scale-95
-                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7b86e]/50"
+                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--oe-gold)]/50"
                   >
                     <Calculator className="w-4 h-4" aria-hidden="true" />
                     Calcular Precio
@@ -408,7 +408,7 @@ export default function Footer() {
                     <Link
                       href={link.href}
                       onClick={() => handleLinkClick('legal', link.name)}
-                      className="text-white/50 hover:text-[#d7b86e] transition-colors"
+                      className="text-white/50 hover:text-[var(--oe-gold)] transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -427,3 +427,4 @@ export default function Footer() {
     </>
   );
 }
+

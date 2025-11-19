@@ -14,7 +14,7 @@ const testimonials = [
     quote:
       'La mejor decisión que tomamos para nuestra boda. La tematización de Harry Potter fue maravillosa. El DJ hizo un trabajo extraordinario. Brutal.',
     image: '💍',
-    color: 'from-pink-500/20 to-rose-500/20',
+    color: 'from-oe-gold/20 to-oe-gold/20',
   },
   {
     name: 'Àngela',
@@ -25,7 +25,7 @@ const testimonials = [
     quote:
       'Contraté la discomovil y mis amigos AÚN me preguntan dónde encontré al DJ. Los efectos especiales y la puesta en escena fueron espectaculares. Repetiría 100%.',
     image: '🎂',
-    color: 'from-amber-500/20 to-orange-500/20',
+    color: 'from-oe-gold/20 to-oe-gold/20',
   },
   {
     name: '777',
@@ -36,7 +36,7 @@ const testimonials = [
     quote:
       'Necesitábamos un evento corporativo. Òrbita nos dió exactamente eso: equipamiento top, coordinación perfecta y una animación que equipo aún habla del eso.',
     image: '💼',
-    color: 'from-blue-500/20 to-cyan-500/20',
+    color: 'from-oe-gold/20 to-oe-gold/20',
   },
 ];
 
@@ -146,3 +146,4 @@ export default function VideoTestimonials() {
     </section>
   );
 }
+

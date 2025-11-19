@@ -161,7 +161,7 @@ export default function CookieConsent() {
                           setPreferences((p) => ({ ...p, analytics: !p.analytics }))
                         }
                         className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors ${
-                          preferences.analytics ? 'bg-oe-gold' : 'bg-gray-600'
+                          preferences.analytics ? 'bg-oe-gold' : 'bg-oe-gold'
                         }`}
                       >
                         <div
@@ -184,7 +184,7 @@ export default function CookieConsent() {
                           setPreferences((p) => ({ ...p, marketing: !p.marketing }))
                         }
                         className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors ${
-                          preferences.marketing ? 'bg-oe-gold' : 'bg-gray-600'
+                          preferences.marketing ? 'bg-oe-gold' : 'bg-oe-gold'
                         }`}
                       >
                         <div
@@ -238,3 +238,4 @@ export default function CookieConsent() {
     </AnimatePresence>
   );
 }
+

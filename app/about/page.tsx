@@ -104,7 +104,7 @@ export default function AboutPage() {
               { name: "Animador Temático", role: "Creador de Mundos", desc: "Harry Potter, Halloween... Transforma espacios." },
             ].map((member, i) => (
               <div key={i} className="oe-card p-6 rounded-3xl text-center">
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-oe-gold to-purple-600" />
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-oe-gold to-oe-gold" />
                 <h3 className="text-xl font-bold text-white">{member.name}</h3>
                 <p className="text-oe-gold text-sm mb-2">{member.role}</p>
                 <p className="text-sm text-white/70">{member.desc}</p>
@@ -137,3 +137,4 @@ export default function AboutPage() {
     </section>
   );
 }
+

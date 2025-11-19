@@ -114,7 +114,7 @@ export default function ProofSection() {
                     key={`${logo.alt}-${idx}`}
                     className={`flex-shrink-0 ${containerSize}`}
                   >
-                    <div className="relative w-full h-full rounded-3xl border border-gray-700 p-3 flex items-center justify-center group transition-all duration-300">
+                    <div className="relative w-full h-full rounded-3xl border border-oe-gold p-3 flex items-center justify-center group transition-all duration-300">
                       {/* GLOW VISIBLE + ANIMADO */}
                       <div className="absolute inset-0 rounded-3xl bg-oe-gold/30 blur-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 pointer-events-none" />
                       <div className="absolute inset-0 rounded-3xl bg-oe-gold/20 blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
@@ -144,3 +144,4 @@ export default function ProofSection() {
     </section>
   );
 }
+

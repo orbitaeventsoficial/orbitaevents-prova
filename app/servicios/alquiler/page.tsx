@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/seo/Breadcrumbs';
 import ServiceJsonLD from '@/components/seo/ServiceJsonLD';
 import FAQ from '@/components/seo/FAQ';
-import Client from './client';
+import Client from './AlquilerClient';
 
 export const metadata: Metadata = {
   title: 'Alquiler Sonido Profesional Barcelona | EV ETX 2000W + B-150 LED + Pioneer DJ | Órbita Events',

@@ -66,7 +66,7 @@ export default function HomePage() {
     <>
       <HeroPortalLogo
         svgUrl="/img/orbita-glyph.anim.svg"
-        totalMs={4200}
+        totalMs={2800}
       />  {/* ← CIERRE DE TAG */}
 
       <HeroBrutal />

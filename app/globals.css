@@ -487,3 +487,64 @@
     box-shadow: none;
   }
 }
+
+/* ========================================
+   SLIDER PARA CONFIGURADOR
+   ======================================== */
+
+input[type="range"].slider-gold {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="range"].slider-gold::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #d7b86e 0%, #f5e9c3 100%);
+  cursor: pointer;
+  border-radius: 50%;
+  border: 3px solid #0a0a0a;
+  box-shadow: 0 4px 12px rgba(215, 184, 110, 0.4);
+  transition: all 0.2s ease;
+}
+
+input[type="range"].slider-gold::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(215, 184, 110, 0.6);
+}
+
+input[type="range"].slider-gold::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #d7b86e 0%, #f5e9c3 100%);
+  cursor: pointer;
+  border-radius: 50%;
+  border: 3px solid #0a0a0a;
+  box-shadow: 0 4px 12px rgba(215, 184, 110, 0.4);
+  transition: all 0.2s ease;
+}
+
+input[type="range"].slider-gold::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(215, 184, 110, 0.6);
+}
+
+input[type="range"].slider-gold::-webkit-slider-runnable-track {
+  height: 8px;
+  background: linear-gradient(to right, #d7b86e 0%, #d7b86e var(--value), #27272a var(--value), #27272a 100%);
+  border-radius: 4px;
+}
+
+input[type="range"].slider-gold::-moz-range-track {
+  height: 8px;
+  background: #27272a;
+  border-radius: 4px;
+}
+
+input[type="range"].slider-gold::-moz-range-progress {
+  height: 8px;
+  background: #d7b86e;
+  border-radius: 4px;
+}

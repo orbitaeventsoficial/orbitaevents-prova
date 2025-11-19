@@ -115,7 +115,7 @@ const EQUIPMENT_CATALOG: Equipment[] = [
     category: 'efectos',
   },
   {
-    id: 'cañon-confeti',
+    id: 'canon-confeti',
     name: 'Cañón de Confeti',
     description: 'Cañón eléctrico de confeti con mando remoto.',
     price: 80,
@@ -203,7 +203,7 @@ export default function AlquilerClient() {
         <h1 className="text-4xl md:text-5xl font-bold">
           Alquiler de Equipo Profesional
         </h1>
-        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+        <p className="text-xl text-text-muted max-w-2xl mx-auto">
           Selecciona el equipo que necesitas y recibe tu presupuesto al instante
         </p>
       </div>
@@ -217,8 +217,8 @@ export default function AlquilerClient() {
             className={`
               px-6 py-3 rounded-full font-medium transition-all
               ${selectedCategory === category.id
-                ? 'bg-gradient-to-r from-oe-gold to-oe-gold-light text-white shadow-lg scale-105'
-                : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                ? 'bg-gradient-to-r from-oe-gold to-oe-gold-light text-black shadow-lg scale-105'
+                : 'bg-bg-surface text-text-muted hover:bg-bg-card'
               }
             `}
           >
@@ -244,8 +244,8 @@ export default function AlquilerClient() {
                 relative p-6 rounded-2xl border-2 cursor-pointer
                 transition-all duration-300
                 ${isSelected
-                  ? 'border-oe-gold bg-oe-gold/10 shadow-lg shadow-oe-gold'
-                  : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
+                  ? 'border-oe-gold bg-oe-gold/10 shadow-lg shadow-oe-gold/20'
+                  : 'border hover:border-hover bg-bg-surface'
                 }
               `}
               onClick={() => toggleEquipment(equipment.id)}
@@ -257,11 +257,11 @@ export default function AlquilerClient() {
                   transition-all duration-300
                   ${isSelected
                     ? 'border-oe-gold bg-oe-gold'
-                    : 'border-gray-400 bg-transparent'
+                    : 'border-text-disabled bg-transparent'
                   }
                 `}>
                   {isSelected && (
-                    <Check className="w-4 h-4 text-white" strokeWidth={3} />
+                    <Check className="w-4 h-4 text-black" strokeWidth={3} />
                   )}
                 </div>
               </div>
@@ -269,13 +269,13 @@ export default function AlquilerClient() {
               {/* Contenido */}
               <div className="space-y-3">
                 <h3 className="text-lg font-bold pr-8">{equipment.name}</h3>
-                <p className="text-sm text-gray-400">{equipment.description}</p>
+                <p className="text-sm text-text-muted">{equipment.description}</p>
                 
-                <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                <div className="flex items-center justify-between pt-3 border-t border">
                   <span className="text-2xl font-bold text-oe-gold">
                     {equipment.price}€
                   </span>
-                  <span className="text-sm text-gray-400">/ día</span>
+                  <span className="text-sm text-text-muted">/ día</span>
                 </div>
               </div>
             </motion.div>
@@ -290,19 +290,19 @@ export default function AlquilerClient() {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-amber-600 to-orange-600 shadow-2xl"
+            className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-oe-gold to-oe-gold-light shadow-2xl"
           >
             <div className="max-w-7xl mx-auto px-6 py-4">
               <div className="flex items-center justify-between">
                 {/* Info */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-6 text-black">
                   <div className="flex items-center gap-2">
                     <ShoppingCart className="w-5 h-5" />
                     <span className="font-medium">
                       {selectedEquipment.size} {selectedEquipment.size === 1 ? 'equipo' : 'equipos'}
                     </span>
                   </div>
-                  <div className="h-6 w-px bg-white/30" />
+                  <div className="h-6 w-px bg-black/30" />
                   <div>
                     <div className="text-sm opacity-80">Total (1 día)</div>
                     <div className="text-2xl font-bold">{totalPrice}€</div>
@@ -313,9 +313,9 @@ export default function AlquilerClient() {
                 <button
                   onClick={generateWhatsAppMessage}
                   className="
-                    px-8 py-3 bg-white text-orange-600 rounded-full
+                    px-8 py-3 bg-black text-oe-gold rounded-full
                     font-bold flex items-center gap-2
-                    hover:bg-gray-100 transition-all
+                    hover:bg-zinc-900 transition-all
                     shadow-lg hover:shadow-xl hover:scale-105
                   "
                 >
@@ -329,11 +329,11 @@ export default function AlquilerClient() {
       </AnimatePresence>
 
       {/* Información adicional */}
-      <div className="mt-16 p-8 bg-white/5 rounded-2xl border border-white/10">
+      <div className="mt-16 p-8 bg-bg-surface rounded-2xl border border">
         <h3 className="text-2xl font-bold mb-4">📋 Información de Alquiler</h3>
-        <div className="grid md:grid-cols-2 gap-4 text-gray-300">
+        <div className="grid md:grid-cols-2 gap-4 text-text-muted">
           <div>
-            <strong className="text-white">✅ Incluido:</strong>
+            <strong className="text-text-primary">✅ Incluido:</strong>
             <ul className="mt-2 space-y-1 ml-4">
               <li>• Transporte e instalación</li>
               <li>• Técnico durante el evento</li>
@@ -341,7 +341,7 @@ export default function AlquilerClient() {
             </ul>
           </div>
           <div>
-            <strong className="text-white">📅 Tarifas:</strong>
+            <strong className="text-text-primary">📅 Tarifas:</strong>
             <ul className="mt-2 space-y-1 ml-4">
               <li>• 1 día: Precio indicado</li>
               <li>• 2-3 días: -10%</li>

@@ -1,10 +1,8 @@
 // app/servicios/alquiler/page.tsx
-// 🔥 MANOLO VERSION - CORREGIDO + Optimizado para conversión máxima
-
 import type { Metadata } from 'next';
-import Breadcrumbs from '@\/components/seo/Breadcrumbs';
-import ServiceJsonLD from '@\/components/seo/ServiceJsonLD';
-import FAQ from '@\/components/seo/FAQ';
+import Breadcrumbs from '@/components/seo/Breadcrumbs';
+import ServiceJsonLD from '@/components/seo/ServiceJsonLD';
+import FAQ from '@/components/seo/FAQ';
 import Client from './client';
 
 export const metadata: Metadata = {
@@ -58,7 +56,6 @@ export default function AlquilerPage() {
         ]}
       />
 
-      {/* 🔥 JSON-LD CORREGIDO - Ahora funciona con múltiples ofertas */}
       <ServiceJsonLD
         name="Alquiler Equipo Audiovisual Profesional Barcelona"
         slugPath="/servicios/alquiler"
@@ -87,7 +84,7 @@ export default function AlquilerPage() {
             priceCurrency: 'EUR',
             availability: 'https://schema.org/InStock',
             url: '/servicios/alquiler#pack-sonido',
-            description: '2 altavoces EV ETX-15P 2000 W + mezcladora + cableado. Ideal para 50–150 personas.',
+            description: '2 altavoces EV ETX-15P 2000 W + mezcladora + cableado. Ideal para 50—150 personas.',
           },
           {
             '@type': 'Offer',
@@ -111,10 +108,8 @@ export default function AlquilerPage() {
         ]}
       />
 
-      {/* CONTENIDO PRINCIPAL - Client Component */}
       <Client />
 
-      {/* 🔥 FAQ OPTIMIZADO - Neutraliza objeciones específicas de alquiler */}
       <FAQ
         items={[
           {
@@ -144,7 +139,7 @@ export default function AlquilerPage() {
           },
           {
             q: '¿Qué documentación necesito para alquilar? ¿Hay fianza?',
-            a: 'Particulares: DNI/NIE + fianza reembolsable (100–300 € según pack). Empresas: CIF/NIF, factura a nombre de la empresa y sin fianza. La fianza se devuelve al verificar el estado del equipo. Pago por transferencia o Bizum.',
+            a: 'Particulares: DNI/NIE + fianza reembolsable (100—300 € según pack). Empresas: CIF/NIF, factura a nombre de la empresa y sin fianza. La fianza se devuelve al verificar el estado del equipo. Pago por transferencia o Bizum.',
           },
         ]}
       />

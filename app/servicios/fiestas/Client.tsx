@@ -172,24 +172,24 @@ export default function FiestasClient() {
         <h1 className="text-4xl md:text-5xl font-bold">
           Packs para Fiestas
         </h1>
-        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+        <p className="text-xl text-text-muted max-w-2xl mx-auto">
           Configura tu fiesta perfecta según el número de invitados
         </p>
       </div>
 
       {/* Configurador de invitados */}
-      <div className="max-w-3xl mx-auto p-8 bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-3xl border border-purple-500/30">
+      <div className="max-w-3xl mx-auto p-8 bg-gradient-to-br from-bg-surface to-bg-card rounded-3xl border border-oe-gold/30">
         <div className="flex items-center gap-3 mb-6">
-          <Users className="w-6 h-6 text-purple-400" />
+          <Users className="w-6 h-6 text-oe-gold" />
           <h3 className="text-2xl font-bold">¿Cuántos invitados esperas?</h3>
         </div>
 
         {/* Número grande */}
         <div className="text-center mb-8">
-          <div className="text-7xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <div className="text-7xl font-bold bg-gradient-to-r from-oe-gold to-oe-gold-light bg-clip-text text-transparent">
             {numGuests}
           </div>
-          <div className="text-gray-400 mt-2">personas</div>
+          <div className="text-text-muted mt-2">personas</div>
         </div>
 
         {/* Slider */}
@@ -203,7 +203,7 @@ export default function FiestasClient() {
             onChange={(e) => handleGuestsChange(parseInt(e.target.value))}
             className="w-full h-3 rounded-full appearance-none cursor-pointer slider-custom"
           />
-          <div className="flex justify-between text-sm text-gray-400">
+          <div className="flex justify-between text-sm text-text-muted">
             <span>20 personas</span>
             <span>200 personas</span>
           </div>
@@ -216,11 +216,11 @@ export default function FiestasClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="mt-6 p-4 bg-purple-500/20 rounded-xl border border-purple-500/50"
+              className="mt-6 p-4 bg-oe-gold/20 rounded-xl border border-oe-gold/50"
             >
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-5 h-5 text-purple-400" />
-                <span className="font-bold text-purple-300">Recomendado para ti:</span>
+                <TrendingUp className="w-5 h-5 text-oe-gold" />
+                <span className="font-bold text-oe-gold-light">Recomendado para ti:</span>
               </div>
               <div className="text-lg">
                 <strong>{recommendedPack.name}</strong> - {recommendedPack.price}€
@@ -235,7 +235,7 @@ export default function FiestasClient() {
         <motion.div
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
-          className="relative p-8 rounded-3xl border-4 border-oe-gold bg-gradient-to-br from-amber-900/30 to-orange-900/30 shadow-2xl shadow-oe-gold"
+          className="relative p-8 rounded-3xl border-4 border-oe-gold bg-gradient-to-br from-oe-gold/10 to-oe-gold-dark/20 shadow-2xl shadow-oe-gold"
         >
           {/* Badge Flash */}
           <div className="absolute -top-4 left-1/2 -translate-x-1/2">
@@ -249,7 +249,7 @@ export default function FiestasClient() {
             {/* Info */}
             <div className="space-y-4">
               <h3 className="text-4xl font-bold">{PARTY_PACKS[0].name}</h3>
-              <p className="text-xl text-gray-300">{PARTY_PACKS[0].tagline}</p>
+              <p className="text-xl text-text-muted">{PARTY_PACKS[0].tagline}</p>
 
               {/* Precio */}
               <div className="flex items-baseline gap-4">
@@ -269,7 +269,7 @@ export default function FiestasClient() {
               </div>
 
               {/* Rango */}
-              <div className="text-gray-400">
+              <div className="text-text-muted">
                 📊 Ideal para {PARTY_PACKS[0].minGuests}-{PARTY_PACKS[0].maxGuests} personas
               </div>
             </div>
@@ -282,7 +282,7 @@ export default function FiestasClient() {
                     <div className="w-6 h-6 rounded-full bg-oe-gold/20 border border-oe-gold flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Star className="w-3 h-3 text-oe-gold-light" fill="currentColor" />
                     </div>
-                    <span className="text-gray-300">{feature}</span>
+                    <span className="text-text-muted">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -319,7 +319,7 @@ export default function FiestasClient() {
                     ? 'border-purple-500 bg-purple-500/10 shadow-lg shadow-purple-500/20 scale-105'
                     : isRecommended
                     ? 'border-oe-gold bg-oe-gold/5'
-                    : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
+                    : 'border bg-bg-surface hover:border-white/20 hover:bg-bg-card'
                   }
                 `}
                 onClick={() => setSelectedPack(pack.id)}
@@ -348,26 +348,26 @@ export default function FiestasClient() {
                 <div className="space-y-4 mt-4">
                   <div>
                     <h3 className="text-2xl font-bold">{pack.name}</h3>
-                    <p className="text-sm text-gray-400">{pack.tagline}</p>
+                    <p className="text-sm text-text-muted">{pack.tagline}</p>
                   </div>
 
                   {/* Precio */}
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-bold text-purple-400">
+                    <span className="text-4xl font-bold text-oe-gold">
                       {pack.price}€
                     </span>
                   </div>
 
                   {/* Rango */}
-                  <div className="text-sm text-gray-400">
+                  <div className="text-sm text-text-muted">
                     📊 {pack.minGuests}-{pack.maxGuests} personas
                   </div>
 
                   {/* Features */}
-                  <ul className="space-y-2 pt-4 border-t border-white/10">
+                  <ul className="space-y-2 pt-4 border-t border">
                     {pack.features.map((feature, idx) => (
-                      <li key={idx} className="text-sm text-gray-300 flex items-start gap-2">
-                        <span className="text-purple-400 flex-shrink-0">✓</span>
+                      <li key={idx} className="text-sm text-text-muted flex items-start gap-2">
+                        <span className="text-oe-gold flex-shrink-0">✓</span>
                         {feature}
                       </li>
                     ))}
@@ -384,7 +384,7 @@ export default function FiestasClient() {
                       transition-all
                       ${isSelected
                         ? 'bg-purple-500 text-white hover:bg-purple-600'
-                        : 'bg-white/10 text-white hover:bg-white/20'
+                        : 'bg-bg-card text-white hover:bg-white/20'
                       }
                     `}
                   >
@@ -399,9 +399,9 @@ export default function FiestasClient() {
       </div>
 
       {/* Info adicional */}
-      <div className="mt-16 p-8 bg-white/5 rounded-2xl border border-white/10 max-w-4xl mx-auto">
+      <div className="mt-16 p-8 bg-bg-surface rounded-2xl border border max-w-4xl mx-auto">
         <h3 className="text-2xl font-bold mb-4">💡 Información Importante</h3>
-        <div className="grid md:grid-cols-2 gap-6 text-gray-300">
+        <div className="grid md:grid-cols-2 gap-6 text-text-muted">
           <div>
             <strong className="text-white">✅ Todos los packs incluyen:</strong>
             <ul className="mt-2 space-y-1 ml-4">

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/seo/Breadcrumbs';
 import ServiceJsonLD from '@/components/seo/ServiceJsonLD';
 import FAQ from '@/components/seo/FAQ';
-import Client from './client.tsx';
+import Client from './client';
 import {
   getMinPriceByService,
   getPacksByService,
